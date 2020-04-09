@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.RunTime.Scripts"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.TestStudio.UnitTest", "GreenWhale.Extensions.TestStudio.UnitTest\GreenWhale.Extensions.TestStudio.UnitTest.csproj", "{C326C859-89D0-4ABF-9195-281F044CCC6C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magicodes.ExporterAndImporter.Excel", "C:\Users\WXF\source\repos\Magicodes.IE\src\Magicodes.ExporterAndImporter.Excel\Magicodes.ExporterAndImporter.Excel.csproj", "{558AF662-183F-4D4E-92EC-60EEF706E828}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LierdaTestStudio", "LierdaTestStudio\LierdaTestStudio.csproj", "{FC4651AA-656D-4909-95F8-495913513DA4}"
 EndProject
 Global
@@ -55,10 +53,6 @@ Global
 		{C326C859-89D0-4ABF-9195-281F044CCC6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C326C859-89D0-4ABF-9195-281F044CCC6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C326C859-89D0-4ABF-9195-281F044CCC6C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{558AF662-183F-4D4E-92EC-60EEF706E828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{558AF662-183F-4D4E-92EC-60EEF706E828}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{558AF662-183F-4D4E-92EC-60EEF706E828}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{558AF662-183F-4D4E-92EC-60EEF706E828}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC4651AA-656D-4909-95F8-495913513DA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC4651AA-656D-4909-95F8-495913513DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC4651AA-656D-4909-95F8-495913513DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -74,7 +68,6 @@ Global
 		{DC8FDE76-16F9-446A-ACC3-87E1CC98DB56} = {2EB7C0B9-A9F6-453A-94BF-07E33DB966F7}
 		{AC09465E-2FAB-4598-BAE7-60100A652549} = {61BE84B9-9928-4E4E-92F8-02EC52BD61F7}
 		{C326C859-89D0-4ABF-9195-281F044CCC6C} = {B8E08C31-0AE6-4E31-84A1-00A6B04CCBDA}
-		{558AF662-183F-4D4E-92EC-60EEF706E828} = {2EB7C0B9-A9F6-453A-94BF-07E33DB966F7}
 		{FC4651AA-656D-4909-95F8-495913513DA4} = {61BE84B9-9928-4E4E-92F8-02EC52BD61F7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

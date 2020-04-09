@@ -27,7 +27,6 @@
   <ItemGroup>
     <ProjectReference Include="..\GreenWhale.Extensions.Views\GreenWhale.Extensions.Views.csproj" />
     <ProjectReference Include="..\GreenWhale.RunTime.Scripts\GreenWhale.RunTime.Scripts.csproj" />
-    <ProjectReference Include="C:\Users\WXF\source\repos\Magicodes.IE\src\Magicodes.ExporterAndImporter.Excel\Magicodes.ExporterAndImporter.Excel.csproj" />
   </ItemGroup>
 
   <ItemGroup>
