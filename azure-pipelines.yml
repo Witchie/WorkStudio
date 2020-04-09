@@ -10,26 +10,10 @@ pool:
   name: 'default'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  solution: 'LierdaTestStudio/LierdaTestStudioV2/LierdaTestStudio.sln'
 
 steps:
-- task: NuGetToolInstaller@0
-- task: NuGetCommand@2
-  inputs:
-    command: 'restore'
-    restoreSolution: '**/*.sln'
-    feedsToUse: 'select'
-    vstsFeed: '/c198499b-7161-407f-8b92-9675b9a27d69'
-
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'build'
+      projects: '{solution}'
