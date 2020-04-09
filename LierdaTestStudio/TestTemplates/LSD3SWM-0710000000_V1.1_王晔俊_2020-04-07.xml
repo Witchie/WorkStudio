@@ -1,0 +1,1227 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ProjectViewModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectName>LSD3SWM-0710000000</ProjectName>
+  <Version>V1.1</Version>
+  <DateTime>2020-04-07T00:00:00</DateTime>
+  <Author>王晔俊</Author>
+  <ScriptType>C#</ScriptType>
+  <ResourceDefineViewModels>
+    <AddResourceDefineViewModel IsManulCheck="false" TaskDeplay="1000" IsAbnormalWork="false">
+      <TestIndex>1</TestIndex>
+      <Description>主机测试开始</Description>
+      <SendContent>AA1411FC03332E33B855</SendContent>
+      <ReceiveContent>AA14A1FC024F4B4D55</ReceiveContent>
+      <ScriptModel>
+        <FileContent>using GreenWhale.BootLoader.Implements;
+using GreenWhale.Extensions.TestTools2.Extensions;
+using GreenWhale.RunTime.Scripts;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+
+public class ScriptRun : RuningCore
+{
+    public ScriptRun()
+    {
+    }
+
+    /// &lt;summary&gt;
+    /// 调用方法
+    /// &lt;code&gt;假设输入参数AA14A1FC024F4B4D55&lt;/code&gt;
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public override RunningResult Invoke(InvokeContext invokeContext)
+    {
+        var f=  GetFullFrame(invokeContext.SourceFrame);
+        var content=  GetDataArea(f);
+        Log(invokeContext, content.ToHex());
+        var ascii= ToASCII(content);
+        Log(invokeContext, ascii);
+        if (ascii=="OK")
+        {
+            return new RunningResult(State.Qualified, "合格");
+        }
+        else if (ascii=="ER")
+        {
+            return new RunningResult(State.Unqualified, "不合格");
+        }
+        else
+        {
+            return new RunningResult(State.None, "无法解析");
+        }
+    }
+    private static readonly object _locker =new object();
+    public byte[] GetFullFrame(byte[] buffer)
+    {
+        List&lt;byte&gt; vs = new List&lt;byte&gt;();
+        for (int i = 0; i &lt; buffer.Length; i++)
+        {
+            if (buffer[i] == 0xAA)
+            {
+                vs.AddRange(buffer.Skip(i).ToArray());
+            }
+        }
+        return vs.ToArray();
+    }
+    public override RunningResult FrameValidate(InvokeContext invokeContext)
+    {
+        lock (_locker)
+        {
+            try
+            {
+                var buffer = invokeContext.SourceFrame;
+                if (buffer == null &amp;&amp; buffer.Length &lt; 7)
+                {
+                    Log(invokeContext, "...");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                var vs= GetFullFrame(buffer);
+                if (vs.Length&lt;7)
+                {
+                    Log(invokeContext, $"长度不足{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                int length = vs[4];
+                var take = 4 + length + 2;
+                var fullframe = vs.Take(take+1).ToArray();
+                if (fullframe.LastOrDefault() == 0x55)
+                {
+                    var crc = fullframe.Skip(1).Take(4 + length).Sum(p=&gt;p);
+                    var crc1 = fullframe.Skip(1 + 4 + length).First();
+                    if ((byte)crc== crc1)
+                    {
+                        Log(invokeContext, $"校验成功{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidatePassed);
+                    }
+                    else
+                    {
+                        Log(invokeContext, $"和校验不通过{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidateFailed);
+                    }
+                }
+                else
+                {
+                    Log(invokeContext, $"结束符号不正确{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+            }
+            catch (System.Exception err)
+            {
+                Log(invokeContext, $"异常包内容{invokeContext.SourceFrame.ToHex()}");
+                Log(invokeContext, err.ToString());
+                return new RunningResult(State.FrameValidateFailed);
+            }
+
+        }
+    }
+    /// &lt;summary&gt;
+    /// 获取数据域
+    /// &lt;/summary&gt;
+    /// &lt;param name="fullframe"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    private byte[] GetDataArea(byte[] fullframe)
+    {
+        var content = fullframe.Skip(5).Take(fullframe.Skip(4).FirstOrDefault()).ToArray();
+        return content;
+    }
+    /// &lt;summary&gt;
+    /// 打印日志
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;param name="content"&gt;&lt;/param&gt;
+    private void Log(InvokeContext invokeContext, string content)
+    {
+        var svc = invokeContext?.ServiceBus?.GetService&lt;IExportBoxService&gt;();
+        svc?.Log(content);
+    }
+}
+</FileContent>
+      </ScriptModel>
+    </AddResourceDefineViewModel>
+    <AddResourceDefineViewModel IsManulCheck="false" TaskDeplay="100" IsAbnormalWork="false">
+      <TestIndex>2</TestIndex>
+      <Description>电压检测</Description>
+      <SendContent>AA14110103332E33BD55</SendContent>
+      <ReceiveContent>AA14A101024F4B5255</ReceiveContent>
+      <ScriptModel>
+        <FileContent>using GreenWhale.BootLoader.Implements;
+using GreenWhale.Extensions.TestTools2.Extensions;
+using GreenWhale.RunTime.Scripts;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+
+public class ScriptRun : RuningCore
+{
+    public ScriptRun()
+    {
+    }
+
+    /// &lt;summary&gt;
+    /// 调用方法
+    /// &lt;code&gt;假设输入参数AA14A1FC024F4B4D55&lt;/code&gt;
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public override RunningResult Invoke(InvokeContext invokeContext)
+    {
+        var f=  GetFullFrame(invokeContext.SourceFrame);
+        var content=  GetDataArea(f);
+        Log(invokeContext, content.ToHex());
+        var ascii= ToASCII(content);
+        Log(invokeContext, ascii);
+        if (ascii=="OK")
+        {
+            return new RunningResult(State.Qualified, "合格");
+        }
+        else if (ascii=="ER")
+        {
+            return new RunningResult(State.Unqualified, "不合格");
+        }
+        else
+        {
+            return new RunningResult(State.None, "无法解析");
+        }
+    }
+    private static readonly object _locker =new object();
+    public byte[] GetFullFrame(byte[] buffer)
+    {
+        List&lt;byte&gt; vs = new List&lt;byte&gt;();
+        for (int i = 0; i &lt; buffer.Length; i++)
+        {
+            if (buffer[i] == 0xAA)
+            {
+                vs.AddRange(buffer.Skip(i).ToArray());
+            }
+        }
+        return vs.ToArray();
+    }
+    public override RunningResult FrameValidate(InvokeContext invokeContext)
+    {
+        lock (_locker)
+        {
+            try
+            {
+                var buffer = invokeContext.SourceFrame;
+                if (buffer == null &amp;&amp; buffer.Length &lt; 7)
+                {
+                    Log(invokeContext, "...");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                var vs= GetFullFrame(buffer);
+                if (vs.Length&lt;7)
+                {
+                    Log(invokeContext, $"长度不足{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                int length = vs[4];
+                var take = 4 + length + 2;
+                var fullframe = vs.Take(take+1).ToArray();
+                if (fullframe.LastOrDefault() == 0x55)
+                {
+                    var crc = fullframe.Skip(1).Take(4 + length).Sum(p=&gt;p);
+                    var crc1 = fullframe.Skip(1 + 4 + length).First();
+                    if ((byte)crc== crc1)
+                    {
+                        Log(invokeContext, $"校验成功{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidatePassed);
+                    }
+                    else
+                    {
+                        Log(invokeContext, $"和校验不通过{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidateFailed);
+                    }
+                }
+                else
+                {
+                    Log(invokeContext, $"结束符号不正确{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+            }
+            catch (System.Exception err)
+            {
+                Log(invokeContext, $"异常包内容{invokeContext.SourceFrame.ToHex()}");
+                Log(invokeContext, err.ToString());
+                return new RunningResult(State.FrameValidateFailed);
+            }
+
+        }
+    }
+    /// &lt;summary&gt;
+    /// 获取数据域
+    /// &lt;/summary&gt;
+    /// &lt;param name="fullframe"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    private byte[] GetDataArea(byte[] fullframe)
+    {
+        var content = fullframe.Skip(5).Take(fullframe.Skip(4).FirstOrDefault()).ToArray();
+        return content;
+    }
+    /// &lt;summary&gt;
+    /// 打印日志
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;param name="content"&gt;&lt;/param&gt;
+    private void Log(InvokeContext invokeContext, string content)
+    {
+        var svc = invokeContext?.ServiceBus?.GetService&lt;IExportBoxService&gt;();
+        svc?.Log(content);
+    }
+}
+</FileContent>
+      </ScriptModel>
+    </AddResourceDefineViewModel>
+    <AddResourceDefineViewModel IsManulCheck="false" TaskDeplay="1000" IsAbnormalWork="false">
+      <TestIndex>3</TestIndex>
+      <Description>RTC时钟</Description>
+      <SendContent>AA14110203332E33BE55</SendContent>
+      <ReceiveContent>AA14A102024F4B5355</ReceiveContent>
+      <ScriptModel>
+        <FileContent>using GreenWhale.BootLoader.Implements;
+using GreenWhale.Extensions.TestTools2.Extensions;
+using GreenWhale.RunTime.Scripts;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+
+public class ScriptRun : RuningCore
+{
+    public ScriptRun()
+    {
+    }
+
+    /// &lt;summary&gt;
+    /// 调用方法
+    /// &lt;code&gt;假设输入参数AA14A1FC024F4B4D55&lt;/code&gt;
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public override RunningResult Invoke(InvokeContext invokeContext)
+    {
+        var f=  GetFullFrame(invokeContext.SourceFrame);
+        var content=  GetDataArea(f);
+        Log(invokeContext, content.ToHex());
+        var ascii= ToASCII(content);
+        Log(invokeContext, ascii);
+        if (ascii=="OK")
+        {
+            return new RunningResult(State.Qualified, "合格");
+        }
+        else if (ascii=="ER")
+        {
+            return new RunningResult(State.Unqualified, "不合格");
+        }
+        else
+        {
+            return new RunningResult(State.None, "无法解析");
+        }
+    }
+    private static readonly object _locker =new object();
+    public byte[] GetFullFrame(byte[] buffer)
+    {
+        List&lt;byte&gt; vs = new List&lt;byte&gt;();
+        for (int i = 0; i &lt; buffer.Length; i++)
+        {
+            if (buffer[i] == 0xAA)
+            {
+                vs.AddRange(buffer.Skip(i).ToArray());
+            }
+        }
+        return vs.ToArray();
+    }
+    public override RunningResult FrameValidate(InvokeContext invokeContext)
+    {
+        lock (_locker)
+        {
+            try
+            {
+                var buffer = invokeContext.SourceFrame;
+                if (buffer == null &amp;&amp; buffer.Length &lt; 7)
+                {
+                    Log(invokeContext, "...");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                var vs= GetFullFrame(buffer);
+                if (vs.Length&lt;7)
+                {
+                    Log(invokeContext, $"长度不足{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                int length = vs[4];
+                var take = 4 + length + 2;
+                var fullframe = vs.Take(take+1).ToArray();
+                if (fullframe.LastOrDefault() == 0x55)
+                {
+                    var crc = fullframe.Skip(1).Take(4 + length).Sum(p=&gt;p);
+                    var crc1 = fullframe.Skip(1 + 4 + length).First();
+                    if ((byte)crc== crc1)
+                    {
+                        Log(invokeContext, $"校验成功{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidatePassed);
+                    }
+                    else
+                    {
+                        Log(invokeContext, $"和校验不通过{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidateFailed);
+                    }
+                }
+                else
+                {
+                    Log(invokeContext, $"结束符号不正确{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+            }
+            catch (System.Exception err)
+            {
+                Log(invokeContext, $"异常包内容{invokeContext.SourceFrame.ToHex()}");
+                Log(invokeContext, err.ToString());
+                return new RunningResult(State.FrameValidateFailed);
+            }
+
+        }
+    }
+    /// &lt;summary&gt;
+    /// 获取数据域
+    /// &lt;/summary&gt;
+    /// &lt;param name="fullframe"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    private byte[] GetDataArea(byte[] fullframe)
+    {
+        var content = fullframe.Skip(5).Take(fullframe.Skip(4).FirstOrDefault()).ToArray();
+        return content;
+    }
+    /// &lt;summary&gt;
+    /// 打印日志
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;param name="content"&gt;&lt;/param&gt;
+    private void Log(InvokeContext invokeContext, string content)
+    {
+        var svc = invokeContext?.ServiceBus?.GetService&lt;IExportBoxService&gt;();
+        svc?.Log(content);
+    }
+}
+</FileContent>
+      </ScriptModel>
+    </AddResourceDefineViewModel>
+    <AddResourceDefineViewModel IsManulCheck="false" TaskDeplay="100" IsAbnormalWork="false">
+      <TestIndex>4</TestIndex>
+      <Description>红外通信</Description>
+      <SendContent>AA14110303332E33BF55</SendContent>
+      <ReceiveContent>AA14A103024F4B5455</ReceiveContent>
+      <ScriptModel>
+        <FileContent>using GreenWhale.BootLoader.Implements;
+using GreenWhale.Extensions.TestTools2.Extensions;
+using GreenWhale.RunTime.Scripts;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+
+public class ScriptRun : RuningCore
+{
+    public ScriptRun()
+    {
+    }
+
+    /// &lt;summary&gt;
+    /// 调用方法
+    /// &lt;code&gt;假设输入参数AA14A1FC024F4B4D55&lt;/code&gt;
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public override RunningResult Invoke(InvokeContext invokeContext)
+    {
+        var f=  GetFullFrame(invokeContext.SourceFrame);
+        var content=  GetDataArea(f);
+        Log(invokeContext, content.ToHex());
+        var ascii= ToASCII(content);
+        Log(invokeContext, ascii);
+        if (ascii=="OK")
+        {
+            return new RunningResult(State.Qualified, "合格");
+        }
+        else if (ascii=="ER")
+        {
+            return new RunningResult(State.Unqualified, "不合格");
+        }
+        else
+        {
+            return new RunningResult(State.None, "无法解析");
+        }
+    }
+    private static readonly object _locker =new object();
+    public byte[] GetFullFrame(byte[] buffer)
+    {
+        List&lt;byte&gt; vs = new List&lt;byte&gt;();
+        for (int i = 0; i &lt; buffer.Length; i++)
+        {
+            if (buffer[i] == 0xAA)
+            {
+                vs.AddRange(buffer.Skip(i).ToArray());
+            }
+        }
+        return vs.ToArray();
+    }
+    public override RunningResult FrameValidate(InvokeContext invokeContext)
+    {
+        lock (_locker)
+        {
+            try
+            {
+                var buffer = invokeContext.SourceFrame;
+                if (buffer == null &amp;&amp; buffer.Length &lt; 7)
+                {
+                    Log(invokeContext, "...");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                var vs= GetFullFrame(buffer);
+                if (vs.Length&lt;7)
+                {
+                    Log(invokeContext, $"长度不足{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                int length = vs[4];
+                var take = 4 + length + 2;
+                var fullframe = vs.Take(take+1).ToArray();
+                if (fullframe.LastOrDefault() == 0x55)
+                {
+                    var crc = fullframe.Skip(1).Take(4 + length).Sum(p=&gt;p);
+                    var crc1 = fullframe.Skip(1 + 4 + length).First();
+                    if ((byte)crc== crc1)
+                    {
+                        Log(invokeContext, $"校验成功{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidatePassed);
+                    }
+                    else
+                    {
+                        Log(invokeContext, $"和校验不通过{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidateFailed);
+                    }
+                }
+                else
+                {
+                    Log(invokeContext, $"结束符号不正确{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+            }
+            catch (System.Exception err)
+            {
+                Log(invokeContext, $"异常包内容{invokeContext.SourceFrame.ToHex()}");
+                Log(invokeContext, err.ToString());
+                return new RunningResult(State.FrameValidateFailed);
+            }
+
+        }
+    }
+    /// &lt;summary&gt;
+    /// 获取数据域
+    /// &lt;/summary&gt;
+    /// &lt;param name="fullframe"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    private byte[] GetDataArea(byte[] fullframe)
+    {
+        var content = fullframe.Skip(5).Take(fullframe.Skip(4).FirstOrDefault()).ToArray();
+        return content;
+    }
+    /// &lt;summary&gt;
+    /// 打印日志
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;param name="content"&gt;&lt;/param&gt;
+    private void Log(InvokeContext invokeContext, string content)
+    {
+        var svc = invokeContext?.ServiceBus?.GetService&lt;IExportBoxService&gt;();
+        svc?.Log(content);
+    }
+}
+</FileContent>
+      </ScriptModel>
+    </AddResourceDefineViewModel>
+    <AddResourceDefineViewModel IsManulCheck="false" TaskDeplay="1000" IsAbnormalWork="false">
+      <TestIndex>5</TestIndex>
+      <Description>RF模块</Description>
+      <SendContent>AA14110403332E33C055</SendContent>
+      <ReceiveContent>AA14A104024F4B5555</ReceiveContent>
+      <ScriptModel>
+        <FileContent>using GreenWhale.BootLoader.Implements;
+using GreenWhale.Extensions.TestTools2.Extensions;
+using GreenWhale.RunTime.Scripts;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+
+public class ScriptRun : RuningCore
+{
+    public ScriptRun()
+    {
+    }
+
+    /// &lt;summary&gt;
+    /// 调用方法
+    /// &lt;code&gt;假设输入参数AA14A1FC024F4B4D55&lt;/code&gt;
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public override RunningResult Invoke(InvokeContext invokeContext)
+    {
+        var f=  GetFullFrame(invokeContext.SourceFrame);
+        var content=  GetDataArea(f);
+        Log(invokeContext, content.ToHex());
+        var ascii= ToASCII(content);
+        Log(invokeContext, ascii);
+        if (ascii=="OK")
+        {
+            return new RunningResult(State.Qualified, "合格");
+        }
+        else if (ascii=="ER")
+        {
+            return new RunningResult(State.Unqualified, "不合格");
+        }
+        else
+        {
+            return new RunningResult(State.None, "无法解析");
+        }
+    }
+    private static readonly object _locker =new object();
+    public byte[] GetFullFrame(byte[] buffer)
+    {
+        List&lt;byte&gt; vs = new List&lt;byte&gt;();
+        for (int i = 0; i &lt; buffer.Length; i++)
+        {
+            if (buffer[i] == 0xAA)
+            {
+                vs.AddRange(buffer.Skip(i).ToArray());
+            }
+        }
+        return vs.ToArray();
+    }
+    public override RunningResult FrameValidate(InvokeContext invokeContext)
+    {
+        lock (_locker)
+        {
+            try
+            {
+                var buffer = invokeContext.SourceFrame;
+                if (buffer == null &amp;&amp; buffer.Length &lt; 7)
+                {
+                    Log(invokeContext, "...");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                var vs= GetFullFrame(buffer);
+                if (vs.Length&lt;7)
+                {
+                    Log(invokeContext, $"长度不足{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                int length = vs[4];
+                var take = 4 + length + 2;
+                var fullframe = vs.Take(take+1).ToArray();
+                if (fullframe.LastOrDefault() == 0x55)
+                {
+                    var crc = fullframe.Skip(1).Take(4 + length).Sum(p=&gt;p);
+                    var crc1 = fullframe.Skip(1 + 4 + length).First();
+                    if ((byte)crc== crc1)
+                    {
+                        Log(invokeContext, $"校验成功{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidatePassed);
+                    }
+                    else
+                    {
+                        Log(invokeContext, $"和校验不通过{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidateFailed);
+                    }
+                }
+                else
+                {
+                    Log(invokeContext, $"结束符号不正确{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+            }
+            catch (System.Exception err)
+            {
+                Log(invokeContext, $"异常包内容{invokeContext.SourceFrame.ToHex()}");
+                Log(invokeContext, err.ToString());
+                return new RunningResult(State.FrameValidateFailed);
+            }
+
+        }
+    }
+    /// &lt;summary&gt;
+    /// 获取数据域
+    /// &lt;/summary&gt;
+    /// &lt;param name="fullframe"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    private byte[] GetDataArea(byte[] fullframe)
+    {
+        var content = fullframe.Skip(5).Take(fullframe.Skip(4).FirstOrDefault()).ToArray();
+        return content;
+    }
+    /// &lt;summary&gt;
+    /// 打印日志
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;param name="content"&gt;&lt;/param&gt;
+    private void Log(InvokeContext invokeContext, string content)
+    {
+        var svc = invokeContext?.ServiceBus?.GetService&lt;IExportBoxService&gt;();
+        svc?.Log(content);
+    }
+}
+</FileContent>
+      </ScriptModel>
+    </AddResourceDefineViewModel>
+    <AddResourceDefineViewModel IsManulCheck="false" TaskDeplay="100" IsAbnormalWork="false">
+      <TestIndex>6</TestIndex>
+      <Description>阀门测试</Description>
+      <SendContent>AA14110503332E33C155</SendContent>
+      <ReceiveContent>AA14A105024F4B5655</ReceiveContent>
+      <ScriptModel>
+        <FileContent>using GreenWhale.BootLoader.Implements;
+using GreenWhale.Extensions.TestTools2.Extensions;
+using GreenWhale.RunTime.Scripts;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+
+public class ScriptRun : RuningCore
+{
+    public ScriptRun()
+    {
+    }
+
+    /// &lt;summary&gt;
+    /// 调用方法
+    /// &lt;code&gt;假设输入参数AA14A1FC024F4B4D55&lt;/code&gt;
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public override RunningResult Invoke(InvokeContext invokeContext)
+    {
+        var f=  GetFullFrame(invokeContext.SourceFrame);
+        var content=  GetDataArea(f);
+        Log(invokeContext, content.ToHex());
+        var ascii= ToASCII(content);
+        Log(invokeContext, ascii);
+        if (ascii=="OK")
+        {
+            return new RunningResult(State.Qualified, "合格");
+        }
+        else if (ascii=="ER")
+        {
+            return new RunningResult(State.Unqualified, "不合格");
+        }
+        else
+        {
+            return new RunningResult(State.None, "无法解析");
+        }
+    }
+    private static readonly object _locker =new object();
+    public byte[] GetFullFrame(byte[] buffer)
+    {
+        List&lt;byte&gt; vs = new List&lt;byte&gt;();
+        for (int i = 0; i &lt; buffer.Length; i++)
+        {
+            if (buffer[i] == 0xAA)
+            {
+                vs.AddRange(buffer.Skip(i).ToArray());
+            }
+        }
+        return vs.ToArray();
+    }
+    public override RunningResult FrameValidate(InvokeContext invokeContext)
+    {
+        lock (_locker)
+        {
+            try
+            {
+                var buffer = invokeContext.SourceFrame;
+                if (buffer == null &amp;&amp; buffer.Length &lt; 7)
+                {
+                    Log(invokeContext, "...");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                var vs= GetFullFrame(buffer);
+                if (vs.Length&lt;7)
+                {
+                    Log(invokeContext, $"长度不足{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                int length = vs[4];
+                var take = 4 + length + 2;
+                var fullframe = vs.Take(take+1).ToArray();
+                if (fullframe.LastOrDefault() == 0x55)
+                {
+                    var crc = fullframe.Skip(1).Take(4 + length).Sum(p=&gt;p);
+                    var crc1 = fullframe.Skip(1 + 4 + length).First();
+                    if ((byte)crc== crc1)
+                    {
+                        Log(invokeContext, $"校验成功{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidatePassed);
+                    }
+                    else
+                    {
+                        Log(invokeContext, $"和校验不通过{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidateFailed);
+                    }
+                }
+                else
+                {
+                    Log(invokeContext, $"结束符号不正确{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+            }
+            catch (System.Exception err)
+            {
+                Log(invokeContext, $"异常包内容{invokeContext.SourceFrame.ToHex()}");
+                Log(invokeContext, err.ToString());
+                return new RunningResult(State.FrameValidateFailed);
+            }
+
+        }
+    }
+    /// &lt;summary&gt;
+    /// 获取数据域
+    /// &lt;/summary&gt;
+    /// &lt;param name="fullframe"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    private byte[] GetDataArea(byte[] fullframe)
+    {
+        var content = fullframe.Skip(5).Take(fullframe.Skip(4).FirstOrDefault()).ToArray();
+        return content;
+    }
+    /// &lt;summary&gt;
+    /// 打印日志
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;param name="content"&gt;&lt;/param&gt;
+    private void Log(InvokeContext invokeContext, string content)
+    {
+        var svc = invokeContext?.ServiceBus?.GetService&lt;IExportBoxService&gt;();
+        svc?.Log(content);
+    }
+}
+</FileContent>
+      </ScriptModel>
+    </AddResourceDefineViewModel>
+    <AddResourceDefineViewModel IsManulCheck="false" TaskDeplay="100" IsAbnormalWork="false">
+      <TestIndex>7</TestIndex>
+      <Description>MBUS测试</Description>
+      <SendContent>AA14110603332E33C255</SendContent>
+      <ReceiveContent>AA14A106024F4B5755</ReceiveContent>
+      <ScriptModel>
+        <FileContent>using GreenWhale.BootLoader.Implements;
+using GreenWhale.Extensions.TestTools2.Extensions;
+using GreenWhale.RunTime.Scripts;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+
+public class ScriptRun : RuningCore
+{
+    public ScriptRun()
+    {
+    }
+
+    /// &lt;summary&gt;
+    /// 调用方法
+    /// &lt;code&gt;假设输入参数AA14A1FC024F4B4D55&lt;/code&gt;
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public override RunningResult Invoke(InvokeContext invokeContext)
+    {
+        var f=  GetFullFrame(invokeContext.SourceFrame);
+        var content=  GetDataArea(f);
+        Log(invokeContext, content.ToHex());
+        var ascii= ToASCII(content);
+        Log(invokeContext, ascii);
+        if (ascii=="OK")
+        {
+            return new RunningResult(State.Qualified, "合格");
+        }
+        else if (ascii=="ER")
+        {
+            return new RunningResult(State.Unqualified, "不合格");
+        }
+        else
+        {
+            return new RunningResult(State.None, "无法解析");
+        }
+    }
+    private static readonly object _locker =new object();
+    public byte[] GetFullFrame(byte[] buffer)
+    {
+        List&lt;byte&gt; vs = new List&lt;byte&gt;();
+        for (int i = 0; i &lt; buffer.Length; i++)
+        {
+            if (buffer[i] == 0xAA)
+            {
+                vs.AddRange(buffer.Skip(i).ToArray());
+            }
+        }
+        return vs.ToArray();
+    }
+    public override RunningResult FrameValidate(InvokeContext invokeContext)
+    {
+        lock (_locker)
+        {
+            try
+            {
+                var buffer = invokeContext.SourceFrame;
+                if (buffer == null &amp;&amp; buffer.Length &lt; 7)
+                {
+                    Log(invokeContext, "...");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                var vs= GetFullFrame(buffer);
+                if (vs.Length&lt;7)
+                {
+                    Log(invokeContext, $"长度不足{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                int length = vs[4];
+                var take = 4 + length + 2;
+                var fullframe = vs.Take(take+1).ToArray();
+                if (fullframe.LastOrDefault() == 0x55)
+                {
+                    var crc = fullframe.Skip(1).Take(4 + length).Sum(p=&gt;p);
+                    var crc1 = fullframe.Skip(1 + 4 + length).First();
+                    if ((byte)crc== crc1)
+                    {
+                        Log(invokeContext, $"校验成功{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidatePassed);
+                    }
+                    else
+                    {
+                        Log(invokeContext, $"和校验不通过{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidateFailed);
+                    }
+                }
+                else
+                {
+                    Log(invokeContext, $"结束符号不正确{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+            }
+            catch (System.Exception err)
+            {
+                Log(invokeContext, $"异常包内容{invokeContext.SourceFrame.ToHex()}");
+                Log(invokeContext, err.ToString());
+                return new RunningResult(State.FrameValidateFailed);
+            }
+
+        }
+    }
+    /// &lt;summary&gt;
+    /// 获取数据域
+    /// &lt;/summary&gt;
+    /// &lt;param name="fullframe"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    private byte[] GetDataArea(byte[] fullframe)
+    {
+        var content = fullframe.Skip(5).Take(fullframe.Skip(4).FirstOrDefault()).ToArray();
+        return content;
+    }
+    /// &lt;summary&gt;
+    /// 打印日志
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;param name="content"&gt;&lt;/param&gt;
+    private void Log(InvokeContext invokeContext, string content)
+    {
+        var svc = invokeContext?.ServiceBus?.GetService&lt;IExportBoxService&gt;();
+        svc?.Log(content);
+    }
+}
+</FileContent>
+      </ScriptModel>
+    </AddResourceDefineViewModel>
+    <AddResourceDefineViewModel IsManulCheck="false" TaskDeplay="100" IsAbnormalWork="true" AbnormalWorkTips="请按下按键">
+      <TestIndex>12</TestIndex>
+      <Description>按键测试</Description>
+      <SendContent>AA14110B03332E33C755</SendContent>
+      <ReceiveContent>AA14A10B024F4B5C55</ReceiveContent>
+      <ScriptModel>
+        <FileContent>using GreenWhale.BootLoader.Implements;
+using GreenWhale.Extensions.TestTools2.Extensions;
+using GreenWhale.RunTime.Scripts;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+
+public class ScriptRun : RuningCore
+{
+    public ScriptRun()
+    {
+    }
+
+    /// &lt;summary&gt;
+    /// 调用方法
+    /// &lt;code&gt;假设输入参数AA14A1FC024F4B4D55&lt;/code&gt;
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public override RunningResult Invoke(InvokeContext invokeContext)
+    {
+        var f=  GetFullFrame(invokeContext.SourceFrame);
+        var content=  GetDataArea(f);
+        Log(invokeContext, content.ToHex());
+        var ascii= ToASCII(content);
+        Log(invokeContext, ascii);
+        if (ascii=="OK")
+        {
+            return new RunningResult(State.Qualified, "合格");
+        }
+        else if (ascii=="ER")
+        {
+            return new RunningResult(State.Unqualified, "不合格");
+        }
+        else
+        {
+            return new RunningResult(State.None, "无法解析");
+        }
+    }
+    private static readonly object _locker =new object();
+    public byte[] GetFullFrame(byte[] buffer)
+    {
+        List&lt;byte&gt; vs = new List&lt;byte&gt;();
+        for (int i = 0; i &lt; buffer.Length; i++)
+        {
+            if (buffer[i] == 0xAA)
+            {
+                vs.AddRange(buffer.Skip(i).ToArray());
+            }
+        }
+        return vs.ToArray();
+    }
+    public override RunningResult FrameValidate(InvokeContext invokeContext)
+    {
+        lock (_locker)
+        {
+            try
+            {
+                var buffer = invokeContext.SourceFrame;
+                if (buffer == null &amp;&amp; buffer.Length &lt; 7)
+                {
+                    Log(invokeContext, "...");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                var vs= GetFullFrame(buffer);
+                if (vs.Length&lt;7)
+                {
+                    Log(invokeContext, $"长度不足{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                int length = vs[4];
+                var take = 4 + length + 2;
+                var fullframe = vs.Take(take+1).ToArray();
+                if (fullframe.LastOrDefault() == 0x55)
+                {
+                    var crc = fullframe.Skip(1).Take(4 + length).Sum(p=&gt;p);
+                    var crc1 = fullframe.Skip(1 + 4 + length).First();
+                    if ((byte)crc== crc1)
+                    {
+                        Log(invokeContext, $"校验成功{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidatePassed);
+                    }
+                    else
+                    {
+                        Log(invokeContext, $"和校验不通过{vs.ToHex()}");
+                        return new RunningResult(State.FrameValidateFailed);
+                    }
+                }
+                else
+                {
+                    Log(invokeContext, $"结束符号不正确{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+            }
+            catch (System.Exception err)
+            {
+                Log(invokeContext, $"异常包内容{invokeContext.SourceFrame.ToHex()}");
+                Log(invokeContext, err.ToString());
+                return new RunningResult(State.FrameValidateFailed);
+            }
+
+        }
+    }
+    /// &lt;summary&gt;
+    /// 获取数据域
+    /// &lt;/summary&gt;
+    /// &lt;param name="fullframe"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    private byte[] GetDataArea(byte[] fullframe)
+    {
+        var content = fullframe.Skip(5).Take(fullframe.Skip(4).FirstOrDefault()).ToArray();
+        return content;
+    }
+    /// &lt;summary&gt;
+    /// 打印日志
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;param name="content"&gt;&lt;/param&gt;
+    private void Log(InvokeContext invokeContext, string content)
+    {
+        var svc = invokeContext?.ServiceBus?.GetService&lt;IExportBoxService&gt;();
+        svc?.Log(content);
+    }
+}
+</FileContent>
+      </ScriptModel>
+    </AddResourceDefineViewModel>
+    <AddResourceDefineViewModel IsManulCheck="false" TaskDeplay="1000" IsAbnormalWork="true" AbnormalWorkTips="请按下功耗电流检测按键">
+      <TestIndex>11</TestIndex>
+      <Description>功耗测试</Description>
+      <SendContent>AA14110C03332E33C855</SendContent>
+      <ReceiveContent>AA14A10C024F4B5D55</ReceiveContent>
+      <ScriptModel>
+        <FileContent>using GreenWhale.BootLoader.Implements;
+using GreenWhale.Extensions.TestTools2.Extensions;
+using GreenWhale.RunTime.Scripts;
+using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Windows;
+
+public class ValveTest : RuningCore
+{
+    public ValveTest()
+    {
+    }
+
+    /// &lt;summary&gt;
+    /// 调用方法
+    /// &lt;code&gt;假设输入参数AA14A1FC024F4B4D55&lt;/code&gt;
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    public override RunningResult Invoke(InvokeContext invokeContext)
+    {
+        var content = GetDataArea(invokeContext.SourceFrame);
+        Log(invokeContext, content.ToHex());
+        var ascii = ToASCII(content);
+        Log(invokeContext, ascii);
+        if (invokeContext.Parameters.ContainsKey("IsAbnormalWork")&amp;&amp; invokeContext.Parameters["IsAbnormalWork"]==InvokeContext.True)
+        {
+            var messageBox=  invokeContext.ServiceBus.GetService&lt;IMessageBox&gt;();
+            var res = messageBox.Show($"功耗电流是否小于20 uA?", "提示", MessageBoxButton.YesNo);
+            if (res == MessageBoxResult.Yes)
+            {
+                return new RunningResult(State.Qualified);
+            }
+            else
+            {
+                return new RunningResult(State.Unqualified);
+            }
+        }
+        else
+        {
+            if (ascii == "OK")
+            {
+                return new RunningResult(State.Qualified, "合格");
+            }
+            else if (ascii == "ER")
+            {
+                return new RunningResult(State.Unqualified, "不合格");
+            }
+            else
+            {
+                return new RunningResult(State.None, "无法解析");
+            }
+        }
+    }
+    private static readonly object _locker = new object();
+    public byte[] GetFullFrame(byte[] buffer)
+    {
+        List&lt;byte&gt; vs = new List&lt;byte&gt;();
+        for (int i = 0; i &lt; buffer.Length; i++)
+        {
+            if (buffer[i] == 0xAA)
+            {
+                vs.AddRange(buffer.Skip(i).ToArray());
+            }
+        }
+        return vs.ToArray();
+    }
+    public override RunningResult FrameValidate(InvokeContext invokeContext)
+    {
+        lock (_locker)
+        {
+            try
+            {
+                var buffer = invokeContext.SourceFrame;
+                if (buffer == null &amp;&amp; buffer.Length &lt; 7)
+                {
+                    Log(invokeContext, "...");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                var vs=  GetFullFrame(buffer);
+                if (vs.Length &lt; 7)
+                {
+                    Log(invokeContext, $"长度不足{vs.ToHex()}");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+                int length = vs[4];
+                var take = 4 + length + 2;
+                var fullframe = vs.Take(take + 1).ToArray();
+                if (fullframe.LastOrDefault() == 0x55)
+                {
+                    var crc = fullframe.Skip(1).Take(4 + length).Sum(p =&gt; p);
+                    var crc1 = fullframe.Skip(1 + 4 + length).First();
+                    if ((byte)crc == crc1)
+                    {
+                        Log(invokeContext, "校验成功");
+                        return new RunningResult(State.FrameValidatePassed);
+                    }
+                    else
+                    {
+                        Log(invokeContext, "和校验不通过");
+                        return new RunningResult(State.FrameValidateFailed);
+                    }
+                }
+                else
+                {
+                    Log(invokeContext, "结束符号不正确");
+                    return new RunningResult(State.FrameValidateFailed);
+                }
+            }
+            catch (System.Exception err)
+            {
+                Log(invokeContext, err.ToString());
+                return new RunningResult(State.FrameValidateFailed);
+            }
+
+        }
+    }
+    /// &lt;summary&gt;
+    /// 获取数据域
+    /// &lt;/summary&gt;
+    /// &lt;param name="fullframe"&gt;&lt;/param&gt;
+    /// &lt;returns&gt;&lt;/returns&gt;
+    private byte[] GetDataArea(byte[] fullframe)
+    {
+        var content = fullframe.Skip(5).Take(fullframe.Skip(4).FirstOrDefault()).ToArray();
+        return content;
+    }
+    /// &lt;summary&gt;
+    /// 打印日志
+    /// &lt;/summary&gt;
+    /// &lt;param name="invokeContext"&gt;&lt;/param&gt;
+    /// &lt;param name="content"&gt;&lt;/param&gt;
+    private void Log(InvokeContext invokeContext, string content)
+    {
+        var svc = invokeContext?.ServiceBus?.GetService&lt;IExportBoxService&gt;();
+        svc?.Log(content);
+    }
+}
+</FileContent>
+      </ScriptModel>
+    </AddResourceDefineViewModel>
+    <AddResourceDefineViewModel IsManulCheck="true" TaskDeplay="1000" IsAbnormalWork="false">
+      <TestIndex>13</TestIndex>
+      <Description>液晶检查</Description>
+      <ScriptModel />
+    </AddResourceDefineViewModel>
+  </ResourceDefineViewModels>
+</ProjectViewModel>

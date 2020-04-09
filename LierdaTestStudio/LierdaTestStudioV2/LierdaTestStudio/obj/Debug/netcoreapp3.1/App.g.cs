@@ -9,28 +9,43 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using DevExpress.Xpf.DXBinding;
+using DevExpress.Xpf.TypedStyles;
 using LSD3SWM_0710000000;
 using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Automation;
+using System.Windows.Automation.TypedStyles;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Controls.Primitives.TypedStyles;
 using System.Windows.Controls.Ribbon;
+using System.Windows.Controls.TypedStyles;
 using System.Windows.Data;
+using System.Windows.Data.TypedStyles;
 using System.Windows.Documents;
+using System.Windows.Documents.TypedStyles;
+using System.Windows.Forms.Integration;
 using System.Windows.Ink;
 using System.Windows.Input;
+using System.Windows.Input.TypedStyles;
 using System.Windows.Markup;
+using System.Windows.Markup.TypedStyles;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Animation.TypedStyles;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Media.TextFormatting;
+using System.Windows.Media.TypedStyles;
 using System.Windows.Navigation;
+using System.Windows.Navigation.TypedStyles;
 using System.Windows.Shapes;
+using System.Windows.Shapes.TypedStyles;
 using System.Windows.Shell;
+using System.Windows.TypedStyles;
 
 
 namespace LSD3SWM_0710000000 {
