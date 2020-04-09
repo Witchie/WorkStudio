@@ -3348,11 +3348,11 @@
   "project": {
     "version": "3.1.2.2",
     "restore": {
-      "projectUniqueName": "E:\\LierdaWorkStudio\\MultiMeterSystem\\GreenWhale.Extensions.Styles\\GreenWhale.Extensions.Styles.csproj",
+      "projectUniqueName": "E:\\WorkStudio\\MultiMeterSystem\\GreenWhale.Extensions.Styles\\GreenWhale.Extensions.Styles.csproj",
       "projectName": "GreenWhale.Extensions.Styles",
-      "projectPath": "E:\\LierdaWorkStudio\\MultiMeterSystem\\GreenWhale.Extensions.Styles\\GreenWhale.Extensions.Styles.csproj",
+      "projectPath": "E:\\WorkStudio\\MultiMeterSystem\\GreenWhale.Extensions.Styles\\GreenWhale.Extensions.Styles.csproj",
       "packagesPath": "C:\\Users\\WXF\\.nuget\\packages\\",
-      "outputPath": "E:\\LierdaWorkStudio\\MultiMeterSystem\\GreenWhale.Extensions.Styles\\obj\\",
+      "outputPath": "E:\\WorkStudio\\MultiMeterSystem\\GreenWhale.Extensions.Styles\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\WXF\\AppData\\Roaming\\NuGet\\NuGet.Config",

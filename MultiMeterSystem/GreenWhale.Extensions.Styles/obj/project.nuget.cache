@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LBNEg12Dzo+WJmQqqVhF49lsExqgviAIrYJeAMuAe/r3UpRMT1MpDV86md6iClWulIvZH3/LNAmn538x7mFDaw==",
+  "dgSpecHash": "HO8o5pvSwiIfCcUbr8TRkLO7ybKRTf78f4P43L6j3SX4aIDLBESowRtcLiARK9eIZSqiVm3fiVgvrkFNTyuD5g==",
   "success": true,
-  "projectFilePath": "E:\\LierdaWorkStudio\\MultiMeterSystem\\GreenWhale.Extensions.Styles\\GreenWhale.Extensions.Styles.csproj",
+  "projectFilePath": "E:\\WorkStudio\\MultiMeterSystem\\GreenWhale.Extensions.Styles\\GreenWhale.Extensions.Styles.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\WXF\\.nuget\\packages\\devexpress.windowsdesktop.charts\\19.2.5\\devexpress.windowsdesktop.charts.19.2.5.nupkg.sha512",
     "C:\\Users\\WXF\\.nuget\\packages\\devexpress.windowsdesktop.charts.core\\19.2.5\\devexpress.windowsdesktop.charts.core.19.2.5.nupkg.sha512",
