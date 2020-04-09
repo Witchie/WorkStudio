@@ -1,0 +1,655 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio.UnitTest\\GreenWhale.Extensions.TestStudio.UnitTest.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Core\\Magicodes.ExporterAndImporter.Core.csproj": {
+      "version": "2.2.0-beta2",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Core\\Magicodes.ExporterAndImporter.Core.csproj",
+        "projectName": "Magicodes.IE.Core",
+        "projectPath": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Core\\Magicodes.ExporterAndImporter.Core.csproj",
+        "packagesPath": "C:\\Users\\WXF\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "crossTargeting": true,
+        "configFilePaths": [
+          "C:\\Users\\WXF\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress .NET Core Desktop 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net461",
+          "netstandard2.0",
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 19.2\\.NET Core Desktop Libraries\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nuget.uuids.cn:1003/tfs/Index/_packaging/default/nuget/v3/index.json": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/fWznQyGLL2Aos6AyEDjlKIU81gSF8gJg33EX6knzaScwnhpzVE/api": {}
+        },
+        "frameworks": {
+          "net461": {
+            "projectReferences": {}
+          },
+          "netstandard2.0": {
+            "projectReferences": {}
+          },
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net461": {
+          "dependencies": {
+            "Microsoft.Extensions.DependencyModel": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Runtime.Loader": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        },
+        "netstandard2.0": {
+          "dependencies": {
+            "Microsoft.Extensions.DependencyModel": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Runtime.Loader": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        },
+        "netstandard2.1": {
+          "dependencies": {
+            "Microsoft.Extensions.DependencyModel": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Runtime.Loader": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Excel\\Magicodes.ExporterAndImporter.Excel.csproj": {
+      "version": "2.2.0-beta2",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Excel\\Magicodes.ExporterAndImporter.Excel.csproj",
+        "projectName": "Magicodes.IE.Excel",
+        "projectPath": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Excel\\Magicodes.ExporterAndImporter.Excel.csproj",
+        "packagesPath": "C:\\Users\\WXF\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Excel\\obj\\",
+        "projectStyle": "PackageReference",
+        "crossTargeting": true,
+        "configFilePaths": [
+          "C:\\Users\\WXF\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress .NET Core Desktop 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net461",
+          "netstandard2.0",
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 19.2\\.NET Core Desktop Libraries\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nuget.uuids.cn:1003/tfs/Index/_packaging/default/nuget/v3/index.json": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/fWznQyGLL2Aos6AyEDjlKIU81gSF8gJg33EX6knzaScwnhpzVE/api": {}
+        },
+        "frameworks": {
+          "net461": {
+            "projectReferences": {
+              "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Core\\Magicodes.ExporterAndImporter.Core.csproj": {
+                "projectPath": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Core\\Magicodes.ExporterAndImporter.Core.csproj"
+              }
+            }
+          },
+          "netstandard2.0": {
+            "projectReferences": {
+              "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Core\\Magicodes.ExporterAndImporter.Core.csproj": {
+                "projectPath": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Core\\Magicodes.ExporterAndImporter.Core.csproj"
+              }
+            }
+          },
+          "netstandard2.1": {
+            "projectReferences": {
+              "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Core\\Magicodes.ExporterAndImporter.Core.csproj": {
+                "projectPath": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Core\\Magicodes.ExporterAndImporter.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net461": {
+          "dependencies": {
+            "DynamicExpresso.Core": {
+              "target": "Package",
+              "version": "[2.3.1, )"
+            },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[4.5.3.3, )"
+            },
+            "Microsoft.CSharp": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Linq.Dynamic.Core": {
+              "target": "Package",
+              "version": "[1.0.20, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        },
+        "netstandard2.0": {
+          "dependencies": {
+            "DynamicExpresso.Core": {
+              "target": "Package",
+              "version": "[2.3.1, )"
+            },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[4.5.3.3, )"
+            },
+            "Microsoft.CSharp": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "System.Linq.Dynamic.Core": {
+              "target": "Package",
+              "version": "[1.0.20, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        },
+        "netstandard2.1": {
+          "dependencies": {
+            "DynamicExpresso.Core": {
+              "target": "Package",
+              "version": "[2.3.1, )"
+            },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[4.5.3.3, )"
+            },
+            "Microsoft.CSharp": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Linq.Dynamic.Core": {
+              "target": "Package",
+              "version": "[1.0.20, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio.UnitTest\\GreenWhale.Extensions.TestStudio.UnitTest.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio.UnitTest\\GreenWhale.Extensions.TestStudio.UnitTest.csproj",
+        "projectName": "GreenWhale.Extensions.TestStudio.UnitTest",
+        "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio.UnitTest\\GreenWhale.Extensions.TestStudio.UnitTest.csproj",
+        "packagesPath": "C:\\Users\\WXF\\.nuget\\packages\\",
+        "outputPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio.UnitTest\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\WXF\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress .NET Core Desktop 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 19.2\\.NET Core Desktop Libraries\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nuget.uuids.cn:1003/tfs/Index/_packaging/default/nuget/v3/index.json": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/fWznQyGLL2Aos6AyEDjlKIU81gSF8gJg33EX6knzaScwnhpzVE/api": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj": {
+                "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.5.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj",
+        "projectName": "GreenWhale.Extensions.TestStudio",
+        "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj",
+        "packagesPath": "C:\\Users\\WXF\\.nuget\\packages\\",
+        "outputPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\WXF\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress .NET Core Desktop 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 19.2\\.NET Core Desktop Libraries\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nuget.uuids.cn:1003/tfs/Index/_packaging/default/nuget/v3/index.json": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/fWznQyGLL2Aos6AyEDjlKIU81gSF8gJg33EX6knzaScwnhpzVE/api": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Excel\\Magicodes.ExporterAndImporter.Excel.csproj": {
+                "projectPath": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Excel\\Magicodes.ExporterAndImporter.Excel.csproj"
+              },
+              "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.Views\\GreenWhale.Extensions.Views.csproj": {
+                "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.Views\\GreenWhale.Extensions.Views.csproj"
+              },
+              "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.RunTime.Scripts\\GreenWhale.RunTime.Scripts.csproj": {
+                "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.RunTime.Scripts\\GreenWhale.RunTime.Scripts.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "CS-Script.Core": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "GreenWhale.Application.SerialPorts": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
+            "GreenWhale.BootLoader.Implements": {
+              "target": "Package",
+              "version": "[3.1.2.4, )"
+            },
+            "GreenWhale.Extensions.Styles": {
+              "target": "Package",
+              "version": "[3.1.2.2, )"
+            },
+            "Magicodes.IE.Excel": {
+              "target": "Package",
+              "version": "[2.1.4, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "Shouldly": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.Views\\GreenWhale.Extensions.Views.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.Views\\GreenWhale.Extensions.Views.csproj",
+        "projectName": "GreenWhale.Extensions.Views",
+        "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.Views\\GreenWhale.Extensions.Views.csproj",
+        "packagesPath": "C:\\Users\\WXF\\.nuget\\packages\\",
+        "outputPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.Views\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\WXF\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress .NET Core Desktop 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 19.2\\.NET Core Desktop Libraries\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nuget.uuids.cn:1003/tfs/Index/_packaging/default/nuget/v3/index.json": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/fWznQyGLL2Aos6AyEDjlKIU81gSF8gJg33EX6knzaScwnhpzVE/api": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "DevExpress.WindowsDesktop.Wpf": {
+              "target": "Package",
+              "version": "[19.2.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.RunTime.Scripts\\GreenWhale.RunTime.Scripts.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.RunTime.Scripts\\GreenWhale.RunTime.Scripts.csproj",
+        "projectName": "GreenWhale.RunTime.Scripts",
+        "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.RunTime.Scripts\\GreenWhale.RunTime.Scripts.csproj",
+        "packagesPath": "C:\\Users\\WXF\\.nuget\\packages\\",
+        "outputPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.RunTime.Scripts\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\WXF\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress .NET Core Desktop 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 19.2\\.NET Core Desktop Libraries\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nuget.uuids.cn:1003/tfs/Index/_packaging/default/nuget/v3/index.json": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/fWznQyGLL2Aos6AyEDjlKIU81gSF8gJg33EX6knzaScwnhpzVE/api": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
