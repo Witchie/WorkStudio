@@ -20,3 +20,4 @@
 *.suo
 *i.cache
 slnx.sqlite
+/LierdaTestStudio/LierdaTestStudioV2/LierdaTestStudio/obj/Release/netcoreapp3.1/LierdaTestStudio.AssemblyInfo.cs

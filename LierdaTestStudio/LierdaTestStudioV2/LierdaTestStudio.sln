@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{61BE84B9-992
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B8E08C31-0AE6-4E31-84A1-00A6B04CCBDA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.TestStudio", "GreenWhale.Extensions.TestTools2\GreenWhale.Extensions.TestStudio.csproj", "{C1ACA34D-3FF0-4CFC-994F-0CBEC53681AF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.Styles", "..\..\MultiMeterSystem\GreenWhale.Extensions.Styles\GreenWhale.Extensions.Styles.csproj", "{8CD192E8-2D46-47D5-AD6E-7D239A58446F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.Views", "GreenWhale.Extensions.Views\GreenWhale.Extensions.Views.csproj", "{DC8FDE76-16F9-446A-ACC3-87E1CC98DB56}"
@@ -22,6 +20,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.TestStudio.UnitTest", "GreenWhale.Extensions.TestStudio.UnitTest\GreenWhale.Extensions.TestStudio.UnitTest.csproj", "{C326C859-89D0-4ABF-9195-281F044CCC6C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LierdaTestStudio", "LierdaTestStudio\LierdaTestStudio.csproj", "{FC4651AA-656D-4909-95F8-495913513DA4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.TestStudio", "GreenWhale.Extensions.TestStudio\GreenWhale.Extensions.TestStudio.csproj", "{623785D2-6B53-43D9-919D-EF6106CE17C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,6 @@ Global
 		{7EFC1086-659A-450A-BFA1-C6EB342065AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EFC1086-659A-450A-BFA1-C6EB342065AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EFC1086-659A-450A-BFA1-C6EB342065AC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C1ACA34D-3FF0-4CFC-994F-0CBEC53681AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C1ACA34D-3FF0-4CFC-994F-0CBEC53681AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C1ACA34D-3FF0-4CFC-994F-0CBEC53681AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C1ACA34D-3FF0-4CFC-994F-0CBEC53681AF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8CD192E8-2D46-47D5-AD6E-7D239A58446F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8CD192E8-2D46-47D5-AD6E-7D239A58446F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CD192E8-2D46-47D5-AD6E-7D239A58446F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,18 +53,22 @@ Global
 		{FC4651AA-656D-4909-95F8-495913513DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC4651AA-656D-4909-95F8-495913513DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC4651AA-656D-4909-95F8-495913513DA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{623785D2-6B53-43D9-919D-EF6106CE17C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{623785D2-6B53-43D9-919D-EF6106CE17C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{623785D2-6B53-43D9-919D-EF6106CE17C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{623785D2-6B53-43D9-919D-EF6106CE17C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7EFC1086-659A-450A-BFA1-C6EB342065AC} = {2EB7C0B9-A9F6-453A-94BF-07E33DB966F7}
-		{C1ACA34D-3FF0-4CFC-994F-0CBEC53681AF} = {61BE84B9-9928-4E4E-92F8-02EC52BD61F7}
 		{8CD192E8-2D46-47D5-AD6E-7D239A58446F} = {2EB7C0B9-A9F6-453A-94BF-07E33DB966F7}
 		{DC8FDE76-16F9-446A-ACC3-87E1CC98DB56} = {2EB7C0B9-A9F6-453A-94BF-07E33DB966F7}
 		{AC09465E-2FAB-4598-BAE7-60100A652549} = {61BE84B9-9928-4E4E-92F8-02EC52BD61F7}
 		{C326C859-89D0-4ABF-9195-281F044CCC6C} = {B8E08C31-0AE6-4E31-84A1-00A6B04CCBDA}
 		{FC4651AA-656D-4909-95F8-495913513DA4} = {61BE84B9-9928-4E4E-92F8-02EC52BD61F7}
+		{623785D2-6B53-43D9-919D-EF6106CE17C7} = {61BE84B9-9928-4E4E-92F8-02EC52BD61F7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {52590A5F-5E86-4F32-9A6D-A570E5488170}
