@@ -9911,8 +9911,8 @@
     },
     "GreenWhale.Extensions.TestStudio/1.0.0": {
       "type": "project",
-      "path": "../GreenWhale.Extensions.TestTools2/GreenWhale.Extensions.TestStudio.csproj",
-      "msbuildProject": "../GreenWhale.Extensions.TestTools2/GreenWhale.Extensions.TestStudio.csproj"
+      "path": "../GreenWhale.Extensions.TestStudio/GreenWhale.Extensions.TestStudio.csproj",
+      "msbuildProject": "../GreenWhale.Extensions.TestStudio/GreenWhale.Extensions.TestStudio.csproj"
     },
     "GreenWhale.Extensions.Views/1.0.0": {
       "type": "project",
@@ -9968,8 +9968,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj": {
-              "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj"
+            "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio\\GreenWhale.Extensions.TestStudio.csproj": {
+              "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio\\GreenWhale.Extensions.TestStudio.csproj"
             }
           }
         }

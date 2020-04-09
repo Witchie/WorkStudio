@@ -4,14 +4,14 @@
     "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\LierdaTestStudio\\LierdaTestStudio.csproj": {}
   },
   "projects": {
-    "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj": {
+    "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio\\GreenWhale.Extensions.TestStudio.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj",
+        "projectUniqueName": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio\\GreenWhale.Extensions.TestStudio.csproj",
         "projectName": "GreenWhale.Extensions.TestStudio",
-        "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj",
+        "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio\\GreenWhale.Extensions.TestStudio.csproj",
         "packagesPath": "C:\\Users\\WXF\\.nuget\\packages\\",
-        "outputPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\obj\\",
+        "outputPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\WXF\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -284,8 +284,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj": {
-                "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj"
+              "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio\\GreenWhale.Extensions.TestStudio.csproj": {
+                "projectPath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestStudio\\GreenWhale.Extensions.TestStudio.csproj"
               }
             }
           }
