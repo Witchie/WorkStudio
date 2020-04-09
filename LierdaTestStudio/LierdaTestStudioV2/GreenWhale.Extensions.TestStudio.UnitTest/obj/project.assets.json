@@ -1167,6 +1167,37 @@
           "Microsoft.WindowsDesktop.App"
         ]
       },
+      "Magicodes.IE.Core/2.1.4": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyModel": "3.1.2",
+          "System.ComponentModel.Annotations": "4.7.0",
+          "System.Drawing.Common": "4.7.0",
+          "System.Runtime.Loader": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/Magicodes.ExporterAndImporter.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Magicodes.ExporterAndImporter.Core.dll": {}
+        }
+      },
+      "Magicodes.IE.Excel/2.1.4": {
+        "type": "package",
+        "dependencies": {
+          "DynamicExpresso.Core": "2.3.1",
+          "EPPlus": "4.5.3.3",
+          "Magicodes.IE.Core": "2.1.4",
+          "Microsoft.CSharp": "4.7.0",
+          "System.Linq.Dynamic.Core": "1.0.20"
+        },
+        "compile": {
+          "lib/netstandard2.1/Magicodes.ExporterAndImporter.Excel.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Magicodes.ExporterAndImporter.Excel.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Http.Features/3.1.2": {
         "type": "package",
         "dependencies": {
@@ -4136,7 +4167,7 @@
           "GreenWhale.Extensions.Styles": "3.1.2.2",
           "GreenWhale.Extensions.Views": "1.0.0",
           "GreenWhale.RunTime.Scripts": "1.0.0",
-          "Magicodes.IE.Excel": "2.2.0-beta2",
+          "Magicodes.IE.Excel": "2.1.4",
           "Microsoft.EntityFrameworkCore": "3.1.3",
           "Microsoft.EntityFrameworkCore.Sqlite": "3.1.3",
           "Newtonsoft.Json": "12.0.3",
@@ -4149,6 +4180,7 @@
           "bin/placeholder/GreenWhale.Extensions.TestStudio.dll": {}
         },
         "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App",
           "Microsoft.WindowsDesktop.App.WPF"
         ]
       },
@@ -4183,39 +4215,6 @@
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App.WPF"
         ]
-      },
-      "Magicodes.IE.Core/2.2.0-beta2": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.1",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyModel": "3.1.2",
-          "System.ComponentModel.Annotations": "4.7.0",
-          "System.Drawing.Common": "4.7.0",
-          "System.Runtime.Loader": "4.3.0"
-        },
-        "compile": {
-          "bin/placeholder/Magicodes.IE.Core.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Magicodes.IE.Core.dll": {}
-        }
-      },
-      "Magicodes.IE.Excel/2.2.0-beta2": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v2.1",
-        "dependencies": {
-          "DynamicExpresso.Core": "2.3.1",
-          "EPPlus": "4.5.3.3",
-          "Magicodes.IE.Core": "2.2.0-beta2",
-          "Microsoft.CSharp": "4.7.0",
-          "System.Linq.Dynamic.Core": "1.0.20"
-        },
-        "compile": {
-          "bin/placeholder/Magicodes.IE.Excel.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Magicodes.IE.Excel.dll": {}
-        }
       }
     }
   },
@@ -5248,6 +5247,40 @@
         "greenwhale.extensions.styles.3.1.2.2.nupkg.sha512",
         "greenwhale.extensions.styles.nuspec",
         "lib/netcoreapp3.1/GreenWhale.Extensions.Styles.dll"
+      ]
+    },
+    "Magicodes.IE.Core/2.1.4": {
+      "sha512": "AdR8V10PAkAFeZe/Hd35LgASsgTQ7vNu235kz3saAB2GEDXxkovWbqLc22ScWCo72vm0C/XaQfyDe22GPKd9gw==",
+      "type": "package",
+      "path": "magicodes.ie.core/2.1.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/Magicodes.ExporterAndImporter.Core.dll",
+        "lib/net461/Magicodes.ExporterAndImporter.Core.xml",
+        "lib/netstandard2.0/Magicodes.ExporterAndImporter.Core.dll",
+        "lib/netstandard2.0/Magicodes.ExporterAndImporter.Core.xml",
+        "lib/netstandard2.1/Magicodes.ExporterAndImporter.Core.dll",
+        "lib/netstandard2.1/Magicodes.ExporterAndImporter.Core.xml",
+        "magicodes.ie.core.2.1.4.nupkg.sha512",
+        "magicodes.ie.core.nuspec"
+      ]
+    },
+    "Magicodes.IE.Excel/2.1.4": {
+      "sha512": "I+RR1PC/HOekrFDQKS7dcYYtz6zS21BkJZUiRmf4G0kTGu9Z/tPLeSG856L0cOf7RLYyjvcPUdX5pcpCDUYKvg==",
+      "type": "package",
+      "path": "magicodes.ie.excel/2.1.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/Magicodes.ExporterAndImporter.Excel.dll",
+        "lib/net461/Magicodes.ExporterAndImporter.Excel.xml",
+        "lib/netstandard2.0/Magicodes.ExporterAndImporter.Excel.dll",
+        "lib/netstandard2.0/Magicodes.ExporterAndImporter.Excel.xml",
+        "lib/netstandard2.1/Magicodes.ExporterAndImporter.Excel.dll",
+        "lib/netstandard2.1/Magicodes.ExporterAndImporter.Excel.xml",
+        "magicodes.ie.excel.2.1.4.nupkg.sha512",
+        "magicodes.ie.excel.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Http.Features/3.1.2": {
@@ -11793,16 +11826,6 @@
       "type": "project",
       "path": "../GreenWhale.RunTime.Scripts/GreenWhale.RunTime.Scripts.csproj",
       "msbuildProject": "../GreenWhale.RunTime.Scripts/GreenWhale.RunTime.Scripts.csproj"
-    },
-    "Magicodes.IE.Core/2.2.0-beta2": {
-      "type": "project",
-      "path": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Core\\Magicodes.ExporterAndImporter.Core.csproj",
-      "msbuildProject": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Core\\Magicodes.ExporterAndImporter.Core.csproj"
-    },
-    "Magicodes.IE.Excel/2.2.0-beta2": {
-      "type": "project",
-      "path": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Excel\\Magicodes.ExporterAndImporter.Excel.csproj",
-      "msbuildProject": "C:\\Users\\WXF\\source\\repos\\Magicodes.IE\\src\\Magicodes.ExporterAndImporter.Excel\\Magicodes.ExporterAndImporter.Excel.csproj"
     }
   },
   "projectFileDependencyGroups": {

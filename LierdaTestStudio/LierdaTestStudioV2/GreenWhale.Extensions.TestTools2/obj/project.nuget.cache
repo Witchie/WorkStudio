@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "hmqJdfRiOPpZekuZuzFeupbHYYDe6DRVZ4G6cuCYKtZBRsmh5jZsaDnZCy9gVYC3qRQyQN0IPxQY3WNteq3ceg==",
+  "dgSpecHash": "9h+nB0jhYdkCblTxw1NB5ojCK3UQ4vzRKV7meJ0aPhlc0GdidiYcu5yA/2gEjBiQdjkagZ73IA5uqvTYtDq5wQ==",
   "success": true,
   "projectFilePath": "E:\\LierdaWorkStudio\\LierdaTestStudio\\LierdaTestStudioV2\\GreenWhale.Extensions.TestTools2\\GreenWhale.Extensions.TestStudio.csproj",
   "expectedPackageFiles": [
@@ -76,6 +76,8 @@
     "C:\\Users\\WXF\\.nuget\\packages\\greenwhale.bootloader\\3.1.2.1\\greenwhale.bootloader.3.1.2.1.nupkg.sha512",
     "C:\\Users\\WXF\\.nuget\\packages\\greenwhale.bootloader.implements\\3.1.2.4\\greenwhale.bootloader.implements.3.1.2.4.nupkg.sha512",
     "C:\\Users\\WXF\\.nuget\\packages\\greenwhale.extensions.styles\\3.1.2.2\\greenwhale.extensions.styles.3.1.2.2.nupkg.sha512",
+    "C:\\Users\\WXF\\.nuget\\packages\\magicodes.ie.core\\2.1.4\\magicodes.ie.core.2.1.4.nupkg.sha512",
+    "C:\\Users\\WXF\\.nuget\\packages\\magicodes.ie.excel\\2.1.4\\magicodes.ie.excel.2.1.4.nupkg.sha512",
     "C:\\Users\\WXF\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.2\\microsoft.aspnetcore.http.features.3.1.2.nupkg.sha512",
     "C:\\Users\\WXF\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\WXF\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
