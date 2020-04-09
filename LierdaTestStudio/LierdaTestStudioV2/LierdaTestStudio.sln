@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.RunTime.Scripts"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.TestStudio.UnitTest", "GreenWhale.Extensions.TestStudio.UnitTest\GreenWhale.Extensions.TestStudio.UnitTest.csproj", "{C326C859-89D0-4ABF-9195-281F044CCC6C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LierdaTestStudio", "LierdaTestStudio\LierdaTestStudio.csproj", "{FC4651AA-656D-4909-95F8-495913513DA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkStudio", "LierdaTestStudio\WorkStudio.csproj", "{FC4651AA-656D-4909-95F8-495913513DA4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.TestStudio", "GreenWhale.Extensions.TestStudio\GreenWhale.Extensions.TestStudio.csproj", "{623785D2-6B53-43D9-919D-EF6106CE17C7}"
 EndProject
