@@ -28,9 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.Nuget
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.TestManager.UnitTest", "GreenWhale.Extension.TestManager.UnitTest\GreenWhale.Extensions.TestManager.UnitTest.csproj", "{19271DB4-26FF-4304-89C8-36F3870547BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Docx", "C:\Users\WXF\source\repos\GreenWhale.Docx\GreenWhale.Docx\GreenWhale.Docx.csproj", "{0F543E38-910B-4204-BDDD-EE85DF67BC7C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenWhale.Extensions.Styles", "GreenWhale.Extensions.Styles\GreenWhale.Extensions.Styles.csproj", "{02496478-6E8E-41DD-802C-FD19C709B238}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.Styles", "GreenWhale.Extensions.Styles\GreenWhale.Extensions.Styles.csproj", "{02496478-6E8E-41DD-802C-FD19C709B238}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,10 +68,6 @@ Global
 		{19271DB4-26FF-4304-89C8-36F3870547BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19271DB4-26FF-4304-89C8-36F3870547BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19271DB4-26FF-4304-89C8-36F3870547BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F543E38-910B-4204-BDDD-EE85DF67BC7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F543E38-910B-4204-BDDD-EE85DF67BC7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F543E38-910B-4204-BDDD-EE85DF67BC7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F543E38-910B-4204-BDDD-EE85DF67BC7C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02496478-6E8E-41DD-802C-FD19C709B238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02496478-6E8E-41DD-802C-FD19C709B238}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02496478-6E8E-41DD-802C-FD19C709B238}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -94,49 +88,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BFD67B91-CD35-49E8-94C1-E691DD35D5E5}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 11
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://nuget.uuids.cn:1003/tfs/index
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = GreenWhale.BootLoader\\GreenWhale.BootLoader.csproj
-		SccProjectTopLevelParentUniqueName1 = MultiMeterSystem.sln
-		SccProjectName1 = GreenWhale.BootLoader
-		SccLocalPath1 = GreenWhale.BootLoader
-		SccProjectUniqueName2 = MultiMeterSystem\\MultiMeterSystem.csproj
-		SccProjectName2 = MultiMeterSystem
-		SccLocalPath2 = MultiMeterSystem
-		SccProjectUniqueName3 = GreenWhale.BootLoader.Implements\\GreenWhale.BootLoader.Implements.csproj
-		SccProjectTopLevelParentUniqueName3 = MultiMeterSystem.sln
-		SccProjectName3 = GreenWhale.BootLoader.Implements
-		SccLocalPath3 = GreenWhale.BootLoader.Implements
-		SccProjectUniqueName4 = GreenWhale.Extensions.Nuget\\GreenWhale.Extensions.Nuget.csproj
-		SccProjectTopLevelParentUniqueName4 = MultiMeterSystem.sln
-		SccProjectName4 = GreenWhale.Extensions.Nuget
-		SccLocalPath4 = GreenWhale.Extensions.Nuget
-		SccProjectUniqueName5 = GreenWhale.Extensions.ProjectManager\\GreenWhale.Extensions.ProjectManager.csproj
-		SccProjectTopLevelParentUniqueName5 = MultiMeterSystem.sln
-		SccProjectName5 = GreenWhale.Extensions.ProjectManager
-		SccLocalPath5 = GreenWhale.Extensions.ProjectManager
-		SccProjectUniqueName6 = GreenWhale.Extensions.TestManager\\GreenWhale.Extensions.TestManager.csproj
-		SccProjectTopLevelParentUniqueName6 = MultiMeterSystem.sln
-		SccProjectName6 = GreenWhale.Extensions.TestManager
-		SccLocalPath6 = GreenWhale.Extensions.TestManager
-		SccProjectUniqueName7 = GreenWhale.Extensions.Nuget.UnitTest\\GreenWhale.Extensions.Nuget.UnitTest.csproj
-		SccProjectTopLevelParentUniqueName7 = MultiMeterSystem.sln
-		SccProjectName7 = GreenWhale.Extensions.Nuget.UnitTest
-		SccLocalPath7 = GreenWhale.Extensions.Nuget.UnitTest
-		SccProjectUniqueName8 = GreenWhale.Extension.TestManager.UnitTest\\GreenWhale.Extensions.TestManager.UnitTest.csproj
-		SccProjectTopLevelParentUniqueName8 = MultiMeterSystem.sln
-		SccProjectName8 = GreenWhale.Extension.TestManager.UnitTest
-		SccLocalPath8 = GreenWhale.Extension.TestManager.UnitTest
-		SccProjectUniqueName9 = C:\\Users\\WXF\\source\\repos\\GreenWhale.Docx\\GreenWhale.Docx\\GreenWhale.Docx.csproj
-		SccProjectName9 = ../../../IOM/核心库/GreenWhale.Docx/GreenWhale.Docx
-		SccLocalPath9 = C:\\Users\\WXF\\source\\repos\\GreenWhale.Docx\\GreenWhale.Docx
-		SccProjectUniqueName10 = GreenWhale.Extensions.Styles\\GreenWhale.Extensions.Styles.csproj
-		SccProjectTopLevelParentUniqueName10 = MultiMeterSystem.sln
-		SccProjectName10 = GreenWhale.Extensions.Styles
-		SccLocalPath10 = GreenWhale.Extensions.Styles
 	EndGlobalSection
 EndGlobal
