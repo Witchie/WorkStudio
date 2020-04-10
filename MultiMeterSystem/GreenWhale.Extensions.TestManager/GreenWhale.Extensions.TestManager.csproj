@@ -20,8 +20,4 @@
     <Folder Include="DocumentCreater\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="C:\Users\WXF\source\repos\GreenWhale.Docx\GreenWhale.Docx\GreenWhale.Docx.csproj" />
-  </ItemGroup>
-
 </Project>

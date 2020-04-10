@@ -33,7 +33,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <Style TargetType="dxe:ListBoxEdit" x:Key="ListBoxEdit">
         <Setter Property="Margin" Value="2" />
         <Setter Property="Padding" Value="2" />
