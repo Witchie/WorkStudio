@@ -31,8 +31,8 @@ namespace LSD3SWM_0710000000
         {
            // Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("zh-cn");
             app = new NetCoreApplication<MainWindow, App>(this,new AppSetting {BaseDirectory=AppDomain.CurrentDomain.BaseDirectory,IsMutexApplication=true });
-            var service = app.AddApplicationInfo().AddThemeName(Theme.Office2010Blue.Name).AddVsMode().AddSerialPort().AddTestTool2();
-             service.BuildService();
+            app.AddApplicationInfo().AddThemeName(Theme.Office2010Blue.Name).AddVsMode().AddTestStudio().BuildService();
+
             var window = app.MainWindow();
             app.UseApplicationInfo().SetName(Resource.ProjectModel);
             window.WindowStyle = WindowStyle.SingleBorderWindow;
