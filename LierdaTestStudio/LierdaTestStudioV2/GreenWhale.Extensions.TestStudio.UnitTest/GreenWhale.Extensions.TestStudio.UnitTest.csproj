@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GreenWhale.Extensions.TestTools2\GreenWhale.Extensions.TestStudio.csproj" />
+    <ProjectReference Include="..\GreenWhale.Extensions.TestStudio\GreenWhale.Extensions.TestStudio.csproj" />
   </ItemGroup>
 
 </Project>
