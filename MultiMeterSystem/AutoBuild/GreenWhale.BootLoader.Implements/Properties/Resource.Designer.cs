@@ -61,6 +61,42 @@ namespace GreenWhale.BootLoader.Implements.Properties {
         }
         
         /// <summary>
+        ///   查找类似 自动滚动 的本地化字符串。
+        /// </summary>
+        public static string auto_scroll {
+            get {
+                return ResourceManager.GetString("auto scroll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 清空所有 的本地化字符串。
+        /// </summary>
+        public static string clear_all_log {
+            get {
+                return ResourceManager.GetString("clear all log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 清空日志 的本地化字符串。
+        /// </summary>
+        public static string clear_log {
+            get {
+                return ResourceManager.GetString("clear log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 显示输出源 的本地化字符串。
+        /// </summary>
+        public static string display_output_source {
+            get {
+                return ResourceManager.GetString("display_output_source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 换行 的本地化字符串。
         /// </summary>
         public static string new_line {

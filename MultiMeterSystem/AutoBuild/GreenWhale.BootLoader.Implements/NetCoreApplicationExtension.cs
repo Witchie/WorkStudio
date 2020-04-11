@@ -20,13 +20,13 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="coreApplication"></param>
         /// <returns></returns>
-        public static ApplicationInfo UseApplicationInfo<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication) where TRootWindow : Window where TApplication : Application
+        public static IApplicationInfo UseApplicationInfo<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication) where TRootWindow : Window where TApplication : Application
         {
             if (coreApplication is null)
             {
                 throw new ArgumentNullException(nameof(coreApplication));
             }
-            var info = coreApplication.ServicesProvider.GetService<ApplicationInfo>();
+            var info = coreApplication.ServicesProvider.GetService<IApplicationInfo>();
             return info;
         }
         /// <summary>

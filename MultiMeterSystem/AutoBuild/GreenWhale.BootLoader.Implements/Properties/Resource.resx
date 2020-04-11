@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="auto scroll" xml:space="preserve">
+    <value>自动滚动</value>
+  </data>
+  <data name="clear all log" xml:space="preserve">
+    <value>清空所有</value>
+  </data>
+  <data name="clear log" xml:space="preserve">
+    <value>清空日志</value>
+  </data>
+  <data name="display_output_source" xml:space="preserve">
+    <value>显示输出源</value>
+  </data>
   <data name="new_line" xml:space="preserve">
     <value>换行</value>
   </data>
