@@ -1,0 +1,1 @@
+[![生成状态](http://nuget.uuids.cn:1003/tfs/Index/WorkStudio/_apis/build/status/GreenWhale.Extensions.TestStudio)](http://nuget.uuids.cn:1003/tfs/Index/WorkStudio/_build/latest?definitionId=39)
