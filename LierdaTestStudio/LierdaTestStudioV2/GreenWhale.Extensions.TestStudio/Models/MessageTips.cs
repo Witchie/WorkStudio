@@ -1,5 +1,6 @@
 ﻿using GreenWhale.Extensions.TestTools2.Views;
 using System;
+using System.Threading.Tasks;
 
 namespace GreenWhale.Extensions.TestTools2.Models
 {
@@ -17,9 +18,9 @@ namespace GreenWhale.Extensions.TestTools2.Models
             scanPanelView.ShowTip(content, timeSpan);
         }
 
-        public void CloseTip()
+        public async Task CloseTip()
         {
-            scanPanelView.CloseTip();
+            await scanPanelView.CloseTip();
         }
     }
 }
