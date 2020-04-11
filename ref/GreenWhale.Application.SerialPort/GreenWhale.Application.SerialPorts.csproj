@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GreenWhale.BootLoader.Implements" Version="3.1.2.4" />
+    <PackageReference Include="GreenWhale.BootLoader.Implements" Version="3.1.3-CI-20200410-102249" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.3" />
     <PackageReference Include="System.IO.Ports" Version="4.7.0" />
