@@ -1,25 +1,24 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DevExpress.Xpf.Core;
+using GreenWhale.BootLoader.Properties;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 using System.Windows.Threading;
 namespace GreenWhale.BootLoader.Implements
 {
     /// <summary>
-    /// .NetCore 应用
+    ///  .NetCore 应用
     /// </summary>
     /// <typeparam name="TRootWindow">根窗口</typeparam>
+    /// <typeparam name="TApplication">根应用程序</typeparam>
     public class NetCoreApplication<TRootWindow,TApplication> : ApplicationBootLoader where TRootWindow:Window where TApplication:Application
     {
-        private const string Caption = "发生错误，是否继续运行?";
-        private const string Caption1 = "公共语言运行时错误";
-        private const string Caption2 = "未处理的非CLR运行时错误";
-        private const string Caption3 = "提示";
-        private const string MessageBoxText = "是否查看详细错误信息?";
 
         /// <summary>
-        ///  .NetCore 应用
+        /// .NetCore 应用
         /// </summary>
-        /// <param name="appSetting"></param>
+        /// <param name="application">根应用</param>
+        /// <param name="appSetting">系统配置</param>
         public NetCoreApplication(TApplication application,AppSetting appSetting) : base(appSetting)
         {
             CurrentApplication = application;
@@ -45,6 +44,9 @@ namespace GreenWhale.BootLoader.Implements
             ConfigureWiewPage(services);
             return services;
         }
+        /// <summary>
+        /// 编译完成后触发
+        /// </summary>
         protected override void OnBuildComplect()
         {
             var app = Application.Current;
@@ -71,11 +73,11 @@ namespace GreenWhale.BootLoader.Implements
 
             if (e.IsTerminating)
             {
-                MessageBox.Show(e.ExceptionObject?.ToString(), Caption1);
+                MessageBox.Show(e.ExceptionObject?.ToString(), Resource.clr_running_time_exception);
             }
             else
             {
-                MessageBox.Show(e.ExceptionObject?.ToString(), Caption2);
+                MessageBox.Show(e.ExceptionObject?.ToString(), Resource.unhandle_clr_runing_time_exception);
             }
         }
 
@@ -86,13 +88,18 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="e"></param>
         protected virtual void AppUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            var res = MessageBox.Show(e.Exception.Message, Caption, MessageBoxButton.YesNo);
+            if (e is null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
+            var res = DXMessageBox.Show(e.Exception.Message, Resource.on_error_will_continue, MessageBoxButton.YesNo,MessageBoxImage.Question);
             if (res == MessageBoxResult.Yes)
             {
                 e.Handled = true;
-                if (MessageBox.Show(MessageBoxText, Caption3, MessageBoxButton.YesNo)==MessageBoxResult.Yes)
+                if (DXMessageBox.Show(Resource.do_you_see_detail_exception, Resource.message_tips, MessageBoxButton.YesNo,MessageBoxImage.Error)==MessageBoxResult.Yes)
                 {
-                    MessageBox.Show(e.Exception.ToString());
+                    DXMessageBox.Show(e.Exception.ToString());
                 }
             }
         }

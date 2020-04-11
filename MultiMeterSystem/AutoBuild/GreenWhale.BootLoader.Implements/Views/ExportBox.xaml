@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <ResourceDictionary Source="pack://application:,,,/GreenWhale.BootLoader.Implements;component/UIStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/GreenWhale.Extensions.Styles;component/Dictionary.xaml"></ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -18,7 +18,8 @@
             <TextBlock Text="显示输出源" Style="{StaticResource TextBlock_Title}"></TextBlock>
             <ComboBox MinWidth="100"  Style="{StaticResource Combox_Export}" Text="{Binding CurrentSource,Mode=TwoWay}" x:Name="_exportSource"></ComboBox>
             <CheckBox Content="自动滚动"  IsChecked="{Binding IsAutoScroll}" Style="{StaticResource CheckBox_Export}"></CheckBox>
-            <Button Content="清除" Style="{StaticResource Button_Icon}" Click="Button_Click"></Button>
+            <Button Content="清空日志" Style="{StaticResource Button_Icon}" Click="Button_Click"></Button>
+            <Button Content="清空所有" Style="{StaticResource Button_Icon}" Click="Button_Click1"></Button>
             <CheckBox Content="换行" Style="{StaticResource CheckBox_Export}" Checked="_autoWrap_Checked" Unchecked="_autoWrap_Unchecked"  x:Name="_autoWrap"></CheckBox>
         </WrapPanel>
         <TextBox Grid.Row="1" Style="{StaticResource TextBox_Export}" x:Name="_logBox"></TextBox>

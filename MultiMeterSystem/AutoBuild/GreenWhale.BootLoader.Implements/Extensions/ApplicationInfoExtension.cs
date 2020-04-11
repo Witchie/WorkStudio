@@ -2,6 +2,9 @@
 
 namespace GreenWhale.BootLoader.Implements
 {
+    /// <summary>
+    /// 应用程序信息扩展
+    /// </summary>
     public static class ApplicationInfoExtension
     {
         /// <summary>
@@ -10,7 +13,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="info"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static ApplicationInfo SetName(this ApplicationInfo info,string name)
+        public static IApplicationInfo SetName(this IApplicationInfo info,string name)
         {
             if (info is null)
             {
@@ -31,7 +34,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="info"></param>
         /// <param name="width"></param>
         /// <returns></returns>
-        public static ApplicationInfo SetWidth(this ApplicationInfo info, double width)
+        public static IApplicationInfo SetWidth(this IApplicationInfo info, double width)
         {
             if (info is null)
             {
@@ -46,7 +49,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="info"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        public static ApplicationInfo SetHeight(this ApplicationInfo info, double height)
+        public static IApplicationInfo SetHeight(this IApplicationInfo info, double height)
         {
             if (info is null)
             {

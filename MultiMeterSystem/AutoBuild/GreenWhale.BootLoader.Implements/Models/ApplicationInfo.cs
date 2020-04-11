@@ -6,13 +6,19 @@ namespace GreenWhale.BootLoader.Implements
     /// <summary>
     /// 应用程序信息
     /// </summary>
-    public class ApplicationInfo
+    internal class ApplicationInfo : IApplicationInfo
     {
+        /// <summary>
+        /// 应用程序信息
+        /// </summary>
         public ApplicationInfo()
         {
         }
         private Window Window;
-
+        /// <summary>
+        /// 装在UI
+        /// </summary>
+        /// <param name="window"></param>
         public void LoadUI(Window window)
         {
             this.Window = window;
@@ -25,7 +31,7 @@ namespace GreenWhale.BootLoader.Implements
         {
             if (Window == null)
             {
-                throw new Exception($"请先调用{nameof(ApplicationInfo.LoadUI)}");
+                throw new Exception($"请先调用{nameof(IApplicationInfo.LoadUI)}");
             }
             return Window.Title;
         }
@@ -36,7 +42,7 @@ namespace GreenWhale.BootLoader.Implements
         {
             if (Window == null)
             {
-                throw new Exception($"请先调用{nameof(ApplicationInfo.LoadUI)}");
+                throw new Exception($"请先调用{nameof(IApplicationInfo.LoadUI)}");
             }
             Window.Title = value;
         }
@@ -48,7 +54,7 @@ namespace GreenWhale.BootLoader.Implements
         {
             if (Window == null)
             {
-                throw new Exception($"请先调用{nameof(ApplicationInfo.LoadUI)}");
+                throw new Exception($"请先调用{nameof(IApplicationInfo.LoadUI)}");
             }
             return Window.Width;
         }
@@ -60,7 +66,7 @@ namespace GreenWhale.BootLoader.Implements
         {
             if (Window == null)
             {
-                throw new Exception($"请先调用{nameof(ApplicationInfo.LoadUI)}");
+                throw new Exception($"请先调用{nameof(IApplicationInfo.LoadUI)}");
             }
             Window.Width = value;
         }
@@ -72,7 +78,7 @@ namespace GreenWhale.BootLoader.Implements
         {
             if (Window == null)
             {
-                throw new Exception($"请先调用{nameof(ApplicationInfo.LoadUI)}");
+                throw new Exception($"请先调用{nameof(IApplicationInfo.LoadUI)}");
             }
             return Window.Height;
         }
@@ -84,7 +90,7 @@ namespace GreenWhale.BootLoader.Implements
         {
             if (Window == null)
             {
-                throw new Exception($"请先调用{nameof(ApplicationInfo.LoadUI)}");
+                throw new Exception($"请先调用{nameof(IApplicationInfo.LoadUI)}");
             }
             Window.Height = value;
         }
