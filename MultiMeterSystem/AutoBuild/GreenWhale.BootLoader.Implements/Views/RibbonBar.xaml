@@ -8,7 +8,7 @@
              xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              mc:Ignorable="d" >
     <UserControl.Resources>
-        <ResourceDictionary Source="pack://application:,,,/GreenWhale.BootLoader.Implements;component/UIStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/GreenWhale.Extensions.Styles;component/Dictionary.xaml"></ResourceDictionary>
     </UserControl.Resources>
     <dxr:RibbonControl  Style="{StaticResource Ribbon_Container}"   x:Name="ribbon">
         <dxr:RibbonDefaultPageCategory Caption="defaultCategory" x:Name="ribboncategory">

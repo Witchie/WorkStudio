@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading.Tasks;
+using System.Windows;
 
 namespace GreenWhale.RunTime.Scripts
 {
@@ -19,5 +20,10 @@ namespace GreenWhale.RunTime.Scripts
         public MessageBoxResult Show(string content, string title, MessageBoxButton messageBox, MessageBoxImage image, MessageBoxResult defaultResult);
         public MessageBoxResult Show(string content, string title);
         public MessageBoxResult Show(string content);
+        public Task<MessageBoxResult> ShowAsync(string content, string title, MessageBoxButton messageBox);
+        public Task<MessageBoxResult> ShowAsync(string content, string title, MessageBoxButton messageBox, MessageBoxImage image);
+        public Task<MessageBoxResult> ShowAsync(string content, string title, MessageBoxButton messageBox, MessageBoxImage image, MessageBoxResult defaultResult);
+        public Task<MessageBoxResult> ShowAsync(string content, string title);
+        public Task<MessageBoxResult> ShowAsync(string content);
     }
 }

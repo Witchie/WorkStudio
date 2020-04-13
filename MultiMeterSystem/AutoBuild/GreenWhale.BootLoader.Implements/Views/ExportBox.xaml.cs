@@ -14,7 +14,8 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using System.ComponentModel;
-
+using GreenWhale.BootLoader.Implements.Properties;
+using Microsoft.Extensions.DependencyInjection;
 namespace GreenWhale.BootLoader.Implements
 {
     /// <summary>
@@ -23,13 +24,17 @@ namespace GreenWhale.BootLoader.Implements
     public partial class ExportBox : UserControl,INotifyPropertyChanged
     {
         private string currentSource;
-
-        public ExportBox()
+        private IServiceProvider serviceProvider;
+        /// <summary>
+        /// 输出框
+        /// </summary>
+        public ExportBox(IServiceProvider serviceProvider)
         {
             InitializeComponent();
             this.DataContext = this;
             IsAutoScroll = true;
             _autoWrap.IsChecked = true;
+            this.serviceProvider = serviceProvider;
         }
         /// <summary>
         /// 当前数据源
@@ -51,7 +56,14 @@ namespace GreenWhale.BootLoader.Implements
                 PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(CurrentSource)));
             }
         }
+        /// <summary>
+        /// 是否自动滚动
+        /// </summary>
         public bool IsAutoScroll { get; set; }
+        /// <summary>
+        /// 输出日志
+        /// </summary>
+        /// <param name="content"></param>
         public void Log(string content)
         {
             _logBox.AppendText($"【{DateTime.Now.ToLongTimeString()}】{content}{Environment.NewLine}");
@@ -60,6 +72,9 @@ namespace GreenWhale.BootLoader.Implements
                 _logBox.ScrollToEnd();
             }
         }
+        /// <summary>
+        /// 清空日志
+        /// </summary>
         public void Clear()
         {
             this._logBox.Clear();
@@ -73,16 +88,22 @@ namespace GreenWhale.BootLoader.Implements
         private void _autoWrap_Checked(object sender, RoutedEventArgs e)
         {
             _logBox.TextWrapping = TextWrapping.Wrap;
-            _autoWrap.Content = "换行";
+            _autoWrap.Content =Resource.new_line;
         }
 
         private void _autoWrap_Unchecked(object sender, RoutedEventArgs e)
         {
             _logBox.TextWrapping = TextWrapping.NoWrap;
-            _autoWrap.Content = "不换行";
+            _autoWrap.Content = Resource.not_new_line;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void Button_Click1(object sender, RoutedEventArgs e)
+        {
+            var box=  serviceProvider.GetService<IExportBoxService>();
+            box.Clear();
+        }
     }
 
 }

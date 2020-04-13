@@ -24,7 +24,6 @@ namespace GreenWhale.BootLoader.Implements
         /// <summary>
         /// 添加按钮并注入命令服务
         /// </summary>
-        /// <typeparam name="TServie"></typeparam>
         /// <param name="ribbonBarService"></param>
         /// <param name="view"></param>
         public static void AddRibbonMenu(this RibbonBarService ribbonBarService, RibbonMenuWithPageView view) 
@@ -34,27 +33,6 @@ namespace GreenWhale.BootLoader.Implements
                 s.Add(view);
             });
         }
-        ///// <summary>
-        ///// 添加按钮并注入命令服务
-        ///// </summary>
-        ///// <typeparam name="TServie"></typeparam>
-        ///// <param name="ribbonBarService"></param>
-        ///// <param name="view"></param>
-        ///// <param name="servie"></param>
-        //public static void AddRibbonMenu<TServie>(this RibbonBarService ribbonBarService, RibbonMenuWithPageView<TServie> view) where TServie : CommandService
-        //{
-        //    if (ribbonBarService is null)
-        //    {
-        //        throw new ArgumentNullException(nameof(ribbonBarService));
-        //    }
-
-        //    if (view is null)
-        //    {
-        //        throw new ArgumentNullException(nameof(view));
-        //    }
-        //    //var ribbonPageView = new RibbonMenuWithPageView { TagData = view.TagData, BarButtonItemName = view.BarButtonItemName,BarButtonItemNameDescription=view.BarButtonItemNameDescription, ImageSource = view.ImageSource, RibbonPageCaption = view.RibbonPageCaption, RibbonPageGroupCaption = view.RibbonPageGroupCaption };
-        //    ribbonBarService.AddRibbonMenu(view);
-        //}
         /// <summary>
         /// 添加按钮对象
         /// </summary>
@@ -111,7 +89,8 @@ namespace GreenWhale.BootLoader.Implements
         /// <summary>
         /// 添加ribbon名称
         /// </summary>
-        /// <param name="ribbonName"></param>
+        /// <param name="ribbonPage"></param>
+        /// <param name="ribbonName">页面名称</param>
         /// <returns></returns>
         public static RibbonPage AddRibbonPage(this RibbonBarService ribbonPage, string ribbonName)
         {
@@ -135,7 +114,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="ribbonPage"></param>
         /// <param name="ribbonPageGroupName"></param>
         /// <returns></returns>
-        public static RibbonPageGroup IsRibbonPageGroupExist(this RibbonPage ribbonPage, string ribbonPageGroupName)
+        internal static RibbonPageGroup IsRibbonPageGroupExist(this RibbonPage ribbonPage, string ribbonPageGroupName)
         {
             if (ribbonPage is null)
             {
@@ -152,9 +131,10 @@ namespace GreenWhale.BootLoader.Implements
         /// <summary>
         /// 判断Ribbon页面是否存在，不存在则返回空
         /// </summary>
-        /// <param name="ribbonName"></param>
+        /// <param name="ribbonPage"></param>
+        /// <param name="ribbonName">页面名称</param>
         /// <returns></returns>
-        public static RibbonPage IsRibbonPageExist(this RibbonBarService ribbonPage, string ribbonName)
+        internal static RibbonPage IsRibbonPageExist(this RibbonBarService ribbonPage, string ribbonName)
         {
             if (ribbonPage is null)
             {

@@ -12,18 +12,22 @@ namespace GreenWhale.BootLoader.Implements
     public class ExportBoxService : IExportBoxService
     {
         private ExportBox exportBox;
-        Timer dispatcherTimer = new Timer();
+        DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        /// <summary>
+        /// 日志消息队列
+        /// </summary>
+        /// <param name="exportBox"></param>
         public ExportBoxService(ExportBox exportBox)
         {
             this.exportBox = exportBox;
-            dispatcherTimer.Elapsed += DispatcherTimer_Tick;
-            dispatcherTimer.Interval = 500;
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(500);
             dispatcherTimer.Start();
         }
 
-        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        private async void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            exportBox.Dispatcher.Invoke(() =>
+            await  exportBox.Dispatcher.InvokeAsync(() =>
             {
                 var res = TextLog(exportBox.CurrentSource);
                 exportBox._exportSource.ItemsSource = QueueName;
@@ -83,6 +87,14 @@ namespace GreenWhale.BootLoader.Implements
             {
                 QueueList[source].Clear();
             }
+            exportBox.Clear();
+        }
+        /// <summary>
+        /// 清空所有
+        /// </summary>
+        public void Clear()
+        {
+            QueueList.Clear();
             exportBox.Clear();
         }
     }

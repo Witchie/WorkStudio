@@ -20,13 +20,13 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="coreApplication"></param>
         /// <returns></returns>
-        public static ApplicationInfo UseApplicationInfo<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication) where TRootWindow : Window where TApplication : Application
+        public static IApplicationInfo UseApplicationInfo<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication) where TRootWindow : Window where TApplication : Application
         {
             if (coreApplication is null)
             {
                 throw new ArgumentNullException(nameof(coreApplication));
             }
-            var info = coreApplication.ServicesProvider.GetService<ApplicationInfo>();
+            var info = coreApplication.ServicesProvider.GetService<IApplicationInfo>();
             return info;
         }
         /// <summary>
@@ -52,6 +52,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TRootWindow"></typeparam>
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="coreApplication"></param>
+        /// <param name="themeName">主题名称</param>
         public static NetCoreApplication<TRootWindow, TApplication> AddThemeName<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication, string themeName) where TRootWindow : Window where TApplication : Application
         {
             ApplicationThemeHelper.ApplicationThemeName = themeName;
@@ -63,7 +64,6 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TRootWindow"></typeparam>
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="coreApplication"></param>
-        /// <param name="applicationInfo"></param>
         /// <returns></returns>
         public static NetCoreApplication<TRootWindow, TApplication> AddApplicationInfo<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication) where TRootWindow : Window where TApplication : Application
         {
@@ -72,7 +72,7 @@ namespace GreenWhale.BootLoader.Implements
                 throw new ArgumentNullException(nameof(coreApplication));
             }
             var services = coreApplication.ServiceBus;
-            services.AddSingleton<ApplicationInfo>();
+            services.AddSingleton<IApplicationInfo,ApplicationInfo>();
             return coreApplication;
         }
         /// <summary>

@@ -57,9 +57,11 @@ namespace GreenWhale.Extensions.TestTools2.Views
             dispatcher.Start();
         }
 
-        private void Dispatcher_Tick(object sender, EventArgs e)
+        private async void Dispatcher_Tick(object sender, EventArgs e)
         {
+            await this.Dispatcher.InvokeAsync(() => {
                 meterid.Focus();
+            });
         }
 
         DispatcherTimer dispatcher = new DispatcherTimer();
@@ -68,9 +70,9 @@ namespace GreenWhale.Extensions.TestTools2.Views
             if (e.Key == Key.Enter)
             {
                 var text = meterid.Text.Trim();
-                Reset();
+               await Reset();
                 meterid.Clear();
-                IsBusy = true;
+                await SetIsBusy(true);
 
                 Stopwatch = Stopwatch.StartNew();
                 await Start(text);
@@ -78,7 +80,7 @@ namespace GreenWhale.Extensions.TestTools2.Views
                 var time = Stopwatch.ElapsedMilliseconds;
                 exportBoxService.Log($"耗时:{TimeSpan.FromMilliseconds(time)}");
 
-                IsBusy = false;
+               await  SetIsBusy(false);
             }
         }
         public Stopwatch Stopwatch { get; private set; } = new Stopwatch();
@@ -88,19 +90,19 @@ namespace GreenWhale.Extensions.TestTools2.Views
             if (string.IsNullOrEmpty(text))
             {
                 exportBoxService.Log($"设备ID号码不得为空");
-                Reset();
+                await Reset();
                 return;
             }
             if (SerialPortWorks==null||SerialPortWorks?.Count == 0)
             {
                 exportBoxService.Log($"请先加载任务,当前任务为空");
-                Reset();
+                await Reset();
                 return;
             }
             if (!serialPortContext.IsOpen)
             {
                 exportBoxService.Log($"请先开启串口");
-                Reset();
+                await Reset();
                 return;
             }
             foreach (var item in SerialPortWorks)
@@ -159,26 +161,29 @@ namespace GreenWhale.Extensions.TestTools2.Views
 
             await dataStore.Post(data, deviceId);
             eventBus.Notify("factory.roduce.view.update", data);
-            IsBusy = false;
+            await SetIsBusy(false);
             IsCancel = true;
 
         }
-        private  Task TestStop(string deviceId)
+        private async Task TestStop(string deviceId)
         {
             exportBoxService.Log($"测试任务被迫停止");
-            IsBusy = false;
+            await  SetIsBusy(false);
             IsCancel = true;
-            return Task.CompletedTask;
         }
-        public bool IsBusy
+        private readonly static object _locker = new object();
+
+        public bool GetIsBusy()
         {
-            get => psb.IsVisible; set
+            return psb.IsVisible;
+        }
+
+        public async Task SetIsBusy(bool value)
+        {
+            await psb.Dispatcher.InvokeAsync(() =>
             {
-                psb.Dispatcher.Invoke(() =>
-                {
-                    psb.Visibility = value == true ? Visibility.Visible : Visibility.Collapsed;
-                });
-            }
+                psb.Visibility = value == true ? Visibility.Visible : Visibility.Collapsed;
+            });
         }
 
         public IProjectViewServcie ProjectViewServcie { get; }
@@ -187,25 +192,25 @@ namespace GreenWhale.Extensions.TestTools2.Views
         /// <summary>
         /// 重置窗体
         /// </summary>
-        private  void Reset()
+        private async Task Reset()
         {
-            this.Dispatcher.Invoke(() =>
+            await this.Dispatcher.InvokeAsync(async () =>
             {
                 IsCancel = true;
                 meterid.Clear();
-                IsBusy = false;
+                await SetIsBusy(false);
                 meterid.Focus();
                 if (ProjectViewModel != null)
                 {
                     ReGenerator(ProjectViewModel);
                 }
-                CloseTip();
+                await CloseTip();
             });
 
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            Reset();
+           await  Reset();
         }
         public ObservableCollection<SerialPortWork> SerialPortWorks
         {
@@ -289,7 +294,7 @@ namespace GreenWhale.Extensions.TestTools2.Views
                             }
                             var detail = exp.Clone<RunningException, RunningExceptionDetail>();
                             detail.AddResourceDefineViewModel = item;
-                            CloseTip();
+                            await  CloseTip();
                             return detail;
                         }
                         catch (Exception err)
@@ -323,31 +328,16 @@ namespace GreenWhale.Extensions.TestTools2.Views
                 tip.Visibility = Visibility.Visible;
                 tip.Text = content;
                 await Task.Delay(timeSpan ?? TimeSpan.FromSeconds(10));
-                CloseTip();
+                await CloseTip();
             });
 
         }
 
-        public async void CloseTip()
+        public async Task CloseTip()
         {
             await this.Dispatcher.InvokeAsync(() => {
                 tip.Visibility = Visibility.Collapsed;
             });
         }
-    }
-    /// <summary>
-    /// 消息提示框
-    /// </summary>
-    public interface IMessageTip
-    {
-        /// <summary>
-        /// 显示提示
-        /// </summary>
-        /// <param name="content"></param>
-        void ShowTip(string content, TimeSpan? timeSpan=null);
-        /// <summary>
-        /// 关闭提示
-        /// </summary>
-        void CloseTip();
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 namespace GreenWhale.BootLoader.Implements
 {
     /// <summary>
@@ -26,20 +24,5 @@ namespace GreenWhale.BootLoader.Implements
         /// </summary>
         object TagData { get; set; }
 
-    }
-    public interface IButtonCommand
-    {
-        /// <summary>
-        /// 命令
-        /// </summary>
-        ICommand Command { get; set; }
-        /// <summary>
-        /// 参数
-        /// </summary>
-        object CommandParameter { get; set; }
-        /// <summary>
-        /// 对象
-        /// </summary>
-        IInputElement CommandTarget { get; set; }
     }
 }
