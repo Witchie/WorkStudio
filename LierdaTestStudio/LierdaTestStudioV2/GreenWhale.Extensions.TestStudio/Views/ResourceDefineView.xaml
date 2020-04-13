@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GreenWhale.Extensions.TestTools2.Views" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:local="clr-namespace:GreenWhale.Extensions.TestTools2.Views" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -13,10 +13,12 @@
             </ResourceDictionary.MergedDictionaries>
             <RoutedUICommand x:Key="UpdateCommand"></RoutedUICommand>
             <RoutedUICommand x:Key="DeleteCommand"></RoutedUICommand>
+            <RoutedUICommand x:Key="OrderCommand"></RoutedUICommand>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.CommandBindings>
+            <CommandBinding Command="{StaticResource OrderCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_2"></CommandBinding>
             <CommandBinding Command="{StaticResource DeleteCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"></CommandBinding>
             <CommandBinding Command="{StaticResource UpdateCommand}" CanExecute="CommandBinding_Uopdate_CanExecute" Executed="CommandBinding_Executed_1"></CommandBinding>
         </Grid.CommandBindings>
@@ -26,14 +28,19 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <WrapPanel>
-            <Button Content="新增" Click="Button_Add_Click" Style="{StaticResource ButtonMenuBar}"></Button>
-            <Button Content="更新"  Command="{StaticResource UpdateCommand}"  Style="{StaticResource ButtonMenuBar}"></Button>
-            <Button Content="删除" Command="{StaticResource DeleteCommand}"  Style="{StaticResource ButtonMenuBar}"></Button>
+            <dx:SimpleButton
+                Content="新增"
+                Click="Button_Add_Click"
+                Style="{StaticResource ButtonMenuBar}"></dx:SimpleButton>
+            <dx:SimpleButton Content="更新"  Command="{StaticResource UpdateCommand}"  Style="{StaticResource ButtonMenuBar}"></dx:SimpleButton>
+            <dx:SimpleButton Content="删除" Command="{StaticResource DeleteCommand}"  Style="{StaticResource ButtonMenuBar}"></dx:SimpleButton>
             <Separator Height="0" Style="{StaticResource SeparatorSmall}"></Separator>
-            <Button Content="导出协议" Click="Button_Export_Click" Style="{StaticResource ButtonMenuBar}"></Button>
-            <Button Content="装载协议" Click="Button_Import_Click" Style="{StaticResource ButtonMenuBar}"></Button>
+            <dx:SimpleButton Content="重新排序" Style="{StaticResource ButtonMenuBar}" Command="{StaticResource OrderCommand}" ToolTip="重新编排测试序号"></dx:SimpleButton>
+            <Separator Height="0" Style="{StaticResource SeparatorSmall}"></Separator>
+            <dx:SimpleButton Content="导出协议" Click="Button_Export_Click" Style="{StaticResource ButtonMenuBar}"></dx:SimpleButton>
+            <dx:SimpleButton Content="装载协议" Click="Button_Import_Click" Style="{StaticResource ButtonMenuBar}"></dx:SimpleButton>
             <Separator  Height="0" Style="{StaticResource SeparatorMedial}"></Separator>
-            <Button Content="生成协议文档" Click="Button_ExportFile_Click" Style="{StaticResource ButtonMenuBar}"></Button>
+            <dx:SimpleButton Content="生成协议文档" Click="Button_ExportFile_Click" Style="{StaticResource ButtonMenuBar}"></dx:SimpleButton>
         </WrapPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -59,21 +66,26 @@
                     <dxe:DateEditNavigatorWithTimePickerStyleSettings></dxe:DateEditNavigatorWithTimePickerStyleSettings>
                 </dxe:DateEdit.StyleSettings>
             </dxe:DateEdit>
-
         </Grid>
         <dxg:GridControl x:Name="dgv" Style="{StaticResource GridControl}" SelectionMode="Row"  Grid.Row="2" ItemsSource="{Binding ResourceDefineViewModels,UpdateSourceTrigger=PropertyChanged}" >
             <dxg:GridControl.View>
-                <dxg:TableView x:Name="tv"  UseIndicatorForSelection="True"   ShowSearchPanelMode="Never" ShowGroupPanel="False" ShowCheckBoxSelectorColumn="False" CheckBoxSelectorColumnWidth="40"></dxg:TableView>
+                <dxg:TableView x:Name="tv" ShowTotalSummary="True" UseIndicatorForSelection="True"   ShowSearchPanelMode="Never" ShowGroupPanel="False" ShowCheckBoxSelectorColumn="False" CheckBoxSelectorColumnWidth="40"></dxg:TableView>
             </dxg:GridControl.View>
-            <dxg:GridColumn Header="序号"  DefaultSortOrder="Ascending" Width="60" FieldName="TestIndex"></dxg:GridColumn>
+            <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem FieldName="TaskDeplay" IsLast="True" CalculationMode="AllRows" DisplayFormat="延时总计：{0}毫秒" SummaryType="Sum" ShowInColumn="AbnormalWorkTips"  ></dxg:GridSummaryItem>
+            </dxg:GridControl.TotalSummary>
+            <dxg:GridColumn Header="测试序号"  DefaultSortOrder="Ascending" Width="60" FieldName="TestIndex"></dxg:GridColumn>
             <dxg:GridColumn Header="描述信息" Width="140" FieldName="Description"></dxg:GridColumn>
+            <dxg:GridColumn Header="延时" Width="60" FieldName="TaskDeplay"></dxg:GridColumn>
             <dxg:GridColumn Header="要发送的数据" Width="140" FieldName="SendContent"></dxg:GridColumn>
             <dxg:GridColumn Header="接收到的数据" Width="140" FieldName="ReceiveContent"></dxg:GridColumn>
-            <dxg:GridColumn Header="判定脚本" Width="*" FieldName="ScriptModel.FileContent">
+            <dxg:GridColumn Header="判定脚本" Width="60" FieldName="ScriptModel.FileContent">
                 <dxg:GridColumn.EditSettings>
                     <dxe:MemoEditSettings ShowIcon="True" PopupMaxHeight="300" PopupMaxWidth="400" ShowSizeGrip="True"></dxe:MemoEditSettings>
                 </dxg:GridColumn.EditSettings>
             </dxg:GridColumn>
+            <dxg:GridColumn Header="阻断" Width="40" FieldName="IsAbnormalWork"></dxg:GridColumn>
+            <dxg:GridColumn Header="阻断提醒" Width="*" FieldName="AbnormalWorkTips"></dxg:GridColumn>
         </dxg:GridControl>
     </Grid>
 </UserControl>

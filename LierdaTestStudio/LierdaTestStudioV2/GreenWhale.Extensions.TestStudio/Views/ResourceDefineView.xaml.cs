@@ -141,5 +141,27 @@ namespace GreenWhale.Extensions.TestTools2.Views
             var window = view.SetWindow<ThemedWindow>().Center().Small();
             window.AutoToggle(sender).ShowDialog();
         }
+
+        private void CommandBinding_CanExecute_1(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (ViewModel?.ResourceDefineViewModels?.Count>0)
+            {
+                e.CanExecute = true;
+            }
+            else
+            {
+                e.CanExecute = false;
+            }
+        }
+
+        private void CommandBinding_Executed_2(object sender, ExecutedRoutedEventArgs e)
+        {
+           var tests=  ViewModel.ResourceDefineViewModels.OrderBy(p => p.TestIndex).ToArray();
+            for (int i = 0; i < tests.Count(); i++)
+            {
+                tests[i].TestIndex = i;
+            }
+            DXMessageBox.Show("排序已完成");
+        }
     }
 }

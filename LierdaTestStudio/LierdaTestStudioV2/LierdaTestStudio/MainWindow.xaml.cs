@@ -24,7 +24,7 @@ namespace LSD3SWM_0710000000
     public partial class MainWindow : ThemedWindow
     {
         private readonly FunctionUIService functionUIService;
-        public MainWindow(FunctionUIService functionUIService, ApplicationInfo applicationInfo,MainPage mainPage)
+        public MainWindow(FunctionUIService functionUIService, IApplicationInfo applicationInfo,MainPage mainPage)
         {
             InitializeComponent();
             this.functionUIService = functionUIService;

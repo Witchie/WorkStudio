@@ -235,80 +235,16 @@ namespace GreenWhale.Extensions.TestTools2.Views
             var works = projectViewModel.ResourceDefineViewModels.OrderBy(p => p.TestIndex).ToArray();
             foreach (var item in works)
             {
-                Func<Task<RunningExceptionDetail>> task = new Func<Task<RunningExceptionDetail>>(async () =>
+                var task = new Func<Task<RunningExceptionDetail>>(async () =>
                 {
                     if (!item.IsManulCheck)
                     {
-                        try
-                        {
-                            if (IsCancel)
-                            {
-                                return new RunningExceptionDetail() { IsError = true };
-                            }
-                            var data = item;
-                            exportBoxService.Log($"TX\t{data.SendContent}");
-                            if (data.IsAbnormalWork)
-                            {
-                                ShowTip(data.AbnormalWorkTips);
-                            }
-                            var respond = await serialPortContext.Request(data.SendContent.ToHex(), item.TaskDeplay, async (source) =>
-                            {
-                                try
-                                {
-                                    if (source.Length == 0)
-                                    {
-                                        return new PassModel(null, false);
-                                    }
-                                    await data.ScriptModel.LoadCode(serviceProvider);
-                                    var result = data.ScriptModel.RuningCore.Run(InvokeContext.Run(serviceProvider, source, new Dictionary<string, string>
-                                    {
-                                        {InvokeContext.FrameValudate,InvokeContext.True }
-                                    }));
-                                    if (result?.Result?.State == State.FrameValidatePassed)
-                                    {
-                                        return new PassModel(null, true);
-                                    }
-                                    return new PassModel(null, false);
-                                }
-                                catch (Exception)
-                                {
-                                    return new PassModel(null, false);
-                                }
-
-                            }, 5);
-                            if (respond == null || respond?.Length == 0)
-                            {
-                                messageBox.Show("设备无应答，测试被迫停止");
-                                return new RunningExceptionDetail() { IsError = true, AddResourceDefineViewModel = item };
-                            }
-                            exportBoxService.Log($"RX\t{respond.ToHex()}");
-                            await data.ScriptModel.LoadCode(serviceProvider);
-                            RunningException exp = null;
-                            if (data.IsAbnormalWork)
-                            {
-                                exp =  data.ScriptModel.RuningCore.Run(InvokeContext.Run(serviceProvider, respond, new Dictionary<string, string> { { "IsAbnormalWork", InvokeContext.True } }));
-                            }
-                            else
-                            {
-                                exp =  data.ScriptModel.RuningCore.Run(InvokeContext.Run(serviceProvider, respond, new Dictionary<string, string> { { "IsAbnormalWork", InvokeContext.False } }));
-                            }
-                            var detail = exp.Clone<RunningException, RunningExceptionDetail>();
-                            detail.AddResourceDefineViewModel = item;
-                            await  CloseTip();
-                            return detail;
-                        }
-                        catch (Exception err)
-                        {
-                            return new RunningExceptionDetail() { IsError = true, ErrorMessage = err, AddResourceDefineViewModel = item };
-                        }
+                        return await AutoCheck(item);
 
                     }
                     else
                     {
-                        var res = messageBox.Show($"{item.Description}是否通过?回车默认通过", "提示", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
-                        var result = res == MessageBoxResult.Yes ? State.Qualified : State.Unqualified;
-                        return new RunningExceptionDetail() { IsError = false, AddResourceDefineViewModel = item, Result = new RunningResult(result) };
-
+                        return ManualCheck(item);
                     }
                 });
                 var work = new SerialPortWork(task, item.Description, State.None.Description(), item.TestIndex);
@@ -316,6 +252,90 @@ namespace GreenWhale.Extensions.TestTools2.Views
             }
             this.DataContext = this;
         }
+        /// <summary>
+        /// 自动确认
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private async Task<RunningExceptionDetail> AutoCheck(AddResourceDefineViewModel item)
+        {
+            try
+            {
+                if (IsCancel)
+                {
+                    return new RunningExceptionDetail() { IsError = true };
+                }
+                var data = item;
+                exportBoxService.Log($"TX\t{data.SendContent}");
+                if (data.IsAbnormalWork)
+                {
+                    ShowTip(data.AbnormalWorkTips);
+                }
+                var respond = await serialPortContext.Request(data.SendContent.ToHex(), item.TaskDeplay, async (source) =>
+                {
+                    try
+                    {
+                        if (source.Length == 0)
+                        {
+                            return new PassModel(null, false);
+                        }
+                        await data.ScriptModel.LoadCode(serviceProvider);
+                        var result = data.ScriptModel.RuningCore.Run(InvokeContext.Run(serviceProvider, source, new Dictionary<string, string>
+                                    {
+                                        {InvokeContext.FrameValudate,InvokeContext.True }
+                                    }));
+                        if (result?.Result?.State == State.FrameValidatePassed)
+                        {
+                            return new PassModel(null, true);
+                        }
+                        return new PassModel(null, false);
+                    }
+                    catch (Exception)
+                    {
+                        return new PassModel(null, false);
+                    }
+
+                }, 5);
+                if (respond == null || respond?.Length == 0)
+                {
+                    messageBox.Show("设备无应答，测试被迫停止");
+                    return new RunningExceptionDetail() { IsError = true, AddResourceDefineViewModel = item };
+                }
+                exportBoxService.Log($"RX\t{respond.ToHex()}");
+                await data.ScriptModel.LoadCode(serviceProvider);
+                RunningException exp = null;
+                if (data.IsAbnormalWork)
+                {
+                    exp = data.ScriptModel.RuningCore.Run(InvokeContext.Run(serviceProvider, respond, new Dictionary<string, string> { { "IsAbnormalWork", InvokeContext.True } }));
+                }
+                else
+                {
+                    exp = data.ScriptModel.RuningCore.Run(InvokeContext.Run(serviceProvider, respond, new Dictionary<string, string> { { "IsAbnormalWork", InvokeContext.False } }));
+                }
+                var detail = exp.Clone<RunningException, RunningExceptionDetail>();
+                detail.AddResourceDefineViewModel = item;
+                await CloseTip();
+                return detail;
+            }
+            catch (Exception err)
+            {
+                return new RunningExceptionDetail() { IsError = true, ErrorMessage = err, AddResourceDefineViewModel = item };
+            }
+        }
+
+        /// <summary>
+        /// 手动确认
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private RunningExceptionDetail ManualCheck(AddResourceDefineViewModel item)
+        {
+
+            var res = messageBox.Show($"{item.Description}是否通过?回车默认通过", "提示", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+            var result = res == MessageBoxResult.Yes ? State.Qualified : State.Unqualified;
+            return new RunningExceptionDetail() { IsError = false, AddResourceDefineViewModel = item, Result = new RunningResult(result) };
+        }
+
         private void Changed([CallerMemberName] string name=null)
         {
             PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(name));
