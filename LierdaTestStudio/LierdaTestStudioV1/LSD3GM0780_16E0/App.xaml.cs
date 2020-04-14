@@ -23,28 +23,11 @@ namespace LSD3GM0780_16E0
     /// </summary>
     public partial class App : Application
     {
-        private NetCoreApplication<MainWindow, App> netCoreApplication;
+        private NetCoreApplication<Application> netCoreApplication;
         public static RequestDelegate RequestDelegate;
         public App()
         {
-            this.netCoreApplication = new NetCoreApplication<MainWindow, App>(this, new AppSetting { BaseDirectory = AppDomain.CurrentDomain.BaseDirectory, IsMutexApplication = true });
-            var service = netCoreApplication.AddApplicationInfo().AddThemeName(Theme.VS2017BlueName).AddVsMode().AddLSD3GM0780_16E0(async ()=> 
-            {
-               var svc=  netCoreApplication.ServicesProvider.GetService<ISerialPortContext>();
-               await  RequestDelegate?.Invoke(svc);
-            },dataBase=> 
-            {
-                dataBase.UseSqlite("Data Source=Data.db");
-            });
-            var svc = netCoreApplication.BuildService();
-            RequestDelegate = svc.MapSerialPort(s=> 
-            {
-                s.UseSerialPort();
-            }).Build();
-            var window = netCoreApplication.MainWindow();
-            netCoreApplication.UseApplicationInfo().SetName(ConstHelper.ApplicationName).SetWidth(1000).SetHeight(700);
-            window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            window.Show();
+            
         }
     }
 

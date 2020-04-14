@@ -27,7 +27,7 @@ namespace GreenWhale.Extension.TestTool.LSD3GM0780_16E0
         /// <param name="coreApplication"></param>
         /// <param name="onReceiveData"></param>
         /// <returns></returns>
-        public static NetCoreApplication<TRootWindow, TApplication> AddLSD3GM0780_16E0<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication, Action onReceiveData, Action<DbContextOptionsBuilder> optionsAction) where TRootWindow : Window where TApplication :System.Windows.Application
+        public static NetCoreApplication<TApplication> AddLSD3GM0780_16E0<TApplication>(this NetCoreApplication<TApplication> coreApplication, Action onReceiveData, Action<DbContextOptionsBuilder> optionsAction) where TApplication :System.Windows.Application
         {
             if (coreApplication is null)
             {
