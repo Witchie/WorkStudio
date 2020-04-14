@@ -89,14 +89,9 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="coreApplication"></param>
         /// <returns></returns>
-        [Obsolete("该功能已经取消，请直接操作Window")]
+        [Obsolete("该功能已经取消，请直接操作Window",true)]
         public static NetCoreApplication<TApplication> AddApplicationInfo< TApplication>(this NetCoreApplication<TApplication> coreApplication) where TApplication : Application
         {
-            if (coreApplication is null)
-            {
-                throw new ArgumentNullException(nameof(coreApplication));
-            }
-            var services = coreApplication.ServiceBus;
             return coreApplication;
         }
         /// <summary>
