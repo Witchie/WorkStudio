@@ -23,7 +23,7 @@ namespace GreenWhale.Extensions.TestTools2.Extensions
         /// <typeparam name="TApp"></typeparam>
         /// <param name="app"></param>
         /// <returns></returns>
-        public static NetCoreApplication<TWindow, TApp> AddTestStudio<TWindow,TApp>(this NetCoreApplication<TWindow, TApp> app,Action<DbContextOptionsBuilder> dataContextbuild=null  ) where TWindow : Window where TApp : System.Windows.Application
+        public static NetCoreApplication<TApp> AddTestStudio<TApp>(this NetCoreApplication<TApp> app,Action<DbContextOptionsBuilder> dataContextbuild=null  ) where TApp : System.Windows.Application
         {
             if (app is null)
             {

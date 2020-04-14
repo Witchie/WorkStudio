@@ -19,7 +19,7 @@ using GreenWhale.Extensions.TestTools2.Extensions;
 using GreenWhale.Extensions.Views;
 using GreenWhale.Extensions.TestStudio;
 using GreenWhale.BootLoader;
-
+using Microsoft.Extensions.DependencyInjection;
 namespace LSD3SWM_0710000000
 {
     /// <summary>
@@ -27,7 +27,7 @@ namespace LSD3SWM_0710000000
     /// </summary>
     public partial class MainWindow : ThemedWindow
     {
-        NetCoreApplication<MainWindow, Application> app;
+        NetCoreApplication<Application> app;
 
         public MainWindow()
         {
@@ -39,18 +39,17 @@ namespace LSD3SWM_0710000000
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             app = await Task.Run(() => {
-                var info = new NetCoreApplication<MainWindow, Application>(Application.Current, new AppSetting { BaseDirectory = AppDomain.CurrentDomain.BaseDirectory, IsMutexApplication = true });
-                info.AddApplicationInfo().AddThemeName(Theme.Office2010Blue.Name).AddVsMode().AddTestStudio().BuildService();
+                var info = new NetCoreApplication<Application>(Application.Current, new AppSetting { BaseDirectory = AppDomain.CurrentDomain.BaseDirectory, IsMutexApplication = true });
+                info.AddApplicationInfo().AddThemeName(Theme.Office2010Blue.Name).AddVsMode().AddTestStudio().AddMainWindow(this).BuildService();
                 return info;
             });
-            var window = app.MainWindow();
-            window.ShowDialog();
-            this.Content = mainPage;
+            this.Content = app.ServicesProvider.GetService<MainPage>();
+            var functionUIService= app.ServicesProvider.GetService<FunctionUIService>();
             functionUIService.UseTestTool2();
             functionUIService.UseOutputBox();
-            App.app.UseApplicationInfo().SetName(Resource.ProjectModel);
+            app.UseApplicationInfo().SetName(Resource.ProjectModel);
             WindowStyle = WindowStyle.SingleBorderWindow;
-            this.Medium().Center().Show();
+            this.Medium().Center();
 
         }
     }

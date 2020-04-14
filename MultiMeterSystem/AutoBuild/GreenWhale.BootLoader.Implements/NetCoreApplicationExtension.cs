@@ -16,11 +16,10 @@ namespace GreenWhale.BootLoader.Implements
         /// <summary>
         /// 获取应用程序信息
         /// </summary>
-        /// <typeparam name="TRootWindow"></typeparam>
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="coreApplication"></param>
         /// <returns></returns>
-        public static IApplicationInfo UseApplicationInfo<TRootWindow, TApplication>(this NetCoreApplication< TApplication> coreApplication)  where TApplication : Application
+        public static IApplicationInfo GetApplicationInfo<TApplication>(this NetCoreApplication< TApplication> coreApplication)  where TApplication : Application
         {
             if (coreApplication is null)
             {
@@ -36,7 +35,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="coreApplication"></param>
         /// <returns></returns>
-        public static TRootWindow MainWindow<TRootWindow, TApplication>(this NetCoreApplication<TApplication> coreApplication)  where TApplication : Application
+        public static TRootWindow GetMainWindow<TApplication, TRootWindow>(this NetCoreApplication<TApplication> coreApplication)  where TApplication : Application where TRootWindow:Window
         {
             if (coreApplication is null)
             {
@@ -45,6 +44,34 @@ namespace GreenWhale.BootLoader.Implements
 
             var window = coreApplication.ServicesProvider.GetService<TRootWindow>();
             return window;
+        }
+        /// <summary>
+        /// 获取主页面
+        /// </summary>
+        /// <typeparam name="TApplication"></typeparam>
+        /// <param name="netCoreApplication"></param>
+        /// <returns></returns>
+        public static MainPage GetMainPage<TApplication>(this NetCoreApplication<TApplication> netCoreApplication) where TApplication : Application
+        {
+            if (netCoreApplication is null)
+            {
+                throw new ArgumentNullException(nameof(netCoreApplication));
+            }
+            return  netCoreApplication.ServicesProvider.GetService<MainPage>();
+        }
+        /// <summary>
+        /// 获取功能UI
+        /// </summary>
+        /// <typeparam name="TApplication"></typeparam>
+        /// <param name="netCoreApplication"></param>
+        /// <returns></returns>
+        public static FunctionUIService GetFunctionUI<TApplication>(this NetCoreApplication<TApplication> netCoreApplication) where TApplication : Application
+        {
+            if (netCoreApplication is null)
+            {
+                throw new ArgumentNullException(nameof(netCoreApplication));
+            }
+            return netCoreApplication.ServicesProvider.GetService<FunctionUIService>();
         }
         /// <summary>
         /// 设置主题名称 见 <see cref="Theme"/>
