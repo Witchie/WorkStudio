@@ -45,7 +45,7 @@
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
                 <Button Content="装载任务" Click="Button_Click_1" Style="{StaticResource ButtonMenuBar}"></Button>
-                <dxg:GridControl Grid.Row="1"  x:Name="works"  Style="{StaticResource GridControl}" ItemsSource="{Binding SerialPortWorks}">
+                <dxg:GridControl Grid.Row="1"  x:Name="works"  Style="{StaticResource GridControl}" >
                     <dxg:GridControl.View>
                         <dxg:TableView AllowEditing="False" ShowGroupPanel="False" ShowIndicator="False">
                             <dxg:TableView.FormatConditions>

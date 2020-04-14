@@ -38,7 +38,6 @@ namespace GreenWhale.Extensions.TestTools2.Views
         private readonly IDataStore dataStore;
         private readonly IEventBus eventBus;
         private readonly IMessageBox messageBox;
-        private ObservableCollection<SerialPortWork> serialPortWorks;
 
         public SerialPortServiceBase serialPortContext { get; private set; }
         public ScanPanelView(IProjectViewServcie projectViewServcie, SerialPortServiceBase serialPortContext, IServiceProvider serviceProvider, IExportBoxService exportBoxService, IDataStore dataStore, IEventBus eventBus, IMessageBox messageBox)
@@ -70,17 +69,18 @@ namespace GreenWhale.Extensions.TestTools2.Views
             if (e.Key == Key.Enter)
             {
                 var text = meterid.Text.Trim();
-               await Reset();
-                meterid.Clear();
-                await SetIsBusy(true);
-
                 Stopwatch = Stopwatch.StartNew();
-                await Start(text);
+
+                await  Reset();
+                await Task.Delay(100);
+                meterid.Clear();
+                await SetIsBusy(true).ConfigureAwait(true);
+                await Start(text).ConfigureAwait(true);
+                await SetIsBusy(false).ConfigureAwait(true);
                 Stopwatch.Stop();
                 var time = Stopwatch.ElapsedMilliseconds;
                 exportBoxService.Log($"耗时:{TimeSpan.FromMilliseconds(time)}");
 
-               await  SetIsBusy(false);
             }
         }
         public Stopwatch Stopwatch { get; private set; } = new Stopwatch();
@@ -90,31 +90,30 @@ namespace GreenWhale.Extensions.TestTools2.Views
             if (string.IsNullOrEmpty(text))
             {
                 exportBoxService.Log($"设备ID号码不得为空");
-                await Reset();
-                return;
+                await Reset(); return;
             }
             if (SerialPortWorks==null||SerialPortWorks?.Count == 0)
             {
                 exportBoxService.Log($"请先加载任务,当前任务为空");
-                await Reset();
-                return;
+                await Reset(); return;
             }
             if (!serialPortContext.IsOpen)
             {
                 exportBoxService.Log($"请先开启串口");
-                await Reset();
-                return;
+                await Reset(); return;
             }
             foreach (var item in SerialPortWorks)
             {
             AGAIN:
-                var exception = await item.WorkContent?.Invoke();
-                item.State = (exception.Result?.State ?? State.FrameValidateFailed).Description();
-                if (exception.IsError == true)
+                var work =await item.WorkContent?.Invoke();
+                Debug.WriteLine(item.State);
+                Debug.WriteLine(work);
+                item.State = (work.Result?.State ?? State.FrameValidateFailed).Description();
+                if (work.IsError == true)
                 {
                     if (!IsCancel)
                     {
-                        if (messageBox.Show($"出现错误，是否重试上一次的任务：{exception.ErrorMessage}", "提示", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                        if (messageBox.Show($"出现错误，是否重试上一次的任务：{work.ErrorMessage}", "提示", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                         {
                             goto AGAIN;
                         }
@@ -126,25 +125,25 @@ namespace GreenWhale.Extensions.TestTools2.Views
                 }
                 else
                 {
-                    if (exception.Result != null)
+                    if (work.Result != null)
                     {
-                        if (exception.Result.State == State.None)
+                        if (work.Result.State == State.None)
                         {
-                            exportBoxService.Log($"解析脚本返回未知！任务名称：{exception.AddResourceDefineViewModel.Description}");
+                            exportBoxService.Log($"解析脚本返回未知！任务名称：{work.AddResourceDefineViewModel.Description}");
 
-                            if (messageBox.Show($"{exception.ErrorMessage}", "解析出错!是否重试上一次的任务?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                            if (messageBox.Show($"{work.ErrorMessage}", "解析出错!是否重试上一次的任务?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                             {
                                 goto AGAIN;
                             }
                             else
                             {
                                 exportBoxService.Log($"因解析脚本返回未知状态任务被强制停止");
-                                return;
+                                return ;
                             }
                         }
-                        else if (exception.Result.State == State.Unqualified)
+                        else if (work.Result.State == State.Unqualified)
                         {
-                            exportBoxService.Log($"测试不通过！任务名称：{exception.AddResourceDefineViewModel.Description}");
+                            exportBoxService.Log($"测试不通过！任务名称：{work.AddResourceDefineViewModel.Description}");
                             await TestStop(text);
                             break;
                         }
@@ -171,7 +170,6 @@ namespace GreenWhale.Extensions.TestTools2.Views
             await  SetIsBusy(false);
             IsCancel = true;
         }
-        private readonly static object _locker = new object();
 
         public bool GetIsBusy()
         {
@@ -194,7 +192,7 @@ namespace GreenWhale.Extensions.TestTools2.Views
         /// </summary>
         private async Task Reset()
         {
-            await this.Dispatcher.InvokeAsync(async () =>
+            await Dispatcher.InvokeAsync(async () =>
             {
                 IsCancel = true;
                 meterid.Clear();
@@ -212,14 +210,8 @@ namespace GreenWhale.Extensions.TestTools2.Views
         {
            await  Reset();
         }
-        public ObservableCollection<SerialPortWork> SerialPortWorks
-        {
-            get => serialPortWorks; private set
-            {
-                serialPortWorks = value;
-                Changed();
-            }
-        }
+        public ObservableCollection<SerialPortWork> SerialPortWorks { get; set; } = new ObservableCollection<SerialPortWork>();
+
         public ProjectViewModel ProjectViewModel { get; set; }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -231,7 +223,7 @@ namespace GreenWhale.Extensions.TestTools2.Views
         }
         private void ReGenerator(ProjectViewModel projectViewModel)
         {
-            SerialPortWorks = new ObservableCollection<SerialPortWork>();
+            SerialPortWorks.Clear();
             var works = projectViewModel.ResourceDefineViewModels.OrderBy(p => p.TestIndex).ToArray();
             foreach (var item in works)
             {
@@ -250,7 +242,7 @@ namespace GreenWhale.Extensions.TestTools2.Views
                 var work = new SerialPortWork(task, item.Description, State.None.Description(), item.TestIndex);
                 SerialPortWorks.Add(work);
             }
-            this.DataContext = this;
+            this.works.ItemsSource = SerialPortWorks;
         }
         /// <summary>
         /// 自动确认

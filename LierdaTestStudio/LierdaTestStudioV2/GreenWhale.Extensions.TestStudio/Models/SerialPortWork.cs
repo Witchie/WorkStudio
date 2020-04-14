@@ -14,6 +14,7 @@ namespace GreenWhale.Extensions.TestTools2.Views
         private string state;
         private Func<Task<RunningExceptionDetail>> workContent;
         private int testIndex;
+        private string testResult;
 
         public SerialPortWork(Func<Task<RunningExceptionDetail>> workContent, string workName, string state, int testIndex)
         {
@@ -26,7 +27,7 @@ namespace GreenWhale.Extensions.TestTools2.Views
         {
             get => testIndex; set
             {
-                testIndex = value;RaisePropertyChanged();
+                testIndex = value; RaisePropertyChanged();
             }
         }
         /// <summary>
@@ -60,6 +61,12 @@ namespace GreenWhale.Extensions.TestTools2.Views
                 state = value; RaisePropertyChanged();
             }
         }
-        public string TestResult { get; set; }
+        public string TestResult
+        {
+            get => testResult; set
+            {
+                testResult = value; RaisePropertyChanged();
+            }
+        }
     }
 }
