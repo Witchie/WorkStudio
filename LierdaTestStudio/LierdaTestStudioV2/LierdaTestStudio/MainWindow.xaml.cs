@@ -45,11 +45,10 @@ namespace LSD3SWM_0710000000
             });
             this.Content = app.ServicesProvider.GetService<MainPage>();
             var functionUIService= app.ServicesProvider.GetService<FunctionUIService>();
-            functionUIService.UseTestTool2();
+            functionUIService.UseTestStudio();
             functionUIService.UseOutputBox();
-            app.UseApplicationInfo().SetName(Resource.ProjectModel);
-            WindowStyle = WindowStyle.SingleBorderWindow;
-            this.Medium().Center();
+            app.GetApplicationInfo().SetName(Resource.ProjectModel);
+            this.Medium().Center().WindowStyle(WindowStyle.SingleBorderWindow);
 
         }
     }

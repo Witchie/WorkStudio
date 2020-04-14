@@ -14,21 +14,6 @@ namespace GreenWhale.BootLoader.Implements
     public static class NetCoreApplicationExtension
     {
         /// <summary>
-        /// 获取应用程序信息
-        /// </summary>
-        /// <typeparam name="TApplication"></typeparam>
-        /// <param name="coreApplication"></param>
-        /// <returns></returns>
-        public static IApplicationInfo GetApplicationInfo<TApplication>(this NetCoreApplication< TApplication> coreApplication)  where TApplication : Application
-        {
-            if (coreApplication is null)
-            {
-                throw new ArgumentNullException(nameof(coreApplication));
-            }
-            var info = coreApplication.ServicesProvider.GetService<IApplicationInfo>();
-            return info;
-        }
-        /// <summary>
         /// 获取主窗口
         /// </summary>
         /// <typeparam name="TRootWindow"></typeparam>
@@ -58,6 +43,20 @@ namespace GreenWhale.BootLoader.Implements
                 throw new ArgumentNullException(nameof(netCoreApplication));
             }
             return  netCoreApplication.ServicesProvider.GetService<MainPage>();
+        }
+        /// <summary>
+        /// 获取输出框
+        /// </summary>
+        /// <typeparam name="TApplication"></typeparam>
+        /// <param name="netCoreApplication"></param>
+        /// <returns></returns>
+        public static IExportBoxService GetExportBox<TApplication>(this NetCoreApplication<TApplication> netCoreApplication) where TApplication : Application
+        {
+            if (netCoreApplication is null)
+            {
+                throw new ArgumentNullException(nameof(netCoreApplication));
+            }
+            return netCoreApplication.ServicesProvider.GetService<IExportBoxService>();
         }
         /// <summary>
         /// 获取功能UI
@@ -90,6 +89,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="coreApplication"></param>
         /// <returns></returns>
+        [Obsolete("该功能已经取消，请直接操作Window")]
         public static NetCoreApplication<TApplication> AddApplicationInfo< TApplication>(this NetCoreApplication<TApplication> coreApplication) where TApplication : Application
         {
             if (coreApplication is null)
@@ -97,7 +97,6 @@ namespace GreenWhale.BootLoader.Implements
                 throw new ArgumentNullException(nameof(coreApplication));
             }
             var services = coreApplication.ServiceBus;
-            services.AddSingleton<IApplicationInfo,ApplicationInfo>();
             return coreApplication;
         }
         /// <summary>

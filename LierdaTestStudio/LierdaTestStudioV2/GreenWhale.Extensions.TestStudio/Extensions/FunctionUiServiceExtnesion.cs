@@ -8,7 +8,7 @@ namespace GreenWhale.Extensions.TestTools2.Extensions
         /// 使用测试工具
         /// </summary>
         /// <param name="functionUIService"></param>
-        public static FunctionUIService UseTestTool2(this FunctionUIService functionUIService)
+        public static FunctionUIService UseTestStudio(this FunctionUIService functionUIService)
         {
             functionUIService.AddClickRibbonMenuWithToolBox<SerialPortView>(new RibbonMenuWithPageView("生产中心/系统配置/串口配置:配置串口端口和比特率"));
             functionUIService.AddClickRibbonMenuWithPage<ResourceDefineView>(new RibbonMenuWithPageView("生产中心/协议管理/协议编辑器:应用协议编辑"));
