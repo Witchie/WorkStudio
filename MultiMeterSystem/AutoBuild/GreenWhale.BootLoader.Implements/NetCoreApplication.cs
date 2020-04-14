@@ -11,7 +11,7 @@ namespace GreenWhale.BootLoader.Implements
     /// </summary>
     /// <typeparam name="TRootWindow">根窗口</typeparam>
     /// <typeparam name="TApplication">根应用程序</typeparam>
-    public class NetCoreApplication<TRootWindow,TApplication> : ApplicationBootLoader where TRootWindow:Window where TApplication:Application
+    public class NetCoreApplication<TApplication> : ApplicationBootLoader where TApplication:Application
     {
 
         /// <summary>
@@ -40,7 +40,6 @@ namespace GreenWhale.BootLoader.Implements
         {
             ConfigureApplicationEvent?.Invoke(services);
             services.AddSingleton(CurrentApplication);
-            services.AddSingleton<TRootWindow>();
             ConfigureWiewPage(services);
             return services;
         }

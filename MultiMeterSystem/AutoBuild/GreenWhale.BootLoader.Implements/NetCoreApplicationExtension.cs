@@ -20,7 +20,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="coreApplication"></param>
         /// <returns></returns>
-        public static IApplicationInfo UseApplicationInfo<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication) where TRootWindow : Window where TApplication : Application
+        public static IApplicationInfo UseApplicationInfo<TRootWindow, TApplication>(this NetCoreApplication< TApplication> coreApplication)  where TApplication : Application
         {
             if (coreApplication is null)
             {
@@ -36,7 +36,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="coreApplication"></param>
         /// <returns></returns>
-        public static TRootWindow MainWindow<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication) where TRootWindow : Window where TApplication : Application
+        public static TRootWindow MainWindow<TRootWindow, TApplication>(this NetCoreApplication<TApplication> coreApplication)  where TApplication : Application
         {
             if (coreApplication is null)
             {
@@ -49,11 +49,10 @@ namespace GreenWhale.BootLoader.Implements
         /// <summary>
         /// 设置主题名称 见 <see cref="Theme"/>
         /// </summary>
-        /// <typeparam name="TRootWindow"></typeparam>
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="coreApplication"></param>
         /// <param name="themeName">主题名称</param>
-        public static NetCoreApplication<TRootWindow, TApplication> AddThemeName<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication, string themeName) where TRootWindow : Window where TApplication : Application
+        public static NetCoreApplication<TApplication> AddThemeName< TApplication>(this NetCoreApplication<TApplication> coreApplication, string themeName) where TApplication : Application
         {
             ApplicationThemeHelper.ApplicationThemeName = themeName;
             return coreApplication;
@@ -61,11 +60,10 @@ namespace GreenWhale.BootLoader.Implements
         /// <summary>
         /// 添加并配置应用程序信息
         /// </summary>
-        /// <typeparam name="TRootWindow"></typeparam>
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="coreApplication"></param>
         /// <returns></returns>
-        public static NetCoreApplication<TRootWindow, TApplication> AddApplicationInfo<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication) where TRootWindow : Window where TApplication : Application
+        public static NetCoreApplication<TApplication> AddApplicationInfo< TApplication>(this NetCoreApplication<TApplication> coreApplication) where TApplication : Application
         {
             if (coreApplication is null)
             {
@@ -76,10 +74,35 @@ namespace GreenWhale.BootLoader.Implements
             return coreApplication;
         }
         /// <summary>
+        /// 添加主窗口
+        /// </summary>
+        /// <typeparam name="TApplication"></typeparam>
+        /// <typeparam name="TMainWindow"></typeparam>
+        /// <param name="coreApplication"></param>
+        /// <param name="window"></param>
+        /// <returns></returns>
+        public static NetCoreApplication<TApplication> AddMainWindow<TApplication,TMainWindow>(this NetCoreApplication<TApplication> coreApplication,TMainWindow window=default) where TMainWindow:Window where TApplication : Application
+        {
+            if (coreApplication is null)
+            {
+                throw new ArgumentNullException(nameof(coreApplication));
+            }
+            var services = coreApplication.ServiceBus;
+            if (window==null)
+            {
+                services.AddSingleton<TMainWindow>();
+            }
+            else
+            {
+                services.AddSingleton(window);
+            }
+            return coreApplication;
+        }
+        /// <summary>
         /// 设置为VS模式
         /// </summary>
         /// <param name="coreApplication"></param>
-        public static NetCoreApplication<TRootWindow, TApplication> AddVsMode<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication) where TRootWindow : Window where TApplication : Application
+        public static NetCoreApplication<TApplication> AddVsMode< TApplication>(this NetCoreApplication<TApplication> coreApplication)where TApplication : Application
         {
             if (coreApplication is null)
             {

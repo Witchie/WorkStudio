@@ -7,7 +7,6 @@ namespace GreenWhale.BootLoader.Implements
         string GetApplicationName();
         double GetMainWindowHeight();
         double GetMainWindowWidth();
-        void LoadUI(Window window);
         void SetApplicationName(string value);
         void SetMainWindowHeight(double value);
         void SetMainWindowWidth(double value);

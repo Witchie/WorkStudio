@@ -16,6 +16,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GreenWhale.Extensions.TestTools2.Extensions;
+using GreenWhale.Extensions.Views;
+using GreenWhale.Extensions.TestStudio;
+using GreenWhale.BootLoader;
+
 namespace LSD3SWM_0710000000
 {
     /// <summary>
@@ -23,19 +27,31 @@ namespace LSD3SWM_0710000000
     /// </summary>
     public partial class MainWindow : ThemedWindow
     {
-        private readonly FunctionUIService functionUIService;
-        public MainWindow(FunctionUIService functionUIService, IApplicationInfo applicationInfo,MainPage mainPage)
+        NetCoreApplication<MainWindow, Application> app;
+
+        public MainWindow()
         {
             InitializeComponent();
-            this.functionUIService = functionUIService;
-            applicationInfo.LoadUI(this);
-            this.Content = mainPage;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        public IApplicationInfo applicationInfo { get; }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            app = await Task.Run(() => {
+                var info = new NetCoreApplication<MainWindow, Application>(Application.Current, new AppSetting { BaseDirectory = AppDomain.CurrentDomain.BaseDirectory, IsMutexApplication = true });
+                info.AddApplicationInfo().AddThemeName(Theme.Office2010Blue.Name).AddVsMode().AddTestStudio().BuildService();
+                return info;
+            });
+            var window = app.MainWindow();
+            window.ShowDialog();
+            this.Content = mainPage;
             functionUIService.UseTestTool2();
             functionUIService.UseOutputBox();
+            App.app.UseApplicationInfo().SetName(Resource.ProjectModel);
+            WindowStyle = WindowStyle.SingleBorderWindow;
+            this.Medium().Center().Show();
+
         }
     }
 }

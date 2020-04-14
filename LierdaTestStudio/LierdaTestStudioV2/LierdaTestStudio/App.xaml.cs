@@ -26,17 +26,10 @@ namespace LSD3SWM_0710000000
     /// </summary>
     public partial class App : Application
     {
-        private readonly NetCoreApplication<MainWindow, App> app;
         public App()
         {
            // Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("zh-cn");
-            app = new NetCoreApplication<MainWindow, App>(this,new AppSetting {BaseDirectory=AppDomain.CurrentDomain.BaseDirectory,IsMutexApplication=true });
-            app.AddApplicationInfo().AddThemeName(Theme.Office2010Blue.Name).AddVsMode().AddTestStudio().BuildService();
 
-            var window = app.MainWindow();
-            app.UseApplicationInfo().SetName(Resource.ProjectModel);
-            window.WindowStyle = WindowStyle.SingleBorderWindow;
-            window.Medium().Center().Show();
         }
     }
 }
