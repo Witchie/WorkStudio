@@ -20,6 +20,7 @@
 *.suo
 *i.cache
 slnx.sqlite
+*.v2
 
 [Bb]in/
 [Oo]bj/
