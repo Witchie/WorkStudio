@@ -7,7 +7,7 @@ namespace GreenWhale.BootLoader.Implements
     /// <summary>
     /// Ribbon控件服务
     /// </summary>
-    public class RibbonBarService
+    public class RibbonBarService : IRibbonBarService
     {
         /// <summary>
         /// Ribbon控件
@@ -47,16 +47,16 @@ namespace GreenWhale.BootLoader.Implements
 
             foreach (var item in pageViews)
             {
-                Page:
-                var res= this.IsRibbonPageExist(item.RibbonPageCaption);
-                if (res==null)
+            Page:
+                var res = this.IsRibbonPageExist(item.RibbonPageCaption);
+                if (res == null)
                 {
                     this.AddRibbonPage(item.RibbonPageCaption);
                     goto Page;
                 }
-                Group:
-                var pageGroup=  res.IsRibbonPageGroupExist(item.RibbonPageGroupCaption);
-                if (pageGroup==null)
+            Group:
+                var pageGroup = res.IsRibbonPageGroupExist(item.RibbonPageGroupCaption);
+                if (pageGroup == null)
                 {
                     res.AddRibbonPageGroup(item.RibbonPageGroupCaption);
                     goto Group;
@@ -67,20 +67,20 @@ namespace GreenWhale.BootLoader.Implements
         /// <summary>
         /// RIBBON页面
         /// </summary>
-        internal ObservableCollection<RibbonPage> RibbonPages { get;private set; } = new ObservableCollection<RibbonPage>();
+        public ObservableCollection<RibbonPage> RibbonPages { get;  set; } = new ObservableCollection<RibbonPage>();
         /// <summary>
         /// 加载当前RibbonUI
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="currentRibbonView"></param>
-        public void LoadCurrentRibbon<TRibbonView>(TRibbonView currentRibbonView)  where TRibbonView: CurrentRibbonView<RibbonPage> 
+        public void LoadCurrentRibbon<TRibbonView>(TRibbonView currentRibbonView) where TRibbonView : CurrentRibbonView<RibbonPage>
         {
             if (currentRibbonView is null)
             {
                 throw new ArgumentNullException(nameof(currentRibbonView));
             }
             var pages = currentRibbonView.GetRibbonPages();
-            if (pages!=null&&pages.Count>0)
+            if (pages != null && pages.Count > 0)
             {
                 ribbonBar.currentribbon.PagesSource = pages;
                 ribbonBar.currentribbon.IsVisible = true;

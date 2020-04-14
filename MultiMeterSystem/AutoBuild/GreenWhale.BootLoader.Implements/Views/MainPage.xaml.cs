@@ -28,8 +28,8 @@ namespace GreenWhale.BootLoader.Implements.Views
         /// <summary>
         /// 命令UI服务
         /// </summary>
-        public FunctionUIService FunctionUIService { get;private set; }
-        public MainPage(FunctionUIService commandUIService, GlobalLayout globalLayout, RibbonBar ribbonBar):this()
+        public IFunctionUIService FunctionUIService { get;private set; }
+        public MainPage(IFunctionUIService commandUIService, GlobalLayout globalLayout, RibbonBar ribbonBar):this()
         {
             this.FunctionUIService = commandUIService;
             this.globalLayout = globalLayout;

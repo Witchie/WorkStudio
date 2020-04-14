@@ -11,7 +11,7 @@ namespace GreenWhale.BootLoader.Implements
     /// <summary>
     /// 工具箱服务
     /// </summary>
-    public class PanelService
+    public class PanelService : IPanelService
     {
         private readonly GlobalLayout globalLayout;
         private readonly ExportBox exportBox;
@@ -33,7 +33,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="panelInfo">工具栏信息</param>
         /// <param name="panelLocation">工具栏位置</param>
         /// <returns></returns>
-        public PanelInfo<T> CreateToolBoxPanel<T>(PanelInfo<T> panelInfo, PanelLocation panelLocation=PanelLocation.Left) where T : FrameworkElement
+        public PanelInfo<T> CreateToolBoxPanel<T>(PanelInfo<T> panelInfo, PanelLocation panelLocation = PanelLocation.Left) where T : FrameworkElement
         {
             if (panelInfo is null)
             {
@@ -42,17 +42,17 @@ namespace GreenWhale.BootLoader.Implements
         Again:
             SelfCheck(globalLayout);
             var group = globalLayout.root.Items.Where(p => p.Name == "toolBox_Containter").FirstOrDefault() as TabbedGroup;
-            if (panelLocation==PanelLocation.Right)
+            if (panelLocation == PanelLocation.Right)
             {
                 group = globalLayout.root.Items.Where(p => p.Name == "toolBox_Containter_right").FirstOrDefault() as TabbedGroup;
             }
-            if (group==null)
+            if (group == null)
             {
                 goto Again;
             }
-            var items= group.GetItems();
-            var dd= items.Where(p => p.Caption?.ToString() == panelInfo.Caption).FirstOrDefault();
-            if (dd==null)
+            var items = group.GetItems();
+            var dd = items.Where(p => p.Caption?.ToString() == panelInfo.Caption).FirstOrDefault();
+            if (dd == null)
             {
                 var panel = new LayoutPanel();
                 panel.Caption = panelInfo.Caption;
@@ -66,7 +66,7 @@ namespace GreenWhale.BootLoader.Implements
             else
             {
                 dd.IsActive = true;
-                return new PanelInfo<T>() { Caption=panelInfo.Caption,Content=dd as T};
+                return new PanelInfo<T>() { Caption = panelInfo.Caption, Content = dd as T };
             }
         }
         private void Remove(string name)
@@ -77,13 +77,13 @@ namespace GreenWhale.BootLoader.Implements
             if (count > 1)
             {
                 var b = globalLayout.root.Items.Where(p => p.Name == name).FirstOrDefault();
-                if (b!=null)
+                if (b != null)
                 {
                     globalLayout.root.Items.Remove(b);
                 }
-                else 
+                else
                 {
-                    Remove(globalLayout.root,name);
+                    Remove(globalLayout.root, name);
                 }
             }
         }
@@ -109,12 +109,12 @@ namespace GreenWhale.BootLoader.Implements
                 }
             }
         }
-        private void Remove(LayoutGroup layoutGroup,string name)
+        private void Remove(LayoutGroup layoutGroup, string name)
         {
             if (layoutGroup.Items.Where(p => p.Name == name).Count() > 1)
             {
                 var b = layoutGroup.Items.Where(p => p.Name == name).FirstOrDefault();
-                if (b!=null)
+                if (b != null)
                 {
                     layoutGroup.Items.Remove(b);
                     return;
@@ -125,7 +125,7 @@ namespace GreenWhale.BootLoader.Implements
                     {
                         if (item is LayoutGroup group)
                         {
-                            Remove(group,name);
+                            Remove(group, name);
                         }
                     }
                 }
@@ -137,39 +137,39 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="globalLayout"></param>
         private void SelfCheck(GlobalLayout globalLayout)
         {
-            if (globalLayout.root.Items.Count>=3)
+            if (globalLayout.root.Items.Count >= 3)
             {
                 Remove("toolBox_Containter");
                 Remove("_mainContainer");
                 Remove("toolBox_Containter_right");
             }
             var toolBox_Containter = LogicalTreeHelper.GetChildren(globalLayout.root).OfType<TabbedGroup>().Where(p => p.Name == "toolBox_Containter").FirstOrDefault();
-           // var toolBox_Containter= globalLayout.root.Items.Where(p => p.Name == "toolBox_Containter").FirstOrDefault();
-            if (toolBox_Containter==null)
+            // var toolBox_Containter= globalLayout.root.Items.Where(p => p.Name == "toolBox_Containter").FirstOrDefault();
+            if (toolBox_Containter == null)
             {
-                globalLayout.root.Items.Insert(0,new TabbedGroup { Style=globalLayout.FindResource("ToolBox_Container") as Style ,Name= "toolBox_Containter" });
+                globalLayout.root.Items.Insert(0, new TabbedGroup { Style = globalLayout.FindResource("ToolBox_Container") as Style, Name = "toolBox_Containter" });
             }
             var _mainContainer = LogicalTreeHelper.GetChildren(globalLayout.root).OfType<LayoutGroup>().Where(p => p.Name == "_mainContainer").FirstOrDefault();
 
-           // var _mainContainer = globalLayout.root.Items.Where(p => p.Name == "_mainContainer").FirstOrDefault();
+            // var _mainContainer = globalLayout.root.Items.Where(p => p.Name == "_mainContainer").FirstOrDefault();
             if (_mainContainer == null)
             {
-                var p1 = new LayoutGroup { Name = "_mainContainer",Orientation=System.Windows.Controls.Orientation.Vertical };
+                var p1 = new LayoutGroup { Name = "_mainContainer", Orientation = System.Windows.Controls.Orientation.Vertical };
                 p1.AllowClose = false;
                 p1.AllowHide = false;
-                p1.Items.Add(new DocumentGroup { Name= "documents",Style=globalLayout.FindResource("Document_Container") as Style });
+                p1.Items.Add(new DocumentGroup { Name = "documents", Style = globalLayout.FindResource("Document_Container") as Style });
                 globalLayout.root.Items.Insert(1, p1);
             }
             else
             {
-                var exist=  _mainContainer.Children<DocumentGroup>().Where(p => p.Name == "documents").FirstOrDefault();
-                if (exist==null)
+                var exist = _mainContainer.Children<DocumentGroup>().Where(p => p.Name == "documents").FirstOrDefault();
+                if (exist == null)
                 {
-                    _mainContainer.Items.Insert(0,new DocumentGroup { Name = "documents", Style = globalLayout.FindResource("Document_Container") as Style });
+                    _mainContainer.Items.Insert(0, new DocumentGroup { Name = "documents", Style = globalLayout.FindResource("Document_Container") as Style });
                 }
             }
             //var toolBox_Containter_right = globalLayout.root.Items.Where(p => p.Name == "toolBox_Containter_right").FirstOrDefault();
-            var toolBox_Containter_right=  LogicalTreeHelper.GetChildren(globalLayout.root).OfType<BaseLayoutItem>().Where(p => p.Name == "toolBox_Containter_right").FirstOrDefault();
+            var toolBox_Containter_right = LogicalTreeHelper.GetChildren(globalLayout.root).OfType<BaseLayoutItem>().Where(p => p.Name == "toolBox_Containter_right").FirstOrDefault();
             if (toolBox_Containter == null)
             {
                 globalLayout.root.Items.Insert(2, new TabbedGroup { Style = globalLayout.FindResource("ToolBox_Container") as Style, Name = "toolBox_Containter_right" });
@@ -191,16 +191,16 @@ namespace GreenWhale.BootLoader.Implements
             SelfCheck(globalLayout);
             LogicalTreeHelper.GetChildren(globalLayout.root).OfType<LayoutGroup>().Where(p => p.Name == "_mainContainer").FirstOrDefault();
             var maincontainer = LogicalTreeHelper.GetChildren(globalLayout.root).OfType<LayoutGroup>().Where(p => p.Name == "_mainContainer").FirstOrDefault();
-            if (maincontainer==null)
+            if (maincontainer == null)
             {
                 goto Again;
             }
             var items = maincontainer.Children<DocumentGroup>().FirstOrDefault();
-            if (items==null)
+            if (items == null)
             {
                 goto Again;
             }
-            var dd = LogicalTreeHelper.GetChildren(items).OfType<BaseLayoutItem>().Where(p=>p.Caption?.ToString() == documentPanel.Caption).FirstOrDefault();// items.Items.Where(p => p.Caption?.ToString() == documentPanel.Caption).FirstOrDefault();
+            var dd = LogicalTreeHelper.GetChildren(items).OfType<BaseLayoutItem>().Where(p => p.Caption?.ToString() == documentPanel.Caption).FirstOrDefault();// items.Items.Where(p => p.Caption?.ToString() == documentPanel.Caption).FirstOrDefault();
             if (dd == null)
             {
                 var panel = new DocumentPanel();
@@ -226,33 +226,33 @@ namespace GreenWhale.BootLoader.Implements
         /// <returns></returns>
         public LayoutPanel CreateOutputBox()
         {
-            Ag:
+        Ag:
             SelfCheck(globalLayout);
-            if (globalLayout.root.Items.Count<2)
+            if (globalLayout.root.Items.Count < 2)
             {
                 goto Ag;
             }
             //_mainContainer
             //var maincontainer = (globalLayout.root.Items[1] as LayoutGroup);
             var root = globalLayout.root.Find<LayoutGroup>("_mainContainer");
-            if (root==null)
+            if (root == null)
             {
                 goto Ag;
             }
         Panel:
             var panel = root.Children<LayoutGroup>().Where(p => p.Caption?.ToString() == "消息框").FirstOrDefault();
-            if (panel==null)
+            if (panel == null)
             {
                 root.CreateLayoutGroup("消息框");
                 goto Panel;
             }
             panel.IsActive = true;
-            LayoutPanel:
+        LayoutPanel:
             var layoutPanel = panel.Children<LayoutPanel>().Where(p => p.Caption?.ToString() == "输出框").FirstOrDefault(); //panel.IsPanelExist<LayoutPanel>("输出框");
-            if (layoutPanel==null)
+            if (layoutPanel == null)
             {
-                var style= globalLayout.root.FindResource("Export_Container") as Style;
-                var panel1=  panel.CreateLayoutPanel("输出框", style);
+                var style = globalLayout.root.FindResource("Export_Container") as Style;
+                var panel1 = panel.CreateLayoutPanel("输出框", style);
                 panel1.Content = exportBox;
                 panel1.ShowMaximizeButton = false;
                 panel1.ShowPinButton = false;

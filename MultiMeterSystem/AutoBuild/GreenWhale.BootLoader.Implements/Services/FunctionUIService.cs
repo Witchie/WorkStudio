@@ -8,20 +8,23 @@ namespace GreenWhale.BootLoader.Implements
     /// <summary>
     /// 功能管理服务
     /// </summary>
-    public class FunctionUIService
+    public class FunctionUIService : IFunctionUIService
     {
         /// <summary>
         /// 命令UI服务
         /// </summary>
-        internal readonly RibbonBarService ribbonBarService;
-        internal readonly PanelService toolBoxService;
+        internal readonly IRibbonBarService ribbonBarService;
+        internal readonly IPanelService toolBoxService;
         internal readonly OutputBoxCommandService outputBoxCommandService;
         internal readonly IServiceProvider serviceProvider;
         /// <summary>
         /// 命令UI服务
         /// </summary>
         /// <param name="ribbonBarService"></param>
-        public FunctionUIService(RibbonBarService ribbonBarService, PanelService toolBoxService, OutputBoxCommandService outputBoxCommandService, IServiceProvider serviceProvider)
+        /// <param name="toolBoxService"></param>
+        /// <param name="outputBoxCommandService"></param>
+        /// <param name="serviceProvider"></param>
+        public FunctionUIService(IRibbonBarService ribbonBarService, IPanelService toolBoxService, OutputBoxCommandService outputBoxCommandService, IServiceProvider serviceProvider)
         {
             this.ribbonBarService = ribbonBarService;
             this.toolBoxService = toolBoxService;
@@ -31,9 +34,9 @@ namespace GreenWhale.BootLoader.Implements
         /// <summary>
         /// 添加输出框功能
         /// </summary>
-        public void UseOutputBox(string path="视图/视图/输出框")
+        public void UseOutputBox(string path = "视图/视图/输出框")
         {
-            var box=   toolBoxService.CreateOutputBox();
+            var box = toolBoxService.CreateOutputBox();
             box.AllowHide = true;
             box.ShowHideButton = true;
             box.AutoHideExpandState = DevExpress.Xpf.Docking.Base.AutoHideExpandState.Hidden;
@@ -43,13 +46,13 @@ namespace GreenWhale.BootLoader.Implements
         /// <summary>
         /// 添加一个默认页面
         /// </summary>
-        public void AddDefaultDocument<TDefaultContent>(TDefaultContent defaultContent) where TDefaultContent:FrameworkElement
+        public void AddDefaultDocument<TDefaultContent>(TDefaultContent defaultContent) where TDefaultContent : FrameworkElement
         {
-          var item=  toolBoxService.CreateDocumentPanel<TDefaultContent>(new DocumentInfo<TDefaultContent> {Caption="默认页面",Content= defaultContent });
-          item.Content.AllowClose = false;
-          item.Content.AllowDock = false;
-          item.Content.AllowDrag = false;
-          item.Content.AllowFloat = false;
+            var item = toolBoxService.CreateDocumentPanel(new DocumentInfo<TDefaultContent> { Caption = "默认页面", Content = defaultContent });
+            item.Content.AllowClose = false;
+            item.Content.AllowDock = false;
+            item.Content.AllowDrag = false;
+            item.Content.AllowFloat = false;
         }
         /// <summary>
         /// 添加工具箱
@@ -58,7 +61,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="boxContent"></param>
         /// <param name="caption">标题</param>
         /// <param name="panelLocation">面板位置</param>
-        public void AddToolBox<TToolBoxContent>(TToolBoxContent boxContent,string caption,PanelLocation panelLocation=PanelLocation.Left) where TToolBoxContent:FrameworkElement
+        public void AddToolBox<TToolBoxContent>(TToolBoxContent boxContent, string caption, PanelLocation panelLocation = PanelLocation.Left) where TToolBoxContent : FrameworkElement
         {
             if (boxContent is null)
             {
@@ -70,7 +73,7 @@ namespace GreenWhale.BootLoader.Implements
                 throw new ArgumentException("message", nameof(caption));
             }
 
-            toolBoxService.CreateToolBoxPanel(new PanelInfo<TToolBoxContent> {Caption= caption,Content=boxContent }, panelLocation);
+            toolBoxService.CreateToolBoxPanel(new PanelInfo<TToolBoxContent> { Caption = caption, Content = boxContent }, panelLocation);
         }
         /// <summary>
         /// 添加按钮并注入命令服务
@@ -95,15 +98,13 @@ namespace GreenWhale.BootLoader.Implements
         /// </summary>
         /// <typeparam name="TToolBox"></typeparam>
         /// <param name="view"></param>
-        /// <param name="page"></param>
         public void AddClickRibbonMenuWithToolBox<TToolBox>(RibbonMenuWithPageView view) where TToolBox : FrameworkElement
         {
             if (view is null)
             {
                 throw new ArgumentNullException(nameof(view));
             }
-
-            var service = new ClickToolBoxCommandService(typeof(TToolBox), toolBoxService, view.BarButtonItemName,serviceProvider);
+            var service = new ClickToolBoxCommandService(typeof(TToolBox), toolBoxService, view.BarButtonItemName, serviceProvider);
             ribbonBarService.AddRibbonMenu(view.LoadService(service));
         }
 
@@ -112,14 +113,14 @@ namespace GreenWhale.BootLoader.Implements
         /// </summary>
         /// <typeparam name="TPage"></typeparam>
         /// <param name="view"></param>
-        /// <param name="page"></param>
-        public void AddClickRibbonMenuWithPage<TPage>(RibbonMenuWithPageView view,IServiceProvider serviceProvider) where TPage:FrameworkElement 
+        /// <param name="serviceProvider"></param>
+        public void AddClickRibbonMenuWithPage<TPage>(RibbonMenuWithPageView view, IServiceProvider serviceProvider) where TPage : FrameworkElement
         {
             if (view is null)
             {
                 throw new ArgumentNullException(nameof(view));
             }
-            var service = new ClickPageCommandService(typeof(TPage),toolBoxService,view.BarButtonItemName, serviceProvider);
+            var service = new ClickPageCommandService(typeof(TPage), toolBoxService, view.BarButtonItemName, serviceProvider);
             ribbonBarService.AddRibbonMenu(view.LoadService(service));
         }
         /// <summary>
@@ -128,10 +129,8 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TPage1"></typeparam>
         /// <typeparam name="TPage2"></typeparam>
         /// <param name="page1View"></param>
-        /// <param name="page"></param>
         /// <param name="page2View"></param>
-        /// <param name="page1"></param>
-        public void AddClickRibbonMenuWithPages<TPage1,TPage2>(RibbonMenuWithPageView page1View,RibbonMenuWithPageView page2View) where TPage1 : FrameworkElement where TPage2: FrameworkElement
+        public void AddClickRibbonMenuWithPages<TPage1, TPage2>(RibbonMenuWithPageView page1View, RibbonMenuWithPageView page2View) where TPage1 : FrameworkElement where TPage2 : FrameworkElement
         {
             if (page1View is null)
             {
@@ -145,8 +144,8 @@ namespace GreenWhale.BootLoader.Implements
                 throw new ArgumentNullException(nameof(page2View));
             }
 
-            var page2Service = new ClickToolBoxCommandService(typeof(TPage2), toolBoxService, page2View.BarButtonItemName,serviceProvider);
-            var page1Service = new ClickPageCommandService<ClickToolBoxCommandService>(typeof(TPage1), toolBoxService, page1View.BarButtonItemName, page2Service,serviceProvider);
+            var page2Service = new ClickToolBoxCommandService(typeof(TPage2), toolBoxService, page2View.BarButtonItemName, serviceProvider);
+            var page1Service = new ClickPageCommandService<ClickToolBoxCommandService>(typeof(TPage1), toolBoxService, page1View.BarButtonItemName, page2Service, serviceProvider);
             ribbonBarService.AddRibbonMenu(page1View.LoadService(page1Service));
         }
         /// <summary>

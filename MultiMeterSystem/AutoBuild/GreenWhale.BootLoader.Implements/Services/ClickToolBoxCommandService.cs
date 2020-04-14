@@ -10,9 +10,16 @@ namespace GreenWhale.BootLoader.Implements
     public class ClickToolBoxCommandService : CommandService 
     {
         private readonly Type page;
-        private readonly PanelService ToolBoxService;
+        private readonly IPanelService ToolBoxService;
         private readonly string PageName;
-        public ClickToolBoxCommandService(Type page, PanelService toolBoxService, string pageName,IServiceProvider serviceProvider):base(serviceProvider)
+        /// <summary>
+        /// 单击触发工具箱
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="toolBoxService"></param>
+        /// <param name="pageName"></param>
+        /// <param name="serviceProvider"></param>
+        public ClickToolBoxCommandService(Type page, IPanelService toolBoxService, string pageName,IServiceProvider serviceProvider):base(serviceProvider)
         {
             if (string.IsNullOrWhiteSpace(pageName))
             {

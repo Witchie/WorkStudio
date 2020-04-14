@@ -9,9 +9,9 @@ namespace GreenWhale.BootLoader.Implements
     public class ClickPageCommandService : CommandService
     {
         private readonly Type page;
-        private readonly PanelService ToolBoxService;
+        private readonly IPanelService ToolBoxService;
         private readonly string PageName;
-        public ClickPageCommandService(Type page, PanelService toolBoxService, string pageName,IServiceProvider serviceProvider):base(serviceProvider)
+        public ClickPageCommandService(Type page, IPanelService toolBoxService, string pageName,IServiceProvider serviceProvider):base(serviceProvider)
         {
             if (string.IsNullOrWhiteSpace(pageName))
             {
@@ -34,14 +34,12 @@ namespace GreenWhale.BootLoader.Implements
     /// <summary>
     /// 单击双触发
     /// </summary>
-    /// <typeparam name="TPage"></typeparam>
-    /// <typeparam name="TPage1"></typeparam>
     /// <typeparam name="TCommandService"></typeparam>
-    public class ClickPageCommandService<TCommandService> : ClickPageCommandService  where TCommandService : CommandService
+    public class ClickPageCommandService<TCommandService> : ClickPageCommandService where TCommandService : CommandService
     {
         private readonly TCommandService commandService;
 
-        public ClickPageCommandService(Type page, PanelService toolBoxService, string pageName, TCommandService commandService,IServiceProvider serviceProvider) : base(page, toolBoxService, pageName, serviceProvider)
+        public ClickPageCommandService(Type page, IPanelService toolBoxService, string pageName, TCommandService commandService,IServiceProvider serviceProvider) : base(page, toolBoxService, pageName, serviceProvider)
         {
             this.commandService = commandService;
         }

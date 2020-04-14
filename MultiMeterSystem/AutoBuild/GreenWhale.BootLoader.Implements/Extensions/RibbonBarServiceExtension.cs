@@ -15,7 +15,7 @@ namespace GreenWhale.BootLoader.Implements
         /// </summary>
         /// <param name="ribbonBarService"></param>
         /// <param name="action"></param>
-        public static void AddRibbonMenus(this RibbonBarService ribbonBarService,Action<List<RibbonMenuWithPageView>> action)
+        public static void AddRibbonMenus(this IRibbonBarService ribbonBarService,Action<List<RibbonMenuWithPageView>> action)
         {
             List<RibbonMenuWithPageView> view = new List<RibbonMenuWithPageView>();
             action?.Invoke(view);
@@ -26,7 +26,7 @@ namespace GreenWhale.BootLoader.Implements
         /// </summary>
         /// <param name="ribbonBarService"></param>
         /// <param name="view"></param>
-        public static void AddRibbonMenu(this RibbonBarService ribbonBarService, RibbonMenuWithPageView view) 
+        public static void AddRibbonMenu(this IRibbonBarService ribbonBarService, RibbonMenuWithPageView view) 
         {
             ribbonBarService.AddRibbonMenus(s => 
             {
@@ -92,7 +92,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="ribbonPage"></param>
         /// <param name="ribbonName">页面名称</param>
         /// <returns></returns>
-        public static RibbonPage AddRibbonPage(this RibbonBarService ribbonPage, string ribbonName)
+        public static RibbonPage AddRibbonPage(this IRibbonBarService ribbonPage, string ribbonName)
         {
             if (ribbonPage is null)
             {
@@ -134,7 +134,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="ribbonPage"></param>
         /// <param name="ribbonName">页面名称</param>
         /// <returns></returns>
-        internal static RibbonPage IsRibbonPageExist(this RibbonBarService ribbonPage, string ribbonName)
+        internal static RibbonPage IsRibbonPageExist(this IRibbonBarService ribbonPage, string ribbonName)
         {
             if (ribbonPage is null)
             {

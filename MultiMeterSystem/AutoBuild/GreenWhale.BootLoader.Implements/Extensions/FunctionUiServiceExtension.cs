@@ -17,7 +17,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="name"></param>
         /// <param name="action"></param>
         /// <param name="panelLocation"></param>
-        public static void AddNavBarToolBox(this FunctionUIService functionUIService,string name,Action<NavBarControl> action, PanelLocation panelLocation = PanelLocation.Left)
+        public static void AddNavBarToolBox(this IFunctionUIService functionUIService,string name,Action<NavBarControl> action, PanelLocation panelLocation = PanelLocation.Left)
         {
             if (functionUIService is null)
             {
@@ -45,7 +45,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="name"></param>
         /// <param name="action"></param>
         /// <param name="panelLocation"></param>
-        public static void AddTreeListToolBox(this FunctionUIService functionUIService,string name,Action<TreeListControl> action, PanelLocation panelLocation = PanelLocation.Left)
+        public static void AddTreeListToolBox(this IFunctionUIService functionUIService,string name,Action<TreeListControl> action, PanelLocation panelLocation = PanelLocation.Left)
         {
             if (functionUIService is null)
             {

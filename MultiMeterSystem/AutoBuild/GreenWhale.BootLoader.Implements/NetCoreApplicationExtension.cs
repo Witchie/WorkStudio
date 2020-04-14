@@ -64,13 +64,13 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TApplication"></typeparam>
         /// <param name="netCoreApplication"></param>
         /// <returns></returns>
-        public static FunctionUIService GetFunctionUI<TApplication>(this NetCoreApplication<TApplication> netCoreApplication) where TApplication : Application
+        public static IFunctionUIService GetFunctionUI<TApplication>(this NetCoreApplication<TApplication> netCoreApplication) where TApplication : Application
         {
             if (netCoreApplication is null)
             {
                 throw new ArgumentNullException(nameof(netCoreApplication));
             }
-            return netCoreApplication.ServicesProvider.GetService<FunctionUIService>();
+            return netCoreApplication.ServicesProvider.GetService<IFunctionUIService>();
         }
         /// <summary>
         /// 设置主题名称 见 <see cref="Theme"/>
@@ -130,10 +130,10 @@ namespace GreenWhale.BootLoader.Implements
                 throw new ArgumentNullException(nameof(coreApplication));
             }
             var services = coreApplication.ServiceBus;
-            services.AddSingleton<RibbonBarService>();
-            services.AddTransient<PanelService>();
+            services.AddSingleton<IRibbonBarService,RibbonBarService>();
+            services.AddTransient<IPanelService,PanelService>();
             services.AddSingleton<IExportBoxService, ExportBoxService>();
-            services.AddSingleton<FunctionUIService>();
+            services.AddSingleton<IFunctionUIService,FunctionUIService>();
             services.AddTransient<OutputBoxCommandService>();
             services.AddSingleton<RibbonBar>();
             services.AddSingleton<ExportBox>();
@@ -141,6 +141,33 @@ namespace GreenWhale.BootLoader.Implements
             services.AddSingleton<MainPage>();
             return coreApplication;
         }
-       
+        /// <summary>
+        /// 获取面板服务
+        /// </summary>
+        /// <typeparam name="TApplication"></typeparam>
+        /// <param name="netCoreApplication"></param>
+        /// <returns></returns>
+        public static IPanelService GetPanelService<TApplication>(this NetCoreApplication<TApplication> netCoreApplication) where TApplication : Application
+        {
+            if (netCoreApplication is null)
+            {
+                throw new ArgumentNullException(nameof(netCoreApplication));
+            }
+            return netCoreApplication.ServicesProvider.GetService<IPanelService>();
+        }
+        /// <summary>
+        /// 获取RibbonBar服务
+        /// </summary>
+        /// <typeparam name="TApplication"></typeparam>
+        /// <param name="netCoreApplication"></param>
+        /// <returns></returns>
+        public static IRibbonBarService GetRibbonBarService<TApplication>(this NetCoreApplication<TApplication> netCoreApplication) where TApplication : Application
+        {
+            if (netCoreApplication is null)
+            {
+                throw new ArgumentNullException(nameof(netCoreApplication));
+            }
+            return netCoreApplication.ServicesProvider.GetService<IRibbonBarService>();
+        }
     }
 }
