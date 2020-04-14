@@ -21,6 +21,12 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="view"></param>
         void AddPage<TPage>(RibbonMenuWithPageView view) where TPage : FrameworkElement;
         /// <summary>
+        /// 单击触发回调事件
+        /// </summary>
+        /// <param name="ribbonMenuWithPageView"></param>
+        /// <param name="clickCallBack"></param>
+        void AddClick(RibbonMenuWithPageView ribbonMenuWithPageView, Action<object> clickCallBack);
+        /// <summary>
         /// 添加单页
         /// </summary>
         /// <typeparam name="TPage"></typeparam>

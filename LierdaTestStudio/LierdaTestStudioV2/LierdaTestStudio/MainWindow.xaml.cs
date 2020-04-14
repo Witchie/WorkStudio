@@ -40,10 +40,10 @@ namespace LSD3SWM_0710000000
             this.Medium().Center().WindowStyle(WindowStyle.SingleBorderWindow).SetName(Resource.ProjectModel);
             TestStudioApplication testStudio = new TestStudioApplication();
             var app=await  testStudio.StartAsync(Application.Current, this);
-            this.Content = app.GetMainPage();
             var ui = app.GetFunctionUI();
             ui.UseTestStudio();
             ui.UseOutputBox();
+            this.Content = app.GetMainPage();
             waiting.DeferedVisibility = false;
         }
     }

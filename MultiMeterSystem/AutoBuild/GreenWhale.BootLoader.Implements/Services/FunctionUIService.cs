@@ -76,6 +76,16 @@ namespace GreenWhale.BootLoader.Implements
             toolBoxService.CreateToolBoxPanel(new PanelInfo<TToolBoxContent> { Caption = caption, Content = boxContent }, panelLocation);
         }
         /// <summary>
+        /// 添加单击触发的事件
+        /// </summary>
+        /// <param name="ribbonMenuWithPageView"></param>
+        /// <param name="clickCallBack"></param>
+        public void AddClick(RibbonMenuWithPageView ribbonMenuWithPageView,Action<object> clickCallBack)
+        {
+            var service = new ClickActionCommandService(serviceProvider, clickCallBack);
+            ribbonBarService.AddRibbonMenu(ribbonMenuWithPageView.LoadService(service));
+        }
+        /// <summary>
         /// 添加按钮并注入命令服务
         /// </summary>
         /// <param name="view"></param>
@@ -93,6 +103,7 @@ namespace GreenWhale.BootLoader.Implements
             }
             ribbonBarService.AddRibbonMenu(view.LoadService(servie));
         }
+
         /// <summary>
         /// 添加单击触发工具箱
         /// </summary>
