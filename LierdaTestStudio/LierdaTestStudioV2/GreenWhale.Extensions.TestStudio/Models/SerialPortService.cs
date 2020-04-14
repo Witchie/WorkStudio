@@ -32,6 +32,8 @@ namespace GreenWhale.Extensions.TestTools2.Views
             RaisePropertyChanged(nameof(IsOpen));
         }
         public string PortName { get=>serialPort.PortName; set=>serialPort.PortName=value; }
+        public int[] BandRates => new int[] { 2400, 4800, 9600, 115200 };
+        public int BandRate { get=>serialPort.BaudRate; set=> serialPort.BaudRate=value; }
         /// <summary>
         /// 串口是否打开
         /// </summary>

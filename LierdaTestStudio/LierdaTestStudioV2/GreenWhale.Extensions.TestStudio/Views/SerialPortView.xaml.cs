@@ -34,6 +34,7 @@ namespace GreenWhale.Extensions.TestTools2.Views
             this.DataContext = this;           
             portList.ItemsSource = SerialPort.GetPortNames();
             this.exportBox = exportBox;
+            BandRate = SerialPortServiceBase.BandRate;
         }
         /// <summary>
         /// 串口
@@ -43,15 +44,8 @@ namespace GreenWhale.Extensions.TestTools2.Views
         /// 当前选中的端口名称
         /// </summary>
         public string SelectItem { get; set; }
-        /// <summary>
-        /// 打开串口
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            SerialPortServiceBase.Open();
-        }
+        public int[] BandRates => SerialPortServiceBase.BandRates;
+        public int BandRate { get; set; }
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -83,6 +77,7 @@ namespace GreenWhale.Extensions.TestTools2.Views
             {
                 SerialPortServiceBase.Close();
                 SerialPortServiceBase.PortName = SelectItem;
+                SerialPortServiceBase.BandRate = BandRate;
                 SerialPortServiceBase.Open();
                 exportBox.Log("端口已开启");
 

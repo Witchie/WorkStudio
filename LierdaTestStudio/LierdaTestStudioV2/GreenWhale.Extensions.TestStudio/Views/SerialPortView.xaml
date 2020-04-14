@@ -27,11 +27,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Text="端口列表" Style="{StaticResource TextBlockBlodRight}"></TextBlock>
         <ComboBox x:Name="portList" SelectedItem="{Binding SelectItem}" IsEnabled="{Binding ElementName=open,Path=IsEnabled}" Grid.Column="1" Style="{StaticResource ComboBox}"></ComboBox>
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+        <TextBlock Text="波特率" Grid.Row="1" Style="{StaticResource TextBlockBlodRight}"></TextBlock>
+        <ComboBox Grid.Column="1" SelectedItem="{Binding BandRate}" IsEnabled="{Binding ElementName=open,Path=IsEnabled}" Grid.Row="1" x:Name="bandRate" ItemsSource="{Binding BandRates}" Style="{StaticResource ComboBox}">
+            
+        </ComboBox>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
