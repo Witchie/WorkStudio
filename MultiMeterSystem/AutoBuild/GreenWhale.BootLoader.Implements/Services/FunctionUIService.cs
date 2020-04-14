@@ -8,7 +8,7 @@ namespace GreenWhale.BootLoader.Implements
     /// <summary>
     /// 功能管理服务
     /// </summary>
-    public class FunctionUIService : IFunctionUIService
+    internal class FunctionUIService : IFunctionUIService
     {
         /// <summary>
         /// 命令UI服务

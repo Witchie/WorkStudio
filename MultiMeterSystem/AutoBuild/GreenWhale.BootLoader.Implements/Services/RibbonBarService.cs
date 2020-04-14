@@ -7,7 +7,7 @@ namespace GreenWhale.BootLoader.Implements
     /// <summary>
     /// Ribbon控件服务
     /// </summary>
-    public class RibbonBarService : IRibbonBarService
+    internal class RibbonBarService : IRibbonBarService
     {
         /// <summary>
         /// Ribbon控件

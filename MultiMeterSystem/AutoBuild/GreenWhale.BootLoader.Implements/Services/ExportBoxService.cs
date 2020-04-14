@@ -9,7 +9,7 @@ namespace GreenWhale.BootLoader.Implements
     /// <summary>
     /// 日志消息队列
     /// </summary>
-    public class ExportBoxService : IExportBoxService
+    internal class ExportBoxService : IExportBoxService
     {
         private ExportBox exportBox;
         DispatcherTimer dispatcherTimer = new DispatcherTimer();

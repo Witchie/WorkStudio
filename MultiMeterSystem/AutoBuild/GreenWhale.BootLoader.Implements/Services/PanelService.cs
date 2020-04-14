@@ -11,7 +11,7 @@ namespace GreenWhale.BootLoader.Implements
     /// <summary>
     /// 工具箱服务
     /// </summary>
-    public class PanelService : IPanelService
+    internal class PanelService : IPanelService
     {
         private readonly GlobalLayout globalLayout;
         private readonly ExportBox exportBox;
