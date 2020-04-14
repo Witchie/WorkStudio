@@ -10,7 +10,7 @@ namespace GreenWhale.BootLoader.Implements
     public class ClickToolBoxCommandService : CommandService 
     {
         private readonly Type page;
-        private readonly IPanelService ToolBoxService;
+        private readonly IPanelService panelService;
         private readonly string PageName;
         /// <summary>
         /// 单击触发工具箱
@@ -27,7 +27,7 @@ namespace GreenWhale.BootLoader.Implements
             }
 
             this.page = page ?? throw new System.ArgumentNullException($"{nameof(page)}你必须先注册对应的服务");
-            ToolBoxService = toolBoxService ?? throw new System.ArgumentNullException(nameof(toolBoxService));
+            panelService = toolBoxService ?? throw new System.ArgumentNullException(nameof(toolBoxService));
             PageName = pageName;
         }
         /// <summary>
@@ -37,7 +37,7 @@ namespace GreenWhale.BootLoader.Implements
         public override void Execute(object parameter)
         {
             var content=  ServiceProvider.GetService(page);
-            ToolBoxService.CreateToolBoxPanel(new PanelInfo<FrameworkElement> { Caption = PageName, Content = content as FrameworkElement });
+            panelService.CreateToolBoxPanel(new PanelInfo<FrameworkElement> { Caption = PageName, Content = content as FrameworkElement });
         }
     }
 }
