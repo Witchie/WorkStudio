@@ -41,7 +41,7 @@ namespace LSD3SWM_0710000000
             TestStudioApplication testStudio = new TestStudioApplication();
             var app=await  testStudio.StartAsync(Application.Current, this);
             this.Content = app.GetMainPage();
-            var ui = app.GetFunctionUI();;
+            var ui = app.GetFunctionUI();
             ui.UseTestStudio();
             ui.UseOutputBox();
             waiting.DeferedVisibility = false;
