@@ -98,7 +98,7 @@ namespace GreenWhale.BootLoader.Implements
         /// </summary>
         /// <typeparam name="TToolBox"></typeparam>
         /// <param name="view"></param>
-        public void AddClickRibbonMenuWithToolBox<TToolBox>(RibbonMenuWithPageView view) where TToolBox : FrameworkElement
+        public void AddToolBox<TToolBox>(RibbonMenuWithPageView view) where TToolBox : FrameworkElement
         {
             if (view is null)
             {
@@ -114,7 +114,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TPage"></typeparam>
         /// <param name="view"></param>
         /// <param name="serviceProvider"></param>
-        public void AddClickRibbonMenuWithPage<TPage>(RibbonMenuWithPageView view, IServiceProvider serviceProvider) where TPage : FrameworkElement
+        public void AddPage<TPage>(RibbonMenuWithPageView view, IServiceProvider serviceProvider) where TPage : FrameworkElement
         {
             if (view is null)
             {
@@ -130,7 +130,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <typeparam name="TPage2"></typeparam>
         /// <param name="page1View"></param>
         /// <param name="page2View"></param>
-        public void AddClickRibbonMenuWithPages<TPage1, TPage2>(RibbonMenuWithPageView page1View, RibbonMenuWithPageView page2View) where TPage1 : FrameworkElement where TPage2 : FrameworkElement
+        public void AddPages<TPage1, TPage2>(RibbonMenuWithPageView page1View, RibbonMenuWithPageView page2View) where TPage1 : FrameworkElement where TPage2 : FrameworkElement
         {
             if (page1View is null)
             {
@@ -153,7 +153,7 @@ namespace GreenWhale.BootLoader.Implements
         /// </summary>
         /// <param name="view"></param>
         /// <param name="pageType"></param>
-        public void AddClickRibbonMenuWithPage(RibbonMenuWithPageView view, Type pageType)
+        public void AddPage(RibbonMenuWithPageView view, Type pageType)
         {
             if (view is null)
             {
@@ -172,9 +172,9 @@ namespace GreenWhale.BootLoader.Implements
         /// </summary>
         /// <typeparam name="TPage"></typeparam>
         /// <param name="view"></param>
-        public void AddClickRibbonMenuWithPage<TPage>(RibbonMenuWithPageView view) where TPage : FrameworkElement
+        public void AddPage<TPage>(RibbonMenuWithPageView view) where TPage : FrameworkElement
         {
-            AddClickRibbonMenuWithPage(view, typeof(TPage));
+            AddPage(view, typeof(TPage));
         }
     }
 }
