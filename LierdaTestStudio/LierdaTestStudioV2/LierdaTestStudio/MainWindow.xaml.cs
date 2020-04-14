@@ -27,29 +27,24 @@ namespace LSD3SWM_0710000000
     /// </summary>
     public partial class MainWindow : ThemedWindow
     {
-        NetCoreApplication<Application> app;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        public IApplicationInfo applicationInfo { get; }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            app = await Task.Run(() => {
-                var info = new NetCoreApplication<Application>(Application.Current, new AppSetting { BaseDirectory = AppDomain.CurrentDomain.BaseDirectory, IsMutexApplication = true });
-                info.AddApplicationInfo().AddThemeName(Theme.Office2010Blue.Name).AddVsMode().AddTestStudio().AddMainWindow(this).BuildService();
-                return info;
-            });
-            this.Content = app.ServicesProvider.GetService<MainPage>();
-            var functionUIService= app.ServicesProvider.GetService<FunctionUIService>();
-            functionUIService.UseTestStudio();
-            functionUIService.UseOutputBox();
-            app.GetApplicationInfo().SetName(Resource.ProjectModel);
-            this.Medium().Center().WindowStyle(WindowStyle.SingleBorderWindow);
-
+            waiting.DeferedVisibility = true;
+            this.Medium().Center().WindowStyle(WindowStyle.SingleBorderWindow).SetName(Resource.ProjectModel);
+            TestStudioApplication testStudio = new TestStudioApplication();
+            var app=await  testStudio.StartAsync(Application.Current, this);
+            this.Content = app.GetMainPage();
+            var ui = app.GetFunctionUI();;
+            ui.UseTestStudio();
+            ui.UseOutputBox();
+            waiting.DeferedVisibility = false;
         }
     }
 }
