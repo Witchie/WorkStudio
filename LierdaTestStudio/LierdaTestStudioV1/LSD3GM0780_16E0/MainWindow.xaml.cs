@@ -21,6 +21,7 @@ using GreenWhale.Application.SerialPorts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using GreenWhale.Extension.TestTool.LSD3GM0780_16E0.Models;
+using GreenWhale.Extension.TestTool1;
 
 namespace LSD3GM0780_16E0
 {
@@ -33,24 +34,12 @@ namespace LSD3GM0780_16E0
         {
             InitializeComponent();
         }
-        public  RequestDelegate RequestDelegate;
-        private void ThemedWindow_Loaded(object sender, RoutedEventArgs e)
+        RequestDelegate RequestDelegate;
+        private async void ThemedWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.SetName(ConstHelper.ApplicationName).SetWidthPercent(0.8).SetHeightPercent(0.8);
-            var netCoreApplication = new NetCoreApplication<Application>(Application.Current, new AppSetting { BaseDirectory = AppDomain.CurrentDomain.BaseDirectory, IsMutexApplication = true });
-            var service = netCoreApplication.AddThemeName(Theme.VS2017BlueName).AddVsMode().AddLSD3GM0780_16E0(async () =>
-            {
-                var svc = netCoreApplication.ServicesProvider.GetService<ISerialPortContext>();
-                await RequestDelegate?.Invoke(svc);
-            }, dataBase =>
-            {
-                dataBase.UseSqlite("Data Source=Data.db");
-            });
-            var svc = netCoreApplication.BuildService();
-            RequestDelegate = svc.MapSerialPort(s =>
-            {
-                s.UseSerialPort();
-            }).Build();
+            TestStudioApplication testStudio = new TestStudioApplication();
+            var netCoreApplication=await  testStudio.StartAsync(App.Current);
             this.Content = netCoreApplication.GetMainPage();
             var functionUIService = netCoreApplication.GetFunctionUI();
             functionUIService.UseLSD3GM0780_16E0();

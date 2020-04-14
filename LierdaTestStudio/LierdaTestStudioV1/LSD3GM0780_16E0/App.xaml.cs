@@ -23,8 +23,6 @@ namespace LSD3GM0780_16E0
     /// </summary>
     public partial class App : Application
     {
-        private NetCoreApplication<Application> netCoreApplication;
-        public static RequestDelegate RequestDelegate;
         public App()
         {
             

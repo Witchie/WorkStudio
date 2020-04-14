@@ -13,6 +13,7 @@ using GreenWhale.Extension.TestTool.LSD3GM0780_16E0.Models;
 using DevExpress.Mvvm;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace GreenWhale.Extension.TestTool.LSD3GM0780_16E0
 {
@@ -85,13 +86,13 @@ namespace GreenWhale.Extension.TestTool.LSD3GM0780_16E0
         /// <returns></returns>
         public static IApplicationBuilder UseSerialPort(this IApplicationBuilder applicationBuilder)
         {
-            var res=  applicationBuilder.ApplicationServices.GetRequiredService<ResourceStore>();
-            var log = applicationBuilder.ApplicationServices.GetService<IExportBoxService>();
-            var cache = applicationBuilder.ApplicationServices.GetService<DataTableCache>();
             applicationBuilder.Use(async (current,next)=> 
             {
                 try
                 {
+                    var res = current.RequestServices.GetRequiredService<ResourceStore>();
+                    var cache = current.RequestServices.GetService<DataTableCache>();
+                    var log =  current.RequestServices.GetService<IExportBoxService>();
                     var context = current.Read();
                     if (context.Content!=null&&context.Content.IndexOf("<")>=0)
                     {
@@ -132,7 +133,7 @@ namespace GreenWhale.Extension.TestTool.LSD3GM0780_16E0
                 }
                 catch (Exception err)
                 {
-                    log.Log(err.Message);
+                    Debug.WriteLine(err.Message);
                 }
 
             });

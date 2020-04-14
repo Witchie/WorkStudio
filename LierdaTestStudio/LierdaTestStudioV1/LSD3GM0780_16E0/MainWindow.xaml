@@ -9,9 +9,7 @@
         mc:Ignorable="d" Loaded="ThemedWindow_Loaded"    
         xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
         Title="MainWindow" Height="450" Width="800">
-    <dxmvvm:Interaction.Behaviors>
-        <dx:DXSplashScreenService ShowSplashScreenOnLoading="True"
-                                   SplashScreenType="{x:Type local:SartupView}" />
-        <dxmvvm:EventToCommand />
-    </dxmvvm:Interaction.Behaviors>
+    <dx:ThemedWindow.Content>
+        <Grid></Grid>
+    </dx:ThemedWindow.Content>
 </dx:ThemedWindow>
