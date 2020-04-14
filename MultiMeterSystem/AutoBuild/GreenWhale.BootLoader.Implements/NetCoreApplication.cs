@@ -9,7 +9,6 @@ namespace GreenWhale.BootLoader.Implements
     /// <summary>
     ///  .NetCore 应用
     /// </summary>
-    /// <typeparam name="TRootWindow">根窗口</typeparam>
     /// <typeparam name="TApplication">根应用程序</typeparam>
     public class NetCoreApplication<TApplication> : ApplicationBootLoader where TApplication:Application
     {

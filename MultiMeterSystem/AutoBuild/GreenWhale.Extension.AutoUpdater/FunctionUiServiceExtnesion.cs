@@ -8,6 +8,13 @@ namespace GreenWhale.Extensions.Updater
 {
     public static class FunctionUiServiceExtnesion
     {
+        /// <summary>
+        /// 使用自动更新
+        /// </summary>
+        /// <param name="functionUIService"></param>
+        /// <param name="packageUrl">更新包描述文件地址</param>
+        /// <param name="appTitle">标题</param>
+        /// <returns></returns>
         public static IFunctionUIService UseAutoUpdate(this IFunctionUIService functionUIService,string packageUrl,string appTitle)
         {
             if (functionUIService is null)
