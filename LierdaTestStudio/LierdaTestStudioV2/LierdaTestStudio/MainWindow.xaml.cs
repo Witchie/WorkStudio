@@ -55,8 +55,10 @@ namespace LSD3SWM_0710000000
             var ui = app.GetFunctionUI();
             ui.UseTestStudio();
             AutoUpdater.UpdateFormSize = this.GetSize();
-            ui.UseAutoUpdate(ServerPath, Resource.ProjectModel);
             ui.UseOutputBox();
+            ui.UseAutoUpdate(ServerPath, Resource.ProjectModel);
+            ui.UseChangeLog();
+            ui.UseHelp();
             this.Content = app.GetMainPage();
             waiting.DeferedVisibility = false;
         }

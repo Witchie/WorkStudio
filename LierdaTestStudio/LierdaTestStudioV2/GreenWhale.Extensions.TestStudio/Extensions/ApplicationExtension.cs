@@ -11,6 +11,7 @@ using GreenWhale.Extensions.TestTools2.Views;
 using GreenWhale.Extensions.TestTools2.Models;
 using GreenWhale.RunTime.Scripts;
 using Microsoft.EntityFrameworkCore;
+using GreenWhale.Extensions.TestStudio.Views;
 
 namespace GreenWhale.Extensions.TestTools2.Extensions
 {
@@ -35,6 +36,8 @@ namespace GreenWhale.Extensions.TestTools2.Extensions
             app.ServiceBus.AddTransient<ProtocalGenerator>();
             app.ServiceBus.AddSingleton<FactoryProduceView>();
             app.ServiceBus.AddSingleton<ScanPanelView>();
+            app.ServiceBus.AddTransient<ChangedLogView>();
+            app.ServiceBus.AddTransient<HelpView>();
             app.ServiceBus.AddSingleton<IMessageTip,MessageTips>();
             app.ServiceBus.AddSingleton<ServiceBus>();
             app.ServiceBus.AddSingleton<ScriptRunner>();
@@ -43,7 +46,7 @@ namespace GreenWhale.Extensions.TestTools2.Extensions
             app.ServiceBus.AddSingleton<ISerialPortContext,SerialPortContext>();
             app.ServiceBus.AddSingleton<IEventBus, EventBus>();
             app.ServiceBus.AddSingleton<IDataStore, DataStore>();
-            app.ServiceBus.AddTransient<IMessageBox,MessageBox>();
+            app.ServiceBus.AddTransient<IMessageBox, MessageBox>();
             app.ServiceBus.AddDbContext<ApplicationDbContext>(s =>
             {
                 if (dataContextbuild==null)
