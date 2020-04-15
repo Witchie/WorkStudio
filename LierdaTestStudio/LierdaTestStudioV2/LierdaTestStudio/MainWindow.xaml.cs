@@ -19,9 +19,9 @@ using GreenWhale.Extensions.TestTools2.Extensions;
 using GreenWhale.Extensions.Views;
 using GreenWhale.Extensions.TestStudio;
 using GreenWhale.BootLoader;
-using GreenWhale.Extensions.Updater;
 using System.Windows.Threading;
 using AutoUpdaterDotNET;
+using Microsoft.Extensions.DependencyInjection;
 namespace LSD3SWM_0710000000
 {
     /// <summary>
