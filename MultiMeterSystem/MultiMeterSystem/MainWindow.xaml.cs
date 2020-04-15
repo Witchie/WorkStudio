@@ -25,29 +25,19 @@ namespace MultiMeterSystem
     /// </summary>
     public partial class MainWindow : ThemedWindow
     {
-        private readonly FunctionUIService functionUIService;
-        public MainWindow(ApplicationInfo applicationInfo, MainPage mainPage, FunctionUIService functionUIService)
+        public MainWindow()
         {
-            if (applicationInfo is null)
-            {
-                throw new ArgumentNullException(nameof(applicationInfo));
-            }
-
-            if (mainPage is null)
-            {
-                throw new ArgumentNullException(nameof(mainPage));
-            }
-
             InitializeComponent();
-            applicationInfo.LoadUI(this);
-            this.Content = mainPage;
-            this.functionUIService = functionUIService ?? throw new ArgumentNullException(nameof(functionUIService));
         }
         private void ThemedWindow_Loaded(object sender, RoutedEventArgs e)
         {
-          //  functionUIService.AddDefaultDocument(new WebBrowser() { Source = new Uri("https://www.lierda.com/") });
-             functionUIService.UseOutputBox();
-            functionUIService.AddProjectManager();
+            var app = new NetCoreApplication(new AppSetting(AppDomain.CurrentDomain.BaseDirectory, true));
+            var service = app.AddThemeName(Theme.VS2017BlueName).AddMainWindow(this).AddVsMode().AddProjectManager().BuildService();
+            this.SetName("测试应用").SetWidth(1000).SetHeight(800);
+            var ui = app.GetFunctionUI();
+            ui.UseOutputBox();
+            ui.AddProjectManager();
+            this.Content = app.GetMainPage();
         }
     }
 }

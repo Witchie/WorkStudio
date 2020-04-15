@@ -16,7 +16,7 @@ namespace GreenWhale.BootLoader.Implements.ProjectManager
         /// <param name="coreApplication"></param>
         /// <param name="applicationInfo"></param>
         /// <returns></returns>
-        public static NetCoreApplication<TRootWindow, TApplication> AddProjectManager<TRootWindow, TApplication>(this NetCoreApplication<TRootWindow, TApplication> coreApplication) where TRootWindow : Window where TApplication : Application
+        public static NetCoreApplication<TApplication> AddProjectManager<TApplication>(this NetCoreApplication<TApplication> coreApplication) where TApplication : Application
         {
             if (coreApplication is null)
             {

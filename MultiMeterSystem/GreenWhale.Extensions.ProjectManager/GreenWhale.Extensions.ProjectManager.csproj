@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GreenWhale.BootLoader.Implements\GreenWhale.BootLoader.Implements.csproj" />
+    <ProjectReference Include="..\AutoBuild\GreenWhale.BootLoader.Implements\GreenWhale.BootLoader.Implements.csproj" />
   </ItemGroup>
 
 </Project>

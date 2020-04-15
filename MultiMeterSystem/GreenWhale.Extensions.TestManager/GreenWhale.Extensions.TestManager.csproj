@@ -13,11 +13,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="4.7.0" />
+    <Compile Remove="DocumentCreater\**" />
+    <EmbeddedResource Remove="DocumentCreater\**" />
+    <None Remove="DocumentCreater\**" />
+    <Page Remove="DocumentCreater\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DocumentCreater\" />
+    <PackageReference Include="System.Text.Json" Version="4.7.0" />
   </ItemGroup>
 
 </Project>

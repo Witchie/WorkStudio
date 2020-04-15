@@ -13,7 +13,7 @@ namespace GreenWhale.BootLoader.Implements.ProjectManager
         /// 添加项目管理
         /// </summary>
         /// <param name="functionUIService"></param>
-        public static void AddProjectManager(this FunctionUIService functionUIService)
+        public static void AddProjectManager(this IFunctionUIService functionUIService)
         {
             functionUIService.AddProjectEditor().AddProjectList();
         }
@@ -22,9 +22,9 @@ namespace GreenWhale.BootLoader.Implements.ProjectManager
         /// </summary>
         /// <param name="functionUIService"></param>
         /// <returns></returns>
-        public static FunctionUIService AddProjectList(this FunctionUIService functionUIService)
+        public static IFunctionUIService AddProjectList(this IFunctionUIService functionUIService)
         {
-            functionUIService.AddClickRibbonMenuWithToolBox<ProjectListEditorView>(new RibbonMenuWithPageView("运营/项目管理/项目列表:项目清单列表"));
+            functionUIService.AddToolBox<ProjectListEditorView>(new RibbonMenuWithPageView("运营/项目管理/项目列表:项目清单列表"));
             return functionUIService;
         }
         /// <summary>
@@ -32,9 +32,9 @@ namespace GreenWhale.BootLoader.Implements.ProjectManager
         /// </summary>
         /// <param name="functionUIService"></param>
         /// <returns></returns>
-        public static FunctionUIService AddProjectEditor(this FunctionUIService functionUIService)
+        public static IFunctionUIService AddProjectEditor(this IFunctionUIService functionUIService)
         {
-            functionUIService.AddClickRibbonMenuWithPages<ProjectItemEditorView, ProjectListEditorView>(new RibbonMenuWithPageView("运营/项目管理/项目跟踪:项目跟踪信息"), new RibbonMenuWithPageView("运营/项目管理/项目列表:项目清单列表"));
+            functionUIService.AddPages<ProjectItemEditorView, ProjectListEditorView>(new RibbonMenuWithPageView("运营/项目管理/项目跟踪:项目跟踪信息"), new RibbonMenuWithPageView("运营/项目管理/项目列表:项目清单列表"));
             return functionUIService;
         }
     }
