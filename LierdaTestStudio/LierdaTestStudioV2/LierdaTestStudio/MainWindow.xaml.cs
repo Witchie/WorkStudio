@@ -39,7 +39,7 @@ namespace LSD3SWM_0710000000
             waiting.DeferedVisibility = true;
             this.Medium().Center().WindowStyle(WindowStyle.SingleBorderWindow).SetName(Resource.ProjectModel);
             TestStudioApplication testStudio = new TestStudioApplication();
-            var app=await  testStudio.StartAsync(Application.Current, this);
+            var app=await  testStudio.StartAsync(this);
             var ui = app.GetFunctionUI();
             ui.UseTestStudio();
             ui.UseOutputBox();

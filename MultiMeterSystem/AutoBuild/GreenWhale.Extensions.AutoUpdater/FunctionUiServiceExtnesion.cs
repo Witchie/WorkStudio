@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using AutoUpdateCore.Net;
 using AutoUpdaterDotNET;
-namespace GreenWhale.Extensions.Updater
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class FunctionUiServiceExtnesion
     {

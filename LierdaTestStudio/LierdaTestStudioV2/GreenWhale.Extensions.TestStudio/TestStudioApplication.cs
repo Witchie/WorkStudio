@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using App = System.Windows.Application;
+using GreenWhale.Extensions.Updater;
 namespace GreenWhale.Extensions.TestStudio
 {
     /// <summary>
@@ -23,10 +23,10 @@ namespace GreenWhale.Extensions.TestStudio
         /// <param name="mainWindow"></param>
         /// <param name="themeName"></param>
         /// <returns></returns>
-        public Task<NetCoreApplication<TApplication>> StartAsync<TApplication>(TApplication application,Window mainWindow,string themeName= Theme.Office2010BlueName) where TApplication: App
+        public Task<NetCoreApplication> StartAsync(Window mainWindow,string themeName= Theme.Office2010BlueName)
         {
             return Task.Run(() => {
-                var info = new NetCoreApplication<TApplication>(application, new AppSetting { BaseDirectory = AppDomain.CurrentDomain.BaseDirectory, IsMutexApplication = true });
+                var info = new NetCoreApplication(new AppSetting(AppDomain.CurrentDomain.BaseDirectory,true));
                 info.AddThemeName(themeName).AddVsMode().AddTestStudio().AddMainWindow(mainWindow).BuildService();
                 return info;
             });
