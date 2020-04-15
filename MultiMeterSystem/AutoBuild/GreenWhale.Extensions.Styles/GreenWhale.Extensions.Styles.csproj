@@ -12,7 +12,8 @@
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>王雪飞</Authors>
-    <Description>样式库，使用如下语句调用
+    <Description>UI样式库
+样式库，使用如下语句调用
 ``` xml
 <UserControl.Resources>
         <ResourceDictionary>

@@ -7,6 +7,20 @@ using System.Windows.Threading;
 namespace GreenWhale.BootLoader.Implements
 {
     /// <summary>
+    /// NETCore 应用
+    /// </summary>
+    public class NetCoreApplication : NetCoreApplication<Application>
+    {
+        /// <summary>
+        /// NETCore 应用
+        /// </summary>
+        /// <param name="appSetting"></param>
+        public NetCoreApplication(AppSetting appSetting=null) : base(Application.Current, appSetting??new AppSetting(AppContext.BaseDirectory,true))
+        {
+
+        }
+    }
+    /// <summary>
     ///  .NetCore 应用
     /// </summary>
     /// <typeparam name="TApplication">根应用程序</typeparam>
@@ -18,7 +32,7 @@ namespace GreenWhale.BootLoader.Implements
         /// </summary>
         /// <param name="application">根应用</param>
         /// <param name="appSetting">系统配置</param>
-        public NetCoreApplication(TApplication application,AppSetting appSetting) : base(appSetting)
+        public NetCoreApplication(TApplication application, AppSetting appSetting) : base(appSetting)
         {
             CurrentApplication = application;
         }
