@@ -13,7 +13,7 @@
     <RootNamespace>LSD3SWM_0710000000</RootNamespace>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>ICO.ico</ApplicationIcon>
-    <Version>1.9.5</Version>
+    <Version>2.0.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
