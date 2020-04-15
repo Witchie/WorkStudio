@@ -19,7 +19,9 @@ using GreenWhale.Extensions.TestTools2.Extensions;
 using GreenWhale.Extensions.Views;
 using GreenWhale.Extensions.TestStudio;
 using GreenWhale.BootLoader;
-using Microsoft.Extensions.DependencyInjection;
+using GreenWhale.Extensions.Updater;
+using System.Windows.Threading;
+using AutoUpdaterDotNET;
 namespace LSD3SWM_0710000000
 {
     /// <summary>
@@ -31,17 +33,29 @@ namespace LSD3SWM_0710000000
         public MainWindow()
         {
             InitializeComponent();
+            dispatcherTimer.Interval = TimeSpan.FromMinutes(10);
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Start();
+            AutoUpdater.AppCastURL = ServerPath;
         }
 
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            AutoUpdater.Start();
+        }
 
+        DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        private const string ServerPath = "http://nuget.uuids.cn:1003/download/LierdaTestStudio/index.xml";
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             waiting.DeferedVisibility = true;
-            this.Medium().Center().WindowStyle(WindowStyle.SingleBorderWindow).SetName(Resource.ProjectModel);
+            this.Medium().Center().WindowStyle(WindowStyle.SingleBorderWindow).SetName(Resource.ProjectModel+"   V"+this.GetType().Assembly.GetName().Version);
             TestStudioApplication testStudio = new TestStudioApplication();
             var app=await  testStudio.StartAsync(this);
             var ui = app.GetFunctionUI();
             ui.UseTestStudio();
+            AutoUpdater.UpdateFormSize = this.GetSize();
+            ui.UseAutoUpdate(ServerPath, Resource.ProjectModel);
             ui.UseOutputBox();
             this.Content = app.GetMainPage();
             waiting.DeferedVisibility = false;

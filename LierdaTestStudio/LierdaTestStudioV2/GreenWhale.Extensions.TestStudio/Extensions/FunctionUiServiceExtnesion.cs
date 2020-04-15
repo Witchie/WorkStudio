@@ -1,5 +1,7 @@
 ﻿using GreenWhale.BootLoader.Implements;
 using GreenWhale.Extensions.TestTools2.Views;
+using GreenWhale.Extensions.Updater;
+
 namespace GreenWhale.Extensions.TestTools2.Extensions
 {
     public static class FunctionUiServiceExtnesion
