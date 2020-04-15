@@ -23,7 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             AutoUpdater.AppCastURL = packageUrl;
             AutoUpdater.AppTitle = appTitle;
-            functionUIService.AddClick(new RibbonMenuWithPageView("关于/帮助/更新"),(s)=>
+            functionUIService.AddClick(new RibbonMenuWithPageView("帮助/关于/更新"),(s)=>
             {
                 AutoUpdater.Start(packageUrl);
             });
