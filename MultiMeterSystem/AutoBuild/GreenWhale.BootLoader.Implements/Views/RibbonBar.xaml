@@ -14,7 +14,5 @@
         <dxr:RibbonDefaultPageCategory Caption="defaultCategory" x:Name="ribboncategory">
 
         </dxr:RibbonDefaultPageCategory>
-        <dxr:RibbonPageCategory x:Name="currentribbon" IsVisible="False">
-        </dxr:RibbonPageCategory>
     </dxr:RibbonControl>
 </UserControl>

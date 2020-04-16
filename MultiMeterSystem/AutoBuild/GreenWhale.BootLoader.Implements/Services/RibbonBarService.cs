@@ -68,13 +68,5 @@ namespace GreenWhale.BootLoader.Implements
         /// RIBBON页面
         /// </summary>
         public ObservableCollection<RibbonPage> RibbonPages { get; set; } = new ObservableCollection<RibbonPage>();
-        /// <summary>
-        /// 当前页分组
-        /// </summary>
-        public RibbonPageCategory CurrentPageCategory { get => ribbonBar.currentribbon; set => ribbonBar.currentribbon = value; }
-        /// <summary>
-        /// 当前视图工具栏是否显示
-        /// </summary>
-        public bool CurrentRibbonIsVisible { get => ribbonBar.currentribbon.IsVisible; set => ribbonBar.currentribbon.IsVisible = value; }
     }
 }

@@ -6,8 +6,6 @@ namespace GreenWhale.BootLoader.Implements
 {
     public interface IRibbonBarService
     {
-        RibbonPageCategory CurrentPageCategory { get; set; }
-        bool CurrentRibbonIsVisible { get; set; }
         ObservableCollection<RibbonPage> RibbonPages { get; set; }
 
         void LoadRibbonPages(IEnumerable<RibbonMenuWithPageView> pageViews);
