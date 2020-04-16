@@ -56,48 +56,8 @@ namespace GreenWhale.Extensions.TestTools2.Views
         /// 资源列表
         /// </summary>
         public ProjectViewModel ViewModel { get; private set; }= new ProjectViewModel();
-        private  void Button_Add_Click(object sender, RoutedEventArgs e)
-        {
-            AddResourceDefineView view = new AddResourceDefineView(serviceProvider, this);
-            var window = view.SetWindow<ThemedWindow>().Center().Small();
-            window.AutoToggle(sender).ShowDialog();
-        }
 
 
-        private async void Button_Export_Click(object sender, RoutedEventArgs e)
-        {
-            await  projectViewServcie.WriteModelDialog(ViewModel);
-        }
-
-        private async void Button_Import_Click(object sender, RoutedEventArgs e)
-        {
-            await projectViewServcie.ReadModelDialog(s=>
-            {
-                ViewModel = s;
-                this.DataContext = ViewModel;
-            });
-        }
-
-        private async void Button_ExportFile_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Excel格式协议文档|*.xlsx";
-            saveFileDialog.FileName = $"{ViewModel.ProjectName}_{ViewModel.Version}_{ViewModel.Author}_{ViewModel.DateTime.ToLongDateString()}.xlsx";
-            if (saveFileDialog.ShowDialog()==true)
-            {
-                var templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "ProcotalTemplate.xlsx");
-                if (File.Exists(templatePath))
-                {
-                    IExportFileByTemplate exporter = new ExcelExporter();
-                    await  exporter.ExportByTemplate(saveFileDialog.FileName,this.ViewModel,templatePath);
-                    DXMessageBox.Show("导出成功");
-                }
-                else
-                {
-                    DXMessageBox.Show("导出模板不存在，请联系管理员");
-                }
-            }
-        }
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -162,6 +122,69 @@ namespace GreenWhale.Extensions.TestTools2.Views
                 tests[i].TestIndex = i;
             }
             DXMessageBox.Show("排序已完成");
+        }
+
+        private void CommandBinding_Executed_3(object sender, ExecutedRoutedEventArgs e)
+        {
+            AddResourceDefineView view = new AddResourceDefineView(serviceProvider, this);
+            var window = view.SetWindow<ThemedWindow>().Center().Small();
+            window.AutoToggle(sender).ShowDialog();
+        }
+
+        private void CommandBinding_CanExecute_2(object sender, CanExecuteRoutedEventArgs e)
+        {
+
+                e.CanExecute = true;
+        }
+
+        private void CommandBinding_CanExecute_3(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void CommandBinding_CanExecute_4(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private async void CommandBinding_Executed_4(object sender, ExecutedRoutedEventArgs e)
+        {
+            await projectViewServcie.ReadModelDialog(s =>
+            {
+                ViewModel = s;
+                this.DataContext = ViewModel;
+            });
+        }
+
+        private async void CommandBinding_Executed_5(object sender, ExecutedRoutedEventArgs e)
+        {
+            await projectViewServcie.WriteModelDialog(ViewModel);
+        }
+
+        private async void CommandBinding_Executed_6(object sender, ExecutedRoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel格式协议文档|*.xlsx";
+            saveFileDialog.FileName = $"{ViewModel.ProjectName}_{ViewModel.Version}_{ViewModel.Author}_{ViewModel.DateTime.ToLongDateString()}.xlsx";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                var templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "ProcotalTemplate.xlsx");
+                if (File.Exists(templatePath))
+                {
+                    IExportFileByTemplate exporter = new ExcelExporter();
+                    await exporter.ExportByTemplate(saveFileDialog.FileName, this.ViewModel, templatePath);
+                    DXMessageBox.Show("导出成功");
+                }
+                else
+                {
+                    DXMessageBox.Show("导出模板不存在，请联系管理员");
+                }
+            }
+        }
+
+        private void CommandBinding_CanExecute_5(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
     }
 }

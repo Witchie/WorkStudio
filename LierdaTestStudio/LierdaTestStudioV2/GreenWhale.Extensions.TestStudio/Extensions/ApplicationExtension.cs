@@ -31,7 +31,7 @@ namespace GreenWhale.Extensions.TestTools2.Extensions
                 throw new ArgumentNullException(nameof(app));
             }
             app.ServiceBus.AddSingleton<SerialPortView>();
-            app.ServiceBus.AddSingleton<ResourceDefineView>();
+            app.ServiceBus.AddTransient<ResourceDefineView>();
             app.ServiceBus.AddSingleton<TestResultView>();
             app.ServiceBus.AddTransient<ProtocalGenerator>();
             app.ServiceBus.AddSingleton<FactoryProduceView>();

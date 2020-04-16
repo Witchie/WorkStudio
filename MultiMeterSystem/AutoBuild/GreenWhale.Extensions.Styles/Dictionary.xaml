@@ -178,7 +178,7 @@
         <Setter Property="AllowFloat" Value="False" />
     </Style>
     <Style TargetType="dxr:RibbonControl" x:Key="Ribbon_Container">
-        <Setter Property="ShowApplicationButton" Value="False" />
+        <Setter Property="ShowApplicationButton" Value="True" />
         <Setter Property="ToolbarShowMode" Value="Hide" />
         <Setter Property="AllowMinimizeRibbon" Value="False" />
         <Setter Property="AllowCustomization" Value="False" />

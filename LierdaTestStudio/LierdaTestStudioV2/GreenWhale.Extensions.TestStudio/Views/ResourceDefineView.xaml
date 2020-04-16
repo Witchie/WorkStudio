@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GreenWhale.Extensions.TestTools2.Views" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:local="clr-namespace:GreenWhale.Extensions.TestTools2.Views" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -14,78 +14,111 @@
             <RoutedUICommand x:Key="UpdateCommand"></RoutedUICommand>
             <RoutedUICommand x:Key="DeleteCommand"></RoutedUICommand>
             <RoutedUICommand x:Key="OrderCommand"></RoutedUICommand>
+            <RoutedUICommand x:Key="AddCommand"></RoutedUICommand>
+            <RoutedUICommand x:Key="SaveCommand"></RoutedUICommand>
+            <RoutedUICommand x:Key="ImportCommand"></RoutedUICommand>
+            <RoutedUICommand x:Key="ExportCommand"></RoutedUICommand>
+            <Style x:Key="RibbonItem" TargetType="dxb:BarItem">
+                <Setter Property="RibbonStyle" Value="Large" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Grid.CommandBindings>
-            <CommandBinding Command="{StaticResource OrderCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_2"></CommandBinding>
-            <CommandBinding Command="{StaticResource DeleteCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"></CommandBinding>
-            <CommandBinding Command="{StaticResource UpdateCommand}" CanExecute="CommandBinding_Uopdate_CanExecute" Executed="CommandBinding_Executed_1"></CommandBinding>
-        </Grid.CommandBindings>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <WrapPanel>
-            <dx:SimpleButton
-                Content="新增"
-                Click="Button_Add_Click"
-                Style="{StaticResource ButtonMenuBar}"></dx:SimpleButton>
-            <dx:SimpleButton Content="更新"  Command="{StaticResource UpdateCommand}"  Style="{StaticResource ButtonMenuBar}"></dx:SimpleButton>
-            <dx:SimpleButton Content="删除" Command="{StaticResource DeleteCommand}"  Style="{StaticResource ButtonMenuBar}"></dx:SimpleButton>
-            <Separator Height="0" Style="{StaticResource SeparatorSmall}"></Separator>
-            <dx:SimpleButton Content="重新排序" Style="{StaticResource ButtonMenuBar}" Command="{StaticResource OrderCommand}" ToolTip="重新编排测试序号"></dx:SimpleButton>
-            <Separator Height="0" Style="{StaticResource SeparatorSmall}"></Separator>
-            <dx:SimpleButton Content="导出协议" Click="Button_Export_Click" Style="{StaticResource ButtonMenuBar}"></dx:SimpleButton>
-            <dx:SimpleButton Content="装载协议" Click="Button_Import_Click" Style="{StaticResource ButtonMenuBar}"></dx:SimpleButton>
-            <Separator  Height="0" Style="{StaticResource SeparatorMedial}"></Separator>
-            <dx:SimpleButton Content="生成协议文档" Click="Button_ExportFile_Click" Style="{StaticResource ButtonMenuBar}"></dx:SimpleButton>
-        </WrapPanel>
+        <dxr:RibbonControl ShowApplicationButton="True">
+            <dxr:RibbonControl.ApplicationMenu>
+                <dxr:ApplicationMenu>
+                    <dxr:ApplicationMenu.ItemLinks>
+                        <dxb:BarButtonItemLink BarItemName="open"></dxb:BarButtonItemLink>
+                        <dxb:BarButtonItemLink  BarItemName="close"></dxb:BarButtonItemLink>
+                    </dxr:ApplicationMenu.ItemLinks>
+                </dxr:ApplicationMenu>
+            </dxr:RibbonControl.ApplicationMenu>
+            <dxr:RibbonPageCategory Caption="协议编辑器">
+                <dxr:RibbonPage Caption="文件">
+                    <dxr:RibbonPageGroup Caption="导入导出">
+                        <dxb:BarButtonItem Name="open" Style="{StaticResource RibbonItem}" Content="打开" Glyph="{dx:DXImage SvgImages/Actions/Open2.svg}" Command="{StaticResource ImportCommand}"></dxb:BarButtonItem>
+                        <dxb:BarButtonItem Name="close" Style="{StaticResource RibbonItem}" Content="保存" Glyph="{dx:DXImage SvgImages/Actions/Up.svg}" Command="{StaticResource SaveCommand}"></dxb:BarButtonItem>
+                    </dxr:RibbonPageGroup>
+                    <dxr:RibbonPageGroup Caption="导出">
+                        <dxb:BarButtonItem Style="{StaticResource RibbonItem}" Glyph="{dx:DXImage SvgImages/XAF/Action_LocalizationExport.svg}" Content="EXCEL文档" Command="{StaticResource ExportCommand}"></dxb:BarButtonItem>
+                    </dxr:RibbonPageGroup>
+                </dxr:RibbonPage>
+                <dxr:RibbonPage Caption="编辑">
+                    <dxr:RibbonPageGroup  Caption="测试步骤编辑"  >
+                        <dxb:BarButtonItem Style="{StaticResource RibbonItem}"  Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_AddCircled.svg}" Content="新增" Command="{StaticResource AddCommand}"/>
+                        <dxb:BarButtonItem Style="{StaticResource RibbonItem}"  Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_Edit.svg}" Content="更新" Command="{StaticResource UpdateCommand}"/>
+                        <dxb:BarButtonItem Style="{StaticResource RibbonItem}"   Glyph="{dx:DXImage SvgImages/Icon Builder/Actions_DeleteCircled.svg}" Content="删除" Command="{StaticResource DeleteCommand}"/>
+                    </dxr:RibbonPageGroup>
+                    <dxr:RibbonPageGroup Caption="顺序编辑">
+                        <dxb:BarButtonItem Style="{StaticResource RibbonItem}"  Content="快速排序" Glyph="{dx:DXImage SvgImages/Spreadsheet/IconSets.svg}" Command="{StaticResource OrderCommand}"/>
+                    </dxr:RibbonPageGroup>
+                </dxr:RibbonPage>
+            </dxr:RibbonPageCategory>
+        </dxr:RibbonControl>
         <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="250" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="250" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
+            <Grid.CommandBindings>
+                <CommandBinding Command="{StaticResource AddCommand}" CanExecute="CommandBinding_CanExecute_2" Executed="CommandBinding_Executed_3"></CommandBinding>
+                <CommandBinding Command="{StaticResource OrderCommand}" CanExecute="CommandBinding_CanExecute_1" Executed="CommandBinding_Executed_2"></CommandBinding>
+                <CommandBinding Command="{StaticResource DeleteCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed"></CommandBinding>
+                <CommandBinding Command="{StaticResource UpdateCommand}" CanExecute="CommandBinding_Uopdate_CanExecute" Executed="CommandBinding_Executed_1"></CommandBinding>
+                <CommandBinding Command="{StaticResource SaveCommand}" CanExecute="CommandBinding_CanExecute_3" Executed="CommandBinding_Executed_5"></CommandBinding>
+                <CommandBinding Command="{StaticResource ImportCommand}" CanExecute="CommandBinding_CanExecute_4" Executed="CommandBinding_Executed_4"></CommandBinding>
+                <CommandBinding Command="{StaticResource ExportCommand}" CanExecute="CommandBinding_CanExecute_5" Executed="CommandBinding_Executed_6"></CommandBinding>
+            </Grid.CommandBindings>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-            <TextBlock Text="项目型号" Style="{StaticResource TextBlockBlodRight}"></TextBlock>
-            <TextBox Text="{Binding ProjectName,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Style="{StaticResource TextBox}"></TextBox>
-            <TextBlock Text="协议版本" Grid.Row="1" Style="{StaticResource TextBlockBlodRight}"></TextBlock>
-            <TextBox Text="{Binding Version,UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBox}"></TextBox>
-            <TextBlock Text="协议作者" Grid.Column="2" Style="{StaticResource TextBlockBlodRight}"></TextBlock>
-            <TextBox Text="{Binding Author,UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Style="{StaticResource TextBox}"></TextBox>
-            <TextBlock Text="编辑时间" Grid.Column="2"  Grid.Row="1" Style="{StaticResource TextBlockBlodRight}"></TextBlock>
-            <dxe:DateEdit Mask="G" MaskUseAsDisplayFormat="True" DateTime="{Binding DateTime,UpdateSourceTrigger=PropertyChanged}" Grid.Column="3"   Grid.Row="1" Margin="4" Padding="1">
-                <dxe:DateEdit.StyleSettings>
-                    <dxe:DateEditNavigatorWithTimePickerStyleSettings></dxe:DateEditNavigatorWithTimePickerStyleSettings>
-                </dxe:DateEdit.StyleSettings>
-            </dxe:DateEdit>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="项目型号" Style="{StaticResource TextBlockBlodRight}"></TextBlock>
+                <TextBox Text="{Binding ProjectName,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Style="{StaticResource TextBox}"></TextBox>
+                <TextBlock Text="协议版本" Grid.Row="1" Style="{StaticResource TextBlockBlodRight}"></TextBlock>
+                <TextBox Text="{Binding Version,UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBox}"></TextBox>
+                <TextBlock Text="协议作者" Grid.Column="2" Style="{StaticResource TextBlockBlodRight}"></TextBlock>
+                <TextBox Text="{Binding Author,UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Style="{StaticResource TextBox}"></TextBox>
+                <TextBlock Text="编辑时间" Grid.Column="2"  Grid.Row="1" Style="{StaticResource TextBlockBlodRight}"></TextBlock>
+                <dxe:DateEdit Mask="G" MaskUseAsDisplayFormat="True" DateTime="{Binding DateTime,UpdateSourceTrigger=PropertyChanged}" Grid.Column="3"   Grid.Row="1" Margin="4" Padding="1">
+                    <dxe:DateEdit.StyleSettings>
+                        <dxe:DateEditNavigatorWithTimePickerStyleSettings></dxe:DateEditNavigatorWithTimePickerStyleSettings>
+                    </dxe:DateEdit.StyleSettings>
+                </dxe:DateEdit>
+            </Grid>
+            <dxg:GridControl x:Name="dgv" Style="{StaticResource GridControl}" SelectionMode="Row"  Grid.Row="2" ItemsSource="{Binding ResourceDefineViewModels,UpdateSourceTrigger=PropertyChanged}" >
+                <dxg:GridControl.View>
+                    <dxg:TableView AllowEditing="False" x:Name="tv" ShowTotalSummary="True" UseIndicatorForSelection="True"   ShowSearchPanelMode="Never" ShowGroupPanel="False" ShowCheckBoxSelectorColumn="False" CheckBoxSelectorColumnWidth="40"></dxg:TableView>
+                </dxg:GridControl.View>
+                <dxg:GridControl.TotalSummary>
+                    <dxg:GridSummaryItem FieldName="TaskDeplay" IsLast="True" CalculationMode="AllRows" DisplayFormat="延时总计：{0}毫秒" SummaryType="Sum" ShowInColumn="AbnormalWorkTips"  ></dxg:GridSummaryItem>
+                </dxg:GridControl.TotalSummary>
+                <dxg:GridColumn Header="测试序号"  DefaultSortOrder="Ascending" Width="60" FieldName="TestIndex"></dxg:GridColumn>
+                <dxg:GridColumn Header="描述信息" Width="140" FieldName="Description"></dxg:GridColumn>
+                <dxg:GridColumn Header="延时" Width="60" FieldName="TaskDeplay"></dxg:GridColumn>
+                <dxg:GridColumn Header="要发送的数据" Width="140" FieldName="SendContent"></dxg:GridColumn>
+                <dxg:GridColumn Header="接收到的数据" Width="140" FieldName="ReceiveContent"></dxg:GridColumn>
+                <dxg:GridColumn Header="判定脚本" Width="60" FieldName="ScriptModel.FileContent">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:MemoEditSettings ShowIcon="True" PopupMaxHeight="300" PopupMaxWidth="400" ShowSizeGrip="True"></dxe:MemoEditSettings>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn Header="阻断" Width="40" FieldName="IsAbnormalWork"></dxg:GridColumn>
+                <dxg:GridColumn Header="阻断提醒" Width="*" FieldName="AbnormalWorkTips"></dxg:GridColumn>
+            </dxg:GridControl>
         </Grid>
-        <dxg:GridControl x:Name="dgv" Style="{StaticResource GridControl}" SelectionMode="Row"  Grid.Row="2" ItemsSource="{Binding ResourceDefineViewModels,UpdateSourceTrigger=PropertyChanged}" >
-            <dxg:GridControl.View>
-                <dxg:TableView x:Name="tv" ShowTotalSummary="True" UseIndicatorForSelection="True"   ShowSearchPanelMode="Never" ShowGroupPanel="False" ShowCheckBoxSelectorColumn="False" CheckBoxSelectorColumnWidth="40"></dxg:TableView>
-            </dxg:GridControl.View>
-            <dxg:GridControl.TotalSummary>
-                <dxg:GridSummaryItem FieldName="TaskDeplay" IsLast="True" CalculationMode="AllRows" DisplayFormat="延时总计：{0}毫秒" SummaryType="Sum" ShowInColumn="AbnormalWorkTips"  ></dxg:GridSummaryItem>
-            </dxg:GridControl.TotalSummary>
-            <dxg:GridColumn Header="测试序号"  DefaultSortOrder="Ascending" Width="60" FieldName="TestIndex"></dxg:GridColumn>
-            <dxg:GridColumn Header="描述信息" Width="140" FieldName="Description"></dxg:GridColumn>
-            <dxg:GridColumn Header="延时" Width="60" FieldName="TaskDeplay"></dxg:GridColumn>
-            <dxg:GridColumn Header="要发送的数据" Width="140" FieldName="SendContent"></dxg:GridColumn>
-            <dxg:GridColumn Header="接收到的数据" Width="140" FieldName="ReceiveContent"></dxg:GridColumn>
-            <dxg:GridColumn Header="判定脚本" Width="60" FieldName="ScriptModel.FileContent">
-                <dxg:GridColumn.EditSettings>
-                    <dxe:MemoEditSettings ShowIcon="True" PopupMaxHeight="300" PopupMaxWidth="400" ShowSizeGrip="True"></dxe:MemoEditSettings>
-                </dxg:GridColumn.EditSettings>
-            </dxg:GridColumn>
-            <dxg:GridColumn Header="阻断" Width="40" FieldName="IsAbnormalWork"></dxg:GridColumn>
-            <dxg:GridColumn Header="阻断提醒" Width="*" FieldName="AbnormalWorkTips"></dxg:GridColumn>
-        </dxg:GridControl>
     </Grid>
 </UserControl>
