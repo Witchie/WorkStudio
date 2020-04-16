@@ -70,6 +70,15 @@ namespace GreenWhale.BootLoader.Implements.Properties {
         }
         
         /// <summary>
+        ///   查找类似 关闭 的本地化字符串。
+        /// </summary>
+        public static string bar_button_close {
+            get {
+                return ResourceManager.GetString("bar_button_close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 清空所有 的本地化字符串。
         /// </summary>
         public static string clear_all_log {
@@ -84,6 +93,15 @@ namespace GreenWhale.BootLoader.Implements.Properties {
         public static string clear_log {
             get {
                 return ResourceManager.GetString("clear log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 操作 的本地化字符串。
+        /// </summary>
+        public static string default_group_name {
+            get {
+                return ResourceManager.GetString("default_group_name", resourceCulture);
             }
         }
         

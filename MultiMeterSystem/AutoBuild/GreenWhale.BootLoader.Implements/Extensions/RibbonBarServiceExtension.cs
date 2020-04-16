@@ -38,7 +38,7 @@ namespace GreenWhale.BootLoader.Implements
         /// </summary>
         /// <param name="ribbonPageGroup"></param>
         /// <param name="buttonItem"></param>
-        public static void AddRibbonButtonItem(this RibbonPageGroup ribbonPageGroup, RibbonMenuWithPageView buttonItem) 
+        public static void AddButton(this RibbonPageGroup ribbonPageGroup, RibbonMenuWithPageView buttonItem) 
         {
             if (ribbonPageGroup is null)
             {
@@ -71,7 +71,7 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="ribbonPage"></param>
         /// <param name="pageGroupName"></param>
         /// <returns></returns>
-        public static RibbonPageGroup AddRibbonPageGroup(this RibbonPage ribbonPage, string pageGroupName)
+        public static RibbonPageGroup AddGroup(this RibbonPage ribbonPage, string pageGroupName)
         {
             if (ribbonPage is null)
             {

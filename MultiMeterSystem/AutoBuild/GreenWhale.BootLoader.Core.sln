@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.Style
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.Updater", "GreenWhale.Extensions.AutoUpdater\GreenWhale.Extensions.Updater.csproj", "{FAD92486-A69F-432D-97AC-CDB2E64A8FFC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenWhale.Extensions.Views", "GreenWhale.Extensions.Views\GreenWhale.Extensions.Views.csproj", "{CBE9027D-53F4-434E-AABA-4063C4B1F104}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FAD92486-A69F-432D-97AC-CDB2E64A8FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAD92486-A69F-432D-97AC-CDB2E64A8FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAD92486-A69F-432D-97AC-CDB2E64A8FFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBE9027D-53F4-434E-AABA-4063C4B1F104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBE9027D-53F4-434E-AABA-4063C4B1F104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBE9027D-53F4-434E-AABA-4063C4B1F104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBE9027D-53F4-434E-AABA-4063C4B1F104}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,7 +9,7 @@ namespace GreenWhale.BootLoader.Implements
     public class ClickPageCommandService : CommandService
     {
         private readonly Type page;
-        private readonly IPanelService ToolBoxService;
+        private readonly IPanelService panelService;
         private readonly string PageName;
         public ClickPageCommandService(Type page, IPanelService toolBoxService, string pageName,IServiceProvider serviceProvider):base(serviceProvider)
         {
@@ -19,7 +19,7 @@ namespace GreenWhale.BootLoader.Implements
             }
 
             this.page = page;
-            ToolBoxService = toolBoxService;
+            panelService = toolBoxService;
             PageName = pageName;
         }
         /// <summary>
@@ -28,7 +28,8 @@ namespace GreenWhale.BootLoader.Implements
         /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
-            ToolBoxService.CreateDocumentPanel<FrameworkElement>(new DocumentInfo<FrameworkElement> {Caption= PageName, Content=(FrameworkElement)ServiceProvider.GetService(page) });
+            var content = ServiceProvider.GetService(page);
+            panelService.CreateDocumentPanel(new DocumentInfo<FrameworkElement> {Caption= PageName, Content= (FrameworkElement)content });
         }
     }
     /// <summary>

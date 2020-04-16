@@ -58,38 +58,20 @@ namespace GreenWhale.BootLoader.Implements
                 var pageGroup = res.IsRibbonPageGroupExist(item.RibbonPageGroupCaption);
                 if (pageGroup == null)
                 {
-                    res.AddRibbonPageGroup(item.RibbonPageGroupCaption);
+                    res.AddGroup(item.RibbonPageGroupCaption);
                     goto Group;
                 }
-                pageGroup.AddRibbonButtonItem(item);
+                pageGroup.AddButton(item);
             }
         }
         /// <summary>
         /// RIBBON页面
         /// </summary>
-        public ObservableCollection<RibbonPage> RibbonPages { get;  set; } = new ObservableCollection<RibbonPage>();
+        public ObservableCollection<RibbonPage> RibbonPages { get; set; } = new ObservableCollection<RibbonPage>();
         /// <summary>
-        /// 加载当前RibbonUI
+        /// 当前页分组
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="currentRibbonView"></param>
-        public void LoadCurrentRibbon<TRibbonView>(TRibbonView currentRibbonView) where TRibbonView : CurrentRibbonView<RibbonPage>
-        {
-            if (currentRibbonView is null)
-            {
-                throw new ArgumentNullException(nameof(currentRibbonView));
-            }
-            var pages = currentRibbonView.GetRibbonPages();
-            if (pages != null && pages.Count > 0)
-            {
-                ribbonBar.currentribbon.PagesSource = pages;
-                ribbonBar.currentribbon.IsVisible = true;
-            }
-            else
-            {
-                ribbonBar.currentribbon.IsVisible = false;
-            }
-        }
+        public RibbonPageCategory CurrentPageCategory { get => ribbonBar.currentribbon; set => ribbonBar.currentribbon = value; }
         /// <summary>
         /// 当前视图工具栏是否显示
         /// </summary>
