@@ -51,7 +51,7 @@ namespace LSD3SWM_0710000000
             waiting.DeferedVisibility = true;
             this.Medium().Center().WindowStyle(WindowStyle.SingleBorderWindow).SetName(Resource.ProjectModel+"   V"+this.GetType().Assembly.GetName().Version);
             TestStudioApplication testStudio = new TestStudioApplication();
-            var app=await  testStudio.StartAsync(this);
+            var app=await  testStudio.StartAsync(this,Theme.LightGrayName);
             var ui = app.GetFunctionUI();
             ui.UseTestStudio();
             AutoUpdater.UpdateFormSize = this.GetSize();
