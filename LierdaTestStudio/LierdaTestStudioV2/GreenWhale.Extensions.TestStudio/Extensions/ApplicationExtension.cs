@@ -18,6 +18,17 @@ namespace GreenWhale.Extensions.TestTools2.Extensions
     public static class ApplicationExtension
     {
         /// <summary>
+        /// 获取GetRibbonBar
+        /// </summary>
+        /// <typeparam name="TApp"></typeparam>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static RibbonBar GetRibbonBar<TApp>(this NetCoreApplication<TApp> app)where TApp : System.Windows.Application
+        {
+            return   app.ServicesProvider.GetService<RibbonBar>();
+        }
+
+        /// <summary>
         /// 添加测试实验室
         /// </summary>
         /// <typeparam name="TWindow"></typeparam>

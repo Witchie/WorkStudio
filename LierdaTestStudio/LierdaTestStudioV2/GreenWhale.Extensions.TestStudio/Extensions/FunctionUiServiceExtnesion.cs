@@ -34,5 +34,6 @@ namespace GreenWhale.Extensions.TestTools2.Extensions
             functionUIService.AddPage<HelpView>(new RibbonMenuWithPageView("关于/帮助/帮助文档:查看使用帮助文档"));
             return functionUIService;
         }
+
     }
 }
